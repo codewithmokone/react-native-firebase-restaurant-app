@@ -29,7 +29,7 @@ function RegisterScreen() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
 
-            await addDoc(collection(db, 'users'), {
+            await setDoc(doc(db,'users', user.uid), {
                 name: name,
                 email: email,
                 address: address,
@@ -87,6 +87,7 @@ function RegisterScreen() {
                     style={styles.input}
                     placeholder=" Enter your password"
                     onChangeText={text => setPassword(text)}
+                    secureTextEntry={true}
                 />
             </View>
             <View style={styles.buttonSection}>
