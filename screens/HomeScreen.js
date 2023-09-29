@@ -33,9 +33,8 @@ function HomeScreen() {
         }}
       >
         <Categories />
-        <View style={{marginTop: 5}}>
-          {
-            [featured, featured, featured].map((item, index) => {
+        <View style={{ marginTop: 5 }}>
+          {[featured, featured, featured].map((item,index) => {
               return (
                 <FeaturedRow
                   key={index}
@@ -44,8 +43,7 @@ function HomeScreen() {
                   description={item.description}
                 />
               )
-            })
-          }
+            })}
         </View>
       </ScrollView>
       <Pressable onPress={handleLogout}>
@@ -70,8 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 4,
-    paddingBottom: 2,
-
+    paddingBottom: 2
   },
   search: {
     flex: 1,
@@ -80,17 +77,17 @@ const styles = StyleSheet.create({
     padding: 3,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 40,
+    borderRadius: 40
   },
   searchInput: {
     flex: 1,
     width: 300,
-    marginLeft: 90,
+    marginLeft: 90
   },
   userInfo: {
     margin: 5,
     padding: 3,
     backgroundColor: 'gray',
-    borderRadius: 40,
-  },
+    borderRadius: 40
+  }
 });

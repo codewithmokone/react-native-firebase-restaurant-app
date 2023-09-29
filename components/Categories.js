@@ -13,7 +13,7 @@ export default function Categories() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
-                paddingHorizontal: 15,
+                paddingHorizontal: 15
             }}
         >
             {
@@ -29,15 +29,13 @@ export default function Categories() {
                                 style={styles.categoryItem}
                                 onPress={()=> setActiveCategory(category.id)}
                             >
-                                <Image style={{width: 45, height: 45}} 
-                                    source={category.image} />
+                                <Image style={styles.categoryImage} source={category.image} />
                             </TouchableOpacity>
                             <Text style={styles.text}>{category.name}</Text>
                         </View>
                     )
                 })
             }
-            
         </ScrollView>
     </View>
   )
@@ -61,6 +59,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray',
         borderRadius: '100%',
         fontSize: 10,
+    },
+    categoryImage: {
+        width: 45, 
+        height: 45,
     },
     text: {
         fontSize: 12,

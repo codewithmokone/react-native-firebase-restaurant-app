@@ -18,7 +18,7 @@ function WelcomeScreen() {
         <SafeAreaView style={styles.container}>
             <ImageBackground source={require("../assets/images/welcome-screen.jpg")}
                 style={{height: '100%', width: '100%', alignItems: 'center',
-                juatifyContent: 'center', }} resizeMode='cover' >
+                juatifyContent: 'center' }} resizeMode='cover' >
                 <View style={styles.heading}>
                     <Text style={styles.headingText}>WELCOME</Text>
                 </View>

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -7,28 +6,32 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { setUser } from './redux/slices/userSlice';
+import { auth } from './config/firebase';
+import RestaurantScreen from './screens/RestaurantScreen';
+import CartScreen from './screens/CartScreen';
 
 const Stack = createNativeStackNavigator();
-const auth = getAuth();
 
 function AppNavigation() {
 
     const { user } = useSelector(state => state.user)
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    onAuthStateChanged(auth, u => {
-        console.log('User Info: ',u)
-        dispatch(setUser(u));
-    })
+    // onAuthStateChanged(auth, u => {
+    //     console.log('User Info: ',u)
+    //     dispatch(setUser(u));
+    // })
 
     if (user) {
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Home" >
                     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, presentation: 'modal' }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

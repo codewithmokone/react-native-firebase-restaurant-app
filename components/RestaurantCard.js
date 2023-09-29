@@ -1,19 +1,23 @@
 import { View, Text, TouchableWithoutFeedback, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import * as Icon from "react-native-feather";
+import { useNavigation } from '@react-navigation/native';
 
 export default function RestaurentCard({ item }) {
+  const navigation = useNavigation()
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback
+        onPress={()=> navigation.navigate('Restaurant', {...item})}
+    >
       <View style={styles.container}>
         <Image style={styles.restaurantImage} source={item.image} />
         <View style={styles.restaurantDetails}>
           <Text style={styles.text}>{item.name}</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 4}}>
-            <Image source={require('../assets/images/fullStar.png')} style={{height: 14, width: 14}} />
+          <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 4,}}>
+            <Image source={require('../assets/images/fullStar.png')} style={styles.starIcon} />
             <Text style={{fontSize: 14}}>
               <Text style={{color: 'green'}}>{item.stars}</Text>
-             ({item.review} review) - <Text style={{color: 'gray'}}>{item.category}</Text>
+             ({item.review} review) - <Text style={{color: 'gray',}}>{item.category}</Text>
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems:'center', marginLeft: 1}}>
@@ -31,9 +35,6 @@ const styles = StyleSheet.create({
     marginRight: 18,
     backgroundColor: 'white',
     borderRadius: 24,
-    shadowOpacity: 3,
-    shadowColor: 'black',
-    shadowRadius: [0, 0, 50, 0],
   },
   restaurantImage: {
     height: 144,
@@ -52,5 +53,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     fontWeight: 700,
   },
-
+  starIcon: {
+    height: 14, width: 14
+  }
 })

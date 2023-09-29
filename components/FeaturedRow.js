@@ -18,7 +18,7 @@ export default function FeaturedRow({ title, description, restaurants }) {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingHorizontal: 15
+          paddingHorizontal: 15,
         }}
         style={styles.restaurentList}
       >
@@ -34,8 +34,6 @@ export default function FeaturedRow({ title, description, restaurants }) {
         }
       </ScrollView>
     </View>
-
-
   )
 }
 
