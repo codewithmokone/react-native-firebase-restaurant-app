@@ -11,6 +11,8 @@ import { setUser } from './redux/slices/userSlice';
 import { auth } from './config/firebase';
 import RestaurantScreen from './screens/RestaurantScreen';
 import CartScreen from './screens/CartScreen';
+import OrderPreparingScreen from './screens/OrderPreparingScreen';
+import DeliveryScreen from './screens/DeliveryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +34,8 @@ function AppNavigation() {
                     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, presentation: 'modal' }}/>
+                    <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>
+                    <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

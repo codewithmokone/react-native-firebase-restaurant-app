@@ -1,10 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import {useSelector} from 'react-redux'
+import { selectCartItems } from '../redux/slices/cartSlice';
 
 export default function CartIcon() {
 
     const navigation = useNavigation();
+
+    const cartItems = useSelector(selectCartItems)
+    if(!cartItems.length) return;
 
     return (
         <View style={{ position: 'absolute', bottom: 5, width: "100%", zIndex: 50, alignItems: 'center', justifyContent: 'center' }}>

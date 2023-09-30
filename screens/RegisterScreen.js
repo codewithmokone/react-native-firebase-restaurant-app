@@ -1,17 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { ImageBackground, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 
 function RegisterScreen() {
 
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [address, setAddress] = useState()
-    const [contactNumber, setContactNumber] = useState()
-    const [password, setPassword] = useState()
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [address, setAddress] = useState("")
+    const [contactNumber, setContactNumber] = useState("")
+    const [password, setPassword] = useState("")
+    const [cardNumber, setCardNUmber] = useState("")
+    const [expirationDate, setExpirationDate] = useState("")
+    const [cvv, setCvv] = useState("")
 
     const navigation = useNavigation()
 
@@ -29,12 +32,14 @@ function RegisterScreen() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
 
-            await setDoc(doc(db,'users', user.uid), {
+            await setDoc(doc(db, 'users', user.uid), {
                 name: name,
                 email: email,
                 address: address,
                 contact: contactNumber,
-                userId: user.uid
+                cardNmber: cardNumber,
+                expirationDate: expirationDate,
+                cvv: cvv,
             });
 
             alert('Account created successfully')
@@ -46,6 +51,7 @@ function RegisterScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <ImageBackground>
             <View style={styles.heading} >
                 <Text style={styles.headingText}>Create New Account</Text>
             </View>
@@ -62,31 +68,52 @@ function RegisterScreen() {
                     style={styles.input}
                     placeholder=" Enter your name and surname"
                     onChangeText={text => setName(text)}
-                    keyboardType="email-address" 
+                    keyboardType="email-address"
                 />
                 <Text>Email:</Text>
                 <TextInput
                     style={styles.input}
                     placeholder=" Enter your email"
-                    onChangeText={text => setEmail(text)} 
+                    onChangeText={text => setEmail(text)}
                 />
                 <Text>Address:</Text>
                 <TextInput
                     style={styles.input}
                     placeholder=" Enter your address"
-                    onChangeText={text => setAddress(text)} 
+                    onChangeText={text => setAddress(text)}
                 />
                 <Text>Contact Number:</Text>
                 <TextInput
                     style={styles.input}
                     placeholder=" Enter your address"
-                    onChangeText={text => setContactNumber(text)} 
+                    onChangeText={text => setContactNumber(text)}
                 />
-                <Text>password:</Text>
+                <Text>Password:</Text>
                 <TextInput
                     style={styles.input}
                     placeholder=" Enter your password"
                     onChangeText={text => setPassword(text)}
+                    secureTextEntry={true}
+                />
+                <Text>Card Number:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder=" Enter your password"
+                    onChangeText={text => setCardNUmber(text)}
+                    secureTextEntry={true}
+                />
+                 <Text>Expiration Date:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder=" Enter your password"
+                    onChangeText={text => setExpirationDate(text)}
+                    secureTextEntry={true}
+                />
+                  <Text>CVV</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder=" Enter your password"
+                    onChangeText={text => setCvv(text)}
                     secureTextEntry={true}
                 />
             </View>
@@ -95,6 +122,9 @@ function RegisterScreen() {
                     <Text style={styles.buttonText}>Register</Text>
                 </Pressable>
             </View>
+
+            </ImageBackground>
+           
         </SafeAreaView>
     )
 }
@@ -150,7 +180,7 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     buttonText: {
-        flex: 1 ,
+        flex: 1,
         flexDirection: 'row',
         color: 'white',
         fontSize: 20,
