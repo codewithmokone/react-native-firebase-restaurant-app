@@ -13,6 +13,7 @@ import RestaurantScreen from './screens/RestaurantScreen';
 import CartScreen from './screens/CartScreen';
 import OrderPreparingScreen from './screens/OrderPreparingScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
+import { useEffect } from 'react';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,6 @@ function AppNavigation() {
     // const dispatch = useDispatch();
 
     // onAuthStateChanged(auth, u => {
-    //     console.log('User Info: ',u)
     //     dispatch(setUser(u));
     // })
 

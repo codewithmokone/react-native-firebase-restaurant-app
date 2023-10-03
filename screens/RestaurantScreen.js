@@ -11,7 +11,9 @@ import { setRestaurant } from '../redux/slices/restaurantSlice';
 export default function RestaurantScreen() {
 
     const { params } = useRoute();
+
     const navigation = useNavigation();
+    
     let item = params;
 
     const dispatch = useDispatch();

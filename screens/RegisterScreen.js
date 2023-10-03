@@ -43,7 +43,6 @@ function RegisterScreen() {
             });
 
             alert('Account created successfully')
-            navigation.navigate('Login');
         } catch (err) {
             console.log('Accournt not created', err)
         }
@@ -51,80 +50,86 @@ function RegisterScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground>
-            <View style={styles.heading} >
-                <Text style={styles.headingText}>Create New Account</Text>
-            </View>
-            <View style={styles.loginNavLink}>
-                <Text>Already registered? </Text>
-                <Pressable
-                    onPress={handleNavigate}>
-                    <Text>Sign In</Text>
-                </Pressable>
-            </View>
-            <View style={styles.inputSection}>
-                <Text>Name:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your name and surname"
-                    onChangeText={text => setName(text)}
-                    keyboardType="email-address"
-                />
-                <Text>Email:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your email"
-                    onChangeText={text => setEmail(text)}
-                />
-                <Text>Address:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your address"
-                    onChangeText={text => setAddress(text)}
-                />
-                <Text>Contact Number:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your address"
-                    onChangeText={text => setContactNumber(text)}
-                />
-                <Text>Password:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your password"
-                    onChangeText={text => setPassword(text)}
-                    secureTextEntry={true}
-                />
-                <Text>Card Number:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your password"
-                    onChangeText={text => setCardNUmber(text)}
-                    secureTextEntry={true}
-                />
-                 <Text>Expiration Date:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your password"
-                    onChangeText={text => setExpirationDate(text)}
-                    secureTextEntry={true}
-                />
-                  <Text>CVV</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder=" Enter your password"
-                    onChangeText={text => setCvv(text)}
-                    secureTextEntry={true}
-                />
-            </View>
-            <View style={styles.buttonSection}>
-                <Pressable style={styles.buttons} onPress={handleSignUp}>
-                    <Text style={styles.buttonText}>Register</Text>
-                </Pressable>
-            </View>
-
+            <ImageBackground style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }} source={require("../assets/images/RegisterScreen.jpg")}>
+                <View style={{width: '90%', marginBottom: 70, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={styles.heading} >
+                        <Text style={styles.headingText}>Create New Account</Text>
+                    </View>
+                    <View style={styles.loginNavLink}>
+                        <Text>Already registered? </Text>
+                        <Pressable
+                            onPress={handleNavigate}>
+                            <Text style={{ color: 'blue' }}>Sign In</Text>
+                        </Pressable>
+                    </View>
+                    <View style={styles.inputSection}>
+                        <Text>Name:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your name and surname"
+                            onChangeText={text => setName(text)}
+                            keyboardType="email-address"
+                        />
+                        <Text>Email:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your email"
+                            onChangeText={text => setEmail(text)}
+                        />
+                        <Text>Address:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your address"
+                            onChangeText={text => setAddress(text)}
+                        />
+                        <Text>Contact Number:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your contact number"
+                            onChangeText={text => setContactNumber(text)}
+                        />
+                        <Text>Password:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your password"
+                            onChangeText={text => setPassword(text)}
+                            secureTextEntry={true}
+                        />
+                        <Text>Card Number:</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder=" Enter your card number"
+                            onChangeText={text => setCardNUmber(text)}
+                            secureTextEntry={true}
+                        />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View>
+                                <Text>Expiration Date:</Text>
+                                <TextInput
+                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 160 }}
+                                    placeholder=" Enter Expiry Date"
+                                    onChangeText={text => setExpirationDate(text)}
+                                    secureTextEntry={true}
+                                />
+                            </View>
+                            <View>
+                                <Text style={{ marginLeft: 5 }}>CVV:</Text>
+                                <TextInput
+                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 150, marginLeft: 5 }}
+                                    placeholder=" Enter your CVV"
+                                    onChangeText={text => setCvv(text)}
+                                    secureTextEntry={true}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.buttonSection}>
+                        <Pressable style={{ width: 310, height: 40, borderRadius: 10, backgroundColor: 'blue', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
+                            <Text style={{ color: 'white', fontSize: 20 }}>Register</Text>
+                        </Pressable>
+                    </View>
+                </View>
             </ImageBackground>
-           
         </SafeAreaView>
     )
 }
@@ -139,7 +144,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     heading: {
-        marginTop: 100,
+        marginTop: 50,
         marginBottom: 20
     },
     headingText: {
@@ -148,10 +153,11 @@ const styles = StyleSheet.create({
     },
     loginNavLink: {
         flexDirection: 'row',
+        justifyContent: 'center',
         marginBottom: 30,
     },
     inputSection: {
-        width: '80%',
+        width: '100%',
         marginTop: 20,
     },
     input: {
@@ -160,20 +166,18 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 10,
         marginTop: 5,
-        marginBottom: 15
+        marginBottom: 15,
+        width: '100%'
     },
     buttonSection: {
         flex: 1,
-        width: '100%',
-        height: '50%',
-        marginBottom: 50,
+        marginTop: 40,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
     buttons: {
-        width: '80%',
-        height: '40%',
+        width: 200,
         backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',

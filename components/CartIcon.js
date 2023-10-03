@@ -2,14 +2,20 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {useSelector} from 'react-redux'
-import { selectCartItems } from '../redux/slices/cartSlice';
+import { selectCartItems, selectCartTotal } from '../redux/slices/cartSlice';
 
 export default function CartIcon() {
 
     const navigation = useNavigation();
+    const cartItems = useSelector(selectCartItems);
+    const cartTotal = useSelector(selectCartTotal);
 
-    const cartItems = useSelector(selectCartItems)
-    if(!cartItems.length) return;
+    
+    console.log("Cart Items: ", cartItems);
+    
+    if(!cartItems) return null;
+    
+    if(!cartTotal) return null;
 
     return (
         <View style={{ position: 'absolute', bottom: 5, width: "100%", zIndex: 50, alignItems: 'center', justifyContent: 'center' }}>
@@ -19,11 +25,11 @@ export default function CartIcon() {
             >
                 <View>
                     <Text style={{ color: 'white', fontWeight: 800, fontSize: 18, marginLeft: 20 }}>
-                        3
+                        {cartItems.length}
                     </Text>
                 </View>
                 <Text style={{ flex: 1, color: 'white', fontWeight: 800, fontSize: 18, textAlign: "center", fontSize: 18, lineHeight: 28 }}>View Cart</Text>
-                <Text style={{ flex: 1, color: 'white', fontWeight: 800, fontSize: 18, textAlign: "center", fontSize: 18, lineHeight: 28 }}>${23}</Text>
+                <Text style={{ flex: 1, color: 'white', fontWeight: 800, fontSize: 18, textAlign: "center", fontSize: 18, lineHeight: 28 }}>${cartTotal}</Text>
             </TouchableOpacity>
         </View>
     )

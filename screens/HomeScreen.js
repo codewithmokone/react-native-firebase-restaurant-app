@@ -1,20 +1,43 @@
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import * as Icon from "react-native-feather";
 import { auth } from '../config/firebase';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import { featured } from '../constants';
+import { useEffect } from 'react';
 
 function HomeScreen() {
+
+  // const [userInfo, setUserInfo] = useState('')
+
+  // const userDetails = () => {
+  //   const user = auth.currentUser
+
+  //   if(user){
+  //     setUserInfo(user)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   userDetails();
+  // }, [])
 
   const handleLogout = async () => {
     await signOut(auth)
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '95%', marginLeft: 10}}>
+        <View>
+          {/* <Text>{userInfo.email}</Text> */}
+        </View>
+        <View style={styles.userInfo}>
+          <Icon.LogOut height="20" width="20" strokeWidth={2.5} stroke="white" onPress={handleLogout} />
+        </View>
+      </View>
       <View style={styles.searchContainer}>
         <View style={styles.search}>
           <Icon.Search height="25" width="25" stroke="gray" />
@@ -23,27 +46,24 @@ function HomeScreen() {
             <Icon.MapPin height="20" width="20" stroke="gray" />
           </View>
         </View>
-        <View style={styles.userInfo}>
-          <Icon.Sliders height="20" width="20" strokeWidth={2.5} stroke="white" />
-        </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}
+      <ScrollView showsVerticalScrollIndicator={true}
         contentContainerStyle={{
-          paddingBottom: 20
+          paddingBottom: 20,
         }}
       >
         <Categories />
         <View style={{ marginTop: 5 }}>
-          {[featured, featured, featured].map((item,index) => {
-              return (
-                <FeaturedRow
-                  key={index}
-                  title={item.title}
-                  restaurants={item.restaurants}
-                  description={item.description}
-                />
-              )
-            })}
+          {[featured, featured, featured, featured].map((item, index) => {
+            return (
+              <FeaturedRow
+                key={index}
+                title={item.title}
+                restaurants={item.restaurants}
+                description={item.description}
+              />
+            )
+          })}
         </View>
       </ScrollView>
       <Pressable onPress={handleLogout}>

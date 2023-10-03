@@ -4,7 +4,9 @@ import * as Icon from "react-native-feather";
 import { useNavigation } from '@react-navigation/native';
 
 export default function RestaurentCard({ item }) {
-  const navigation = useNavigation()
+
+  const navigation = useNavigation();
+  
   return (
     <TouchableWithoutFeedback
         onPress={()=> navigation.navigate('Restaurant', {...item})}
