@@ -1,27 +1,38 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { categories } from '../constants'
-import { Touchable } from 'react-native';
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import db from '../config/firebase'
+// import firestore from '@react-native-firebase/firestore';
+import { collection, getDocs, query } from "firebase/firestore";
+import {db} from '../config/firebase'
 
 export default function Categories() {
 
     const [activeCategory, setActiveCategory] = useState(null);
+    // const [categoryData, setCategoryData] = useState([]);
 
-    const fetchData = async () => {
-
-        const docRef = doc(db, "categories");
-        const docSnap = await getDoc(docRef);
-        // const querySnapshot = await getDocs(collection(db, "categories"));
-        // querySnapshot.forEach((doc) => {
-        // //     console.log('Firestore data', docSnap);
-        // });
-        console.log('Firestore data', docSnap);
-    }
+    // Handle fetching data from the firestore
+    // const fetchFirestoreData = async () => {
+    //     try {
+    //         const categoryCollection = (collection(db, "categories"));
+    //         const categorySnapshot = await getDocs(
+    //             query(categoryCollection)
+    //         )
+    //         const data =[];
+    //         categorySnapshot.forEach((doc) => {
+    //             const categoryList = doc.data();
+    //             data.push({id: doc.id, ...categoryList});
+    //             console.log('Category Data', categoryList)
+    //         });
+    //         setCategoryData(data);
+           
+    //     } catch (error) {
+    //         console.error('Error fetching Firestore data:', error);
+    //     }
+    // };
 
     useEffect(() => {
-        fetchData();
+        // Call the function to fetch data
+        // fetchFirestoreData();
     }, [])
 
     return (
@@ -36,7 +47,7 @@ export default function Categories() {
                 {
                     categories.map((category, index) => {
 
-                        let isActive = category.id == activeCategory;
+                        let isActive = category.index == activeCategory;
                         let btnClass = isActive ? 'bg-gray-600' : 'bg-gray-200';
                         let textClass = isActive ? 'font-semibold text-gray-800' : 'text-gray-500';
 
@@ -72,14 +83,12 @@ const styles = StyleSheet.create({
         marginRight: 12,
     },
     categoryItem: {
-        padding: 1,
-        backgroundColor: 'gray',
+        padding: 2,
         borderRadius: '100%',
-        fontSize: 10,
     },
     categoryImage: {
-        width: 45,
-        height: 45,
+        width: 55,
+        height: 55,
     },
     text: {
         fontSize: 12,

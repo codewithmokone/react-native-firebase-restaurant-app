@@ -6,6 +6,7 @@ export default function FeaturedRow({ title, description, restaurants }) {
   return (
     <View>
       <View style={styles.featuredItem}>
+        <View style={{width: '100',marginHorizontal: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
         <View>
           <Text>{title}</Text>
           <Text>{description}</Text>
@@ -14,6 +15,7 @@ export default function FeaturedRow({ title, description, restaurants }) {
           <Text>See All</Text>
         </TouchableOpacity>
       </View>
+        </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -40,14 +42,16 @@ export default function FeaturedRow({ title, description, restaurants }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
   },
   featuredItem: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: 'gray',
   },
   restaurentList: {
     overflow: 'hidden',

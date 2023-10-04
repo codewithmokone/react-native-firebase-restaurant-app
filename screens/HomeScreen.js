@@ -1,12 +1,13 @@
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as Icon from "react-native-feather";
 import { auth } from '../config/firebase';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import { featured } from '../constants';
 import { useEffect } from 'react';
+import HomeHeader from '../components/HomeHeader';
 
 function HomeScreen() {
 
@@ -24,18 +25,16 @@ function HomeScreen() {
   //   userDetails();
   // }, [])
 
-  const handleLogout = async () => {
-    await signOut(auth)
-  }
+ 
 
   return (
     <SafeAreaView style={{alignItems: 'center'}}>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '95%', marginLeft: 10}}>
+      <View style={{width: '100%'}}>
+        <HomeHeader />
+      </View>
+      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '95%', marginLeft: 5}}>
         <View>
           {/* <Text>{userInfo.email}</Text> */}
-        </View>
-        <View style={styles.userInfo}>
-          <Icon.LogOut height="20" width="20" strokeWidth={2.5} stroke="white" onPress={handleLogout} />
         </View>
       </View>
       <View style={styles.searchContainer}>
@@ -46,6 +45,9 @@ function HomeScreen() {
             <Icon.MapPin height="20" width="20" stroke="gray" />
           </View>
         </View>
+      </View>
+      <View style={{marginVertical: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'gray', width: '100%', height: 35}}>
+        <Text style={{fontWeight: 700, marginHorizontal: 10}}>Categories</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={true}
         contentContainerStyle={{
@@ -66,9 +68,11 @@ function HomeScreen() {
           })}
         </View>
       </ScrollView>
-      <Pressable onPress={handleLogout}>
-        <Text>Logout</Text>
-      </Pressable>
+      <View style={styles.floatingButton}>
+        <TouchableOpacity>
+          
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: '97%',
+    marginVertical: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -97,7 +102,8 @@ const styles = StyleSheet.create({
     padding: 3,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 40
+    borderRadius: 40,
+    marginHorizontal: 1
   },
   searchInput: {
     flex: 1,
@@ -109,5 +115,16 @@ const styles = StyleSheet.create({
     padding: 3,
     backgroundColor: 'gray',
     borderRadius: 40
+  },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 15,
+    backgroundColor: 'white',
+    elevation:10,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center'
   }
 });

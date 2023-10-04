@@ -31,7 +31,7 @@ export default function DishRow({ item }) {
                     <Text style={{ color: 'gray' }}>{item.description}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 8, alignItems: 'center' }}>
-                    <Text style={{ color: 'gray', fontSize: 18, lineHeight: 28 }}>${item.price}</Text>
+                    <Text style={{ color: 'gray', fontSize: 18, lineHeight: 28 }}>R{item.price}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={handleDecrease}

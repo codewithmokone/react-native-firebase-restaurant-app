@@ -17,17 +17,24 @@ function WelcomeScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground source={require("../assets/images/welcome-screen.jpg")}
-                style={{height: '100%', width: '100%', alignItems: 'center',
-                juatifyContent: 'center' }} resizeMode='cover' >
+                style={{
+                    flex: 1,
+                    height: '100%', 
+                    width: '100%', 
+                    alignItems: 'center',
+                    juatifyContent: 'center' }} 
+                    resizeMode='cover' 
+                >
                 <View style={styles.heading}>
                     <Text style={styles.headingText}>WELCOME</Text>
                 </View>
                 <View style={styles.buttonSection}>
-                    <Pressable style={styles.buttons} onPress={registerRoute}>
-                        <Text style={styles.buttonText}>Register</Text>
-                    </Pressable>
                     <Pressable style={styles.buttons} onPress={loginRoute}>
                         <Text style={styles.buttonText}>Login</Text>
+                    </Pressable>
+                    <Text style={{color: 'white'}}>Don't have an account?</Text>
+                    <Pressable onPress={registerRoute}>
+                        <Text style={{fontSize: 16, color: 'white'}}>Sign Up</Text>
                     </Pressable>
                 </View>
                 <StatusBar style="auto" />
@@ -73,7 +80,6 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     buttonText: {
-        flex: 1 ,
         flexDirection: 'row',
         color: 'white',
         fontSize: 20,

@@ -1,19 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './screens/WelcomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
-import { onAuthStateChanged } from 'firebase/auth';
-import { setUser } from './redux/slices/userSlice';
-import { auth } from './config/firebase';
 import RestaurantScreen from './screens/RestaurantScreen';
 import CartScreen from './screens/CartScreen';
 import OrderPreparingScreen from './screens/OrderPreparingScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
-import { useEffect } from 'react';
+import ProfileScreen from './screens/ProfileScreen';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,18 +19,14 @@ function AppNavigation() {
 
     const { user } = useSelector(state => state.user)
 
-    // const dispatch = useDispatch();
-
-    // onAuthStateChanged(auth, u => {
-    //     dispatch(setUser(u));
-    // })
-
     if (user) {
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Home" >
                     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, presentation: 'modal' }}/>
                     <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>
                     <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>

@@ -2,27 +2,27 @@ export const categories = [
     {
         id: 1,
         name: 'Pizza',
-        image: require('../assets/images/pizzaIcon.png'),
+        image: require('../assets/categoryImages/pizza.png'),
     },
     {
         id: 2,
         name: 'Burger',
-        image: require('../assets/images/pizzaIcon.png'),
+        image: require('../assets/categoryImages/burger.png'),
     },
     {
         id: 3,
         name: 'Italian',
-        image: require('../assets/images/pizzaIcon.png'),
+        image: require('../assets/categoryImages/italian.png'),
     },
     {
         id: 4,
         name: 'Chinese',
-        image: require('../assets/images/pizzaIcon.png'),
+        image: require('../assets/categoryImages/chinese.png'),
     },
     {
         id: 5,
-        name: 'Noodles',
-        image: require('../assets/images/pizzaIcon.png'),
+        name: 'Salads',
+        image: require('../assets/categoryImages/salad.png'),
     },
     {
         id: 6,
@@ -52,23 +52,23 @@ export const featured = {
             dishes: [
                 {
                    id: 1,
-                   name: 'pizza',
+                   name: 'Pizza',
                    description: 'cheezy garlic pizza',
-                   price: 10,
+                   price: 110,
                    image:  require('../assets/images/pizzaDish.png')
                 },
                 {
                    id: 2,
-                   name: 'pizza',
-                   description: 'cheezy garlic pizza',
-                   price: 10,
+                   name: 'Burger ',
+                   description: 'Grilled red onion, lettuce & tomato',
+                   price: 97,
                    image:  require('../assets/images/pizzaDish.png')
                 },
                 {
                    id: 3,
-                   name: 'pizza',
-                   description: 'cheezy garlic pizza',
-                   price: 10,
+                   name: 'Salad',
+                   description: 'Smoked salmon, baby leaf lettuce, cherry tomatoes, cucumber, feta, avo, with lemon & dill dressing',
+                   price: 165,
                    image:  require('../assets/images/pizzaDish.png')
                 },
             ]
