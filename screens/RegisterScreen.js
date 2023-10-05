@@ -50,8 +50,7 @@ function RegisterScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }} source={require("../assets/images/RegisterScreen.jpg")}>
-                <View style={{width: '90%', marginBottom: 70, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{width: '100%', marginBottom: 70, justifyContent: 'center', alignItems: 'center'}}>
                     <View style={styles.heading} >
                         <Text style={styles.headingText}>Create New Account</Text>
                     </View>
@@ -63,48 +62,41 @@ function RegisterScreen() {
                         </Pressable>
                     </View>
                     <View style={styles.inputSection}>
-                        <Text>Name:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your name and surname"
                             onChangeText={text => setName(text)}
                             keyboardType="email-address"
                         />
-                        <Text>Email:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your email"
                             onChangeText={text => setEmail(text)}
                         />
-                        <Text>Address:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your address"
                             onChangeText={text => setAddress(text)}
                         />
-                        <Text>Contact Number:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your contact number"
                             onChangeText={text => setContactNumber(text)}
                         />
-                        <Text>Password:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your password"
                             onChangeText={text => setPassword(text)}
                             secureTextEntry={true}
                         />
-                        <Text>Card Number:</Text>
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your card number"
                             onChangeText={text => setCardNUmber(text)}
                             secureTextEntry={true}
                         />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                             <View>
-                                <Text>Expiration Date:</Text>
                                 <TextInput
                                     style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 160 }}
                                     placeholder=" Enter Expiry Date"
@@ -113,10 +105,9 @@ function RegisterScreen() {
                                 />
                             </View>
                             <View>
-                                <Text style={{ marginLeft: 5 }}>CVV:</Text>
                                 <TextInput
-                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 150, marginLeft: 5 }}
-                                    placeholder=" Enter your CVV"
+                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 120, marginLeft: 5 }}
+                                    placeholder=" Enter CVV"
                                     onChangeText={text => setCvv(text)}
                                     secureTextEntry={true}
                                 />
@@ -124,12 +115,11 @@ function RegisterScreen() {
                         </View>
                     </View>
                     <View style={styles.buttonSection}>
-                        <Pressable style={{ width: 310, height: 40, borderRadius: 10, backgroundColor: 'blue', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
-                            <Text style={{ color: 'white', fontSize: 20 }}>Register</Text>
+                        <Pressable style={{ width: 350, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
+                            <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
                         </Pressable>
                     </View>
                 </View>
-            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -139,7 +129,7 @@ export default RegisterScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'whitesmoke',
+        backgroundColor: '#52A63C',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -159,15 +149,21 @@ const styles = StyleSheet.create({
     inputSection: {
         width: '100%',
         marginTop: 20,
+        alignItems: 'center',
+
+    },
+    label: {
+        alignItems: 'none',
+        justifyContent: 'flex-start'
     },
     input: {
         backgroundColor: 'white',
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 10,
-        marginTop: 5,
-        marginBottom: 15,
-        width: '100%'
+        marginVertical: 15,
+        width: '90%',
+        height: 45
     },
     buttonSection: {
         flex: 1,

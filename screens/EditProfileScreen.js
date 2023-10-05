@@ -1,46 +1,43 @@
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
+import { useSelector } from 'react-redux';
 
 export default function EditProfileScreen() {
 
     const navigation = useNavigation();
 
+    const { user } = useSelector(state => state.user)
+
+    console.log("User info: ", user.contact)
+
     return (
         <SafeAreaView>
-            <View>
+            <View style={{}}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{fontSize: 30}}>Edit Profile</Text>
+                    <Text style={{ fontSize: 30 }}>Edit Profile</Text>
                 </View>
-                <View style={{marginHorizontal: 10}}>
-                    <TextInput 
-                        style={styles.textInputFields} 
+                <View style={{ marginHorizontal: 10 }}>
+                    <TextInput
+                        value={user.name}
+                        style={styles.textInputFields}
                         placeholder=' Name'
                     />
-                      <TextInput
-                      style={styles.textInputFields} 
+                    <TextInput
+                        value={user.email}
+                        style={styles.textInputFields}
                         placeholder=' Email'
                     />
-                      <TextInput 
-                      style={styles.textInputFields} 
+                    <TextInput
+                        value={user.address}
+                        style={styles.textInputFields}
                         placeholder=' Address'
                     />
-                      <TextInput 
-                      style={styles.textInputFields} 
+                    <TextInput
+                        value={user.contact}
+                        style={styles.textInputFields}
                         placeholder=' Contact'
-                    />
-                      <TextInput 
-                      style={styles.textInputFields} 
-                        placeholder=' Card Number'
-                    />
-                      <TextInput 
-                      style={styles.textInputFields} 
-                        placeholder=' Expiration Date'
-                    />
-                      <TextInput 
-                      style={styles.textInputFields} 
-                        placeholder=' CVV'
                     />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>

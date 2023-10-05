@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 function WelcomeScreen() {
 
@@ -16,29 +16,28 @@ function WelcomeScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={require("../assets/images/welcome-screen.jpg")}
-                style={{
-                    flex: 1,
-                    height: '100%', 
-                    width: '100%', 
-                    alignItems: 'center',
-                    juatifyContent: 'center' }} 
-                    resizeMode='cover' 
-                >
-                <View style={styles.heading}>
-                    <Text style={styles.headingText}>WELCOME</Text>
-                </View>
-                <View style={styles.buttonSection}>
+            <View>
+                <View style={{marginTop: 170, alignItems: 'center', justifyContent: 'center'}}>
+                    <Image style={{width: 150, height: 150}} source={require('../assets/categoryImages/salad.png')} />
+               
+               
+                    <Text style={styles.headingText}>Fast Food Delivery</Text>
+             
+                
+                    <Text style={{marginVertical: 15}}>Please sign in or sign up to continue.</Text>
+              
                     <Pressable style={styles.buttons} onPress={loginRoute}>
                         <Text style={styles.buttonText}>Login</Text>
                     </Pressable>
-                    <Text style={{color: 'white'}}>Don't have an account?</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center',}}>
+                    <Text style={{ color: 'white' }}>Don't have an account?</Text>
                     <Pressable onPress={registerRoute}>
-                        <Text style={{fontSize: 16, color: 'white'}}>Sign Up</Text>
+                        <Text style={{ color: 'blue', marginLeft: 5 }}>Sign Up</Text>
                     </Pressable>
                 </View>
                 <StatusBar style="auto" />
-            </ImageBackground>
+            </View>
         </SafeAreaView>
     );
 }
@@ -48,40 +47,36 @@ export default WelcomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#52A63C',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    heading: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }, 
     headingText: {
+        color: 'white',
         fontSize: 30,
-        marginTop: 70,
+        marginTop: 10
     },
     buttonSection: {
         flex: 1,
         width: '100%',
         height: '50%',
+        marginTop: -150,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
     buttons: {
-        width: '95%',
-        height: '10%',
+        width: 250,
+        height: '15%',
         margin: 10,
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5
+        borderRadius: 10
     },
     buttonText: {
         flexDirection: 'row',
-        color: 'white',
+        color: 'green',
         fontSize: 20,
         alignItems: 'center',
         justifyContent: 'center',

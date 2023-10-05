@@ -29,15 +29,15 @@ export default function RestaurantScreen() {
             <CartIcon />
             <ScrollView>
                 <View style={{ position: "relative" }}>
-                    <Image style={{ width: "100%", height: 288 }} source={item.image} />
+                    <Image style={{ width: "100%", height: 288, marginBottom: -40}} source={item.image} />
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
-                        style={{ position: "absolute", top: 90, left: 16, backgroundColor: 'gray', padding: 2, borderRadius: '100%' }}
+                        style={{ position: "absolute", top: 50, left: 16, backgroundColor: '#52A63C', padding: 4, borderRadius: '100%' }}
                     >
-                        <Icon.ArrowLeft strokeWidth={3} />
+                        <Icon.ArrowLeft strokeWidth={3} stroke={'white'} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: 'white', marginTop: "-10", paddingTop: 6 }}>
+                <View style={{ borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: '#ACF598', marginTop: "-10", paddingTop: 6 }}>
                     <View style={{paddingHorizontal: 5 }}>
                         <Text style={styles.text}>{item.name}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 4, marginTop: 6 }}>
@@ -52,8 +52,8 @@ export default function RestaurantScreen() {
                         <Text style={{ color: 'gray', fontSize: 12, lineHeight: 16, marginTop: 6, marginLeft: 6 }}>{item.description}</Text>
                     </View>
                 </View>
-                <View style={{paddingBottom: 144, backgroundColor: 'white'}}>
-                    <Text style={{paddingHorizontal: 4, paddingVertical: 4, fontWeight: 700, fontSize: 24, lineHeight: 32}}>Menu</Text>
+                <View style={{paddingBottom: 144, backgroundColor: '#ACF598'}}>
+                    <Text style={{marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32}}>Menu</Text>
                     {
                         item.dishes.map((dish, index) => <DishRow item={{...dish}} key={index} />)
                     }
@@ -66,7 +66,7 @@ export default function RestaurantScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ACF598',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
         paddingBottom: 16,
     },
     text: {
-        fontSize: 18,
+        fontSize: 22,
         lineHeight: 28,
         paddingTop: 2,
-        fontWeight: 700,
+        fontWeight: 800,
         marginTop: 10,
         marginLeft: 6
     },

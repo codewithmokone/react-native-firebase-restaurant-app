@@ -12,6 +12,8 @@ import OrderPreparingScreen from './screens/OrderPreparingScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
+import PaymentDetailsScreen from './screens/PaymentDetailsScreen';
+import AddCardScreen from './screens/AddCardScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,8 +27,10 @@ function AppNavigation() {
                 <Stack.Navigator initialRouteName="Home" >
                     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }}/>
-                    <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
-                    <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Account', headerShown: true }}/>
+                    <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{title: 'Details', headerShown: true }}/>
+                    <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }}/>
+                    <Stack.Screen name="AddCard" component={AddCardScreen} options={{ headerShown: false }}/>
                     <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, presentation: 'modal' }}/>
                     <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>
                     <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }}/>

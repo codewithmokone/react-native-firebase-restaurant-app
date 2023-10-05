@@ -5,9 +5,10 @@ import * as Icon from "react-native-feather";
 import { auth } from '../config/firebase';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
-import { featured } from '../constants';
+import { featured, todays_specials } from '../constants';
 import { useEffect } from 'react';
 import HomeHeader from '../components/HomeHeader';
+import TodaySpecials from '../components/TodaySpecials';
 
 function HomeScreen() {
 
@@ -37,7 +38,7 @@ function HomeScreen() {
           {/* <Text>{userInfo.email}</Text> */}
         </View>
       </View>
-      <View style={styles.searchContainer}>
+      {/* <View style={styles.searchContainer}>
         <View style={styles.search}>
           <Icon.Search height="25" width="25" stroke="gray" />
           <TextInput placeholder='Restaurents' style={styles.searchInput} />
@@ -45,16 +46,27 @@ function HomeScreen() {
             <Icon.MapPin height="20" width="20" stroke="gray" />
           </View>
         </View>
-      </View>
-      <View style={{marginVertical: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'gray', width: '100%', height: 35}}>
+      </View> */}
+      {/* <View style={{marginVertical: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: '#ACF598', width: '100%', height: 35}}>
         <Text style={{fontWeight: 700, marginHorizontal: 10}}>Categories</Text>
-      </View>
+      </View> */}
       <ScrollView showsVerticalScrollIndicator={true}
         contentContainerStyle={{
           paddingBottom: 20,
         }}
       >
         <Categories />
+        <View style={{ marginTop: 5 }}>
+          {[todays_specials].map((item, index) => {
+            return (
+              <TodaySpecials 
+                key={index}
+                title={item.title}
+                dishes={item.dishes}
+              />
+            )
+          })}
+        </View>
         <View style={{ marginTop: 5 }}>
           {[featured, featured, featured, featured].map((item, index) => {
             return (
@@ -68,11 +80,6 @@ function HomeScreen() {
           })}
         </View>
       </ScrollView>
-      <View style={styles.floatingButton}>
-        <TouchableOpacity>
-          
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   )
 }
@@ -82,7 +89,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -110,21 +117,4 @@ const styles = StyleSheet.create({
     width: 300,
     marginLeft: 90
   },
-  userInfo: {
-    margin: 5,
-    padding: 3,
-    backgroundColor: 'gray',
-    borderRadius: 40
-  },
-  floatingButton: {
-    position: 'absolute',
-    bottom: 10,
-    right: 15,
-    backgroundColor: 'white',
-    elevation:10,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    alignItems: 'center'
-  }
 });

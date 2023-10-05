@@ -9,9 +9,6 @@ export default function CartIcon() {
     const navigation = useNavigation();
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
-
-    
-    console.log("Cart Items: ", cartItems);
     
     if(!cartItems) return null;
     
@@ -23,13 +20,13 @@ export default function CartIcon() {
                 style={styles.cartButton}
                 onPress={() => navigation.navigate('Cart')}
             >
-                <View>
-                    <Text style={{ color: 'white', fontWeight: 800, fontSize: 18, marginLeft: 20 }}>
+                <View style={{marginLeft: 30}}>
+                    <Text style={{ color: 'white', fontWeight: 800, fontSize: 18}}>
                         {cartItems.length}
                     </Text>
                 </View>
-                <Text style={{ flex: 1, color: 'white', fontWeight: 800, fontSize: 18, textAlign: "center", fontSize: 18, lineHeight: 28 }}>View Cart</Text>
-                <Text style={{ flex: 1, color: 'white', fontWeight: 800, fontSize: 18, textAlign: "center", fontSize: 18, lineHeight: 28 }}>${cartTotal}</Text>
+                <Text style={{ color: 'white', fontWeight: 800, fontSize: 18, fontSize: 18, lineHeight: 28}}>View Cart</Text>
+                <Text style={{ color: 'white', fontWeight: 800, fontSize: 18, fontSize: 18, lineHeight: 28, marginRight: 30 }}>R{cartTotal}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -45,14 +42,13 @@ const styles = StyleSheet.create({
     cartButton: {
         width: "98%",
         height: 60,
-        backgroundColor: 'gray',
+        backgroundColor: '#52A63C',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal: 5,
+        marginHorizontal: 40,
         marginBottom: 10,
         borderRadius: '100%',
-        padding: 2,
         paddingVertical: 3
     },
 })

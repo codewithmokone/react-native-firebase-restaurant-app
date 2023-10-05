@@ -15,7 +15,7 @@ export default function HomeHeader() {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Profile')}
                     >
-                        <Icon.Menu />
+                        <Icon.User stroke={'#52A63C'}/>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginLeft: 80 }}>
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         width: '100%',
-        backgroundColor: 'gray',
         alignItems: 'center',
     }
 })

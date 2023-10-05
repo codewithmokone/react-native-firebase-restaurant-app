@@ -19,13 +19,19 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setUserInfo: (state, action) => {
+      state.user = action.payload;
+    },
     setUserLoading: (state, action) => {
       state.userLoading = action.payload;
+    },
+    setCardDetails: (state, action) => {
+      state.user = action.payload;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginUser, logoutUser, setUser, setUserLoading } = userSlice.actions
+export const { loginUser, logoutUser, setUser, setUserLoading, setCardDetails, setUserInfo } = userSlice.actions
 
 export default userSlice.reducer

@@ -40,14 +40,14 @@ export default function CartScreen() {
           onPress={() => navigation.goBack()}
           style={{ position: 'absolute', zIndex: 10, borderRadius: '100%', padding: 4, top: 20, left: 20 }}
         >
-          <Icon.ArrowLeft strokeWidth={3} stroke='blue' />
+          <Icon.ArrowLeft strokeWidth={3} stroke='#52A63C' />
         </TouchableOpacity>
         <View>
           <Text style={{ textAlign: 'center', fontWeight: 700, fontSize: 18, lineHeight: 28 }}>Your cart</Text>
           <Text style={{ textAlign: 'center', color: 'gray' }}>{restaurant.name}</Text>
         </View>
       </View>
-      <View style={{ backgroundColor: 'gray', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
+      <View style={{ backgroundColor: '#52A63C', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
         <Image style={{ width: 80, height: 80, borderRadius: '100%' }} source={require('../assets/images/bikeGuy.png')} />
         <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 20 }}>Delivered in 20-30 minutes</Text>
         <TouchableOpacity>
@@ -77,7 +77,7 @@ export default function CartScreen() {
                 <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 12 }}>R{dish.price}</Text>
                 <TouchableOpacity
                   onPress={() => dispatch(removeFromCart({ id: dish.id }))}
-                  style={{ borderRadius: '100%', padding: 4, backgroundColor: 'gray' }}
+                  style={{ borderRadius: '100%', padding: 4, backgroundColor: '#52A63C' }}
                 >
                   <Icon.Minus strokeWidth={2} height={20} width={20} stroke="white" />
                 </TouchableOpacity>
@@ -86,18 +86,18 @@ export default function CartScreen() {
           })
         }
       </ScrollView>
-      <View style={{ padding: 6, paddingVertical: 32, paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor: 'blue' }}>
+      <View style={{ padding: 6, paddingVertical: 32, paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor: '#52A63C' }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-          <Text style={{ color: 'gray' }}>Subtotal</Text>
-          <Text style={{ color: 'gray' }}>R{cartTotal}</Text>
+          <Text style={{ color: 'white' }}>Subtotal</Text>
+          <Text style={{ color: 'white' }}>R{cartTotal}</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ color: 'gray' }}>Delivery Fee</Text>
-          <Text style={{ color: 'gray' }}>R{deliveryFee}</Text>
+          <Text style={{ color: 'white' }}>Delivery Fee</Text>
+          <Text style={{ color: 'white' }}>R{deliveryFee}</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-          <Text style={{ color: 'gray', fontWeight: 800 }}>Order Total</Text>
-          <Text style={{ color: 'gray', fontWeight: 800 }}>R{deliveryFee+cartTotal}</Text>
+          <Text style={{ color: 'white', fontWeight: 800 }}>Order Total</Text>
+          <Text style={{ color: 'white', fontWeight: 800 }}>R{deliveryFee+cartTotal}</Text>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate('OrderPreparing')}

@@ -24,7 +24,7 @@ export default function DeliveryScreen() {
     return (
         <View style={{ flex: 1 }}>
             <MapView
-                style={{ flex: 1 }}
+                style={{ flex: 1, marginBottom: -50 }}
                 initialRegion={{
                     latitude: resturant.lat,
                     longitude: resturant.lng,
@@ -57,7 +57,7 @@ export default function DeliveryScreen() {
                     </View>
                     <Image style={{height:96, width: 96}} source={require('../assets/images/bikeGuy2.gif')} />
                 </View>
-                <View style={{backgroundColor: 'gray',flexDirection: 'row', padding: 8, justifyContent: 'center', alignItems: 'center', marginBottom: 20}}>
+                <View style={{backgroundColor: '#52A63C',flexDirection: 'row', padding: 8, justifyContent: 'center', alignItems: 'center', marginBottom: 20, height: 50}}>
                     <Text style={{textAlign: 'center', color: 'white'}}>Enquiries call: 012-548-7458</Text>
                     <TouchableOpacity
                         onPress={cancelOrder}

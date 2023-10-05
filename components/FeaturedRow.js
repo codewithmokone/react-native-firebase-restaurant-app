@@ -42,7 +42,7 @@ export default function FeaturedRow({ title, description, restaurants }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray',
+    backgroundColor: '#ACF598',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: '#ACF598',
   },
   restaurentList: {
     overflow: 'hidden',

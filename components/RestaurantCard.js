@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
   container: {
     marginRight: 18,
     backgroundColor: 'white',
-    borderRadius: 24,
+    borderRadius: 0,
   },
   restaurantImage: {
     height: 144,
     width: 256,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
   restaurantDetails: {
     marginTop: 8,
