@@ -1,6 +1,6 @@
-import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ export default function ProfileScreen() {
                     setUserDetails(userData);
                     dispatch(setUserInfo(userData));
                 } else {
-                    console.log('Failed to get user infromation')
+                    console.log('Failed to get user infromation');
                 }
             } catch (err) {
                 console.log(err)
@@ -54,7 +54,7 @@ export default function ProfileScreen() {
 
     useEffect(() => {
         fetchUserInfo();
-    }, [])
+    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'offwhite' }}>
@@ -92,7 +92,7 @@ export default function ProfileScreen() {
                                     onPress={() => navigation.navigate('EditProfile')}
                                 >
                                     <Icon.User strokeWidth={3} stroke={'#52A63C'} />
-                                    <Text style={{ marginLeft: 10 }}>Account Details</Text>
+                                    <Text style={{ marginLeft: 10 }}>Edit Account</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginHorizontal: 15 }}>

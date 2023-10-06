@@ -17,8 +17,8 @@ function WelcomeScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <View style={{marginTop: 170, alignItems: 'center', justifyContent: 'center'}}>
-                    <Image style={{width: 150, height: 150}} source={require('../assets/categoryImages/salad.png')} />
+                <View style={{marginTop: 100, alignItems: 'center', justifyContent: 'center'}}>
+                    <Image style={{width: 165, height: 150}} source={require('../assets/categoryImages/salad.png')} />
                
                
                     <Text style={styles.headingText}>Fast Food Delivery</Text>

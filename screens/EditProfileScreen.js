@@ -1,53 +1,100 @@
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../config/firebase';
 
 export default function EditProfileScreen() {
 
-    const navigation = useNavigation();
-
     const { user } = useSelector(state => state.user)
 
-    console.log("User info: ", user.contact)
+    console.log(user)
+
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
+    const [address, setAddress] = useState(user.address)
+    const [contact, setContact] = useState(user.contact)
+
+    const navigation = useNavigation();
+
+
+    const handleUpdate = async () => {
+
+        let docId = user.uid
+
+        try{
+            const userInfoUpdate = doc(db, docId);
+            await updateDoc(userInfoUpdate, {
+                name: name,
+                email: email,
+                address: address,
+                contact: contact
+            });
+            console.log('User information updated');
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return (
         <SafeAreaView>
-            <View style={{}}>
+            <View style={{ marginTop: 30 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 30 }}>Edit Profile</Text>
+                    <Text style={{ fontSize: 20 }}>Edit Profile</Text>
                 </View>
                 <View style={{ marginHorizontal: 10 }}>
                     <TextInput
-                        value={user.name}
+                        value={name}
                         style={styles.textInputFields}
-                        placeholder=' Name'
+                        placeholder=' Name and Surname'
+                        onChangeText={(text) => setName(text)}
                     />
                     <TextInput
-                        value={user.email}
+                        value={email}
                         style={styles.textInputFields}
                         placeholder=' Email'
+                        onChangeText={(text) => setEmail(text)}
                     />
                     <TextInput
-                        value={user.address}
+                        value={address}
                         style={styles.textInputFields}
                         placeholder=' Address'
+                        onChangeText={(text) => setAddress(text)}
                     />
                     <TextInput
-                        value={user.contact}
+                        value={contact}
                         style={styles.textInputFields}
                         placeholder=' Contact'
+                        onChangeText={(text) => setContact(text)}
                     />
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop: 300, marginHorizontal: 10, bottom: 0 }}>
                     <TouchableOpacity
-                        style={{ marginLeft: 10 }}
+                        style={{
+                            width: 300,
+                            height: 40,
+                            margin: 10,
+                            backgroundColor: '#52A63C',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 10
+                        }}
+                        onPress={handleUpdate}
                     >
                         <Text>Save</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={{ marginRight: 10 }}
+                        style={{
+                            width: 300,
+                            height: 40,
+                            backgroundColor: '#52A63C',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 10
+                        }}
                         onPress={() => navigation.navigate('Home')}
                     >
                         <Text>Close</Text>

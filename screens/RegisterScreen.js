@@ -33,6 +33,7 @@ function RegisterScreen() {
             const user = userCredential.user;
 
             await setDoc(doc(db, 'users', user.uid), {
+                userId: user.uid,
                 name: name,
                 email: email,
                 address: address,
@@ -41,7 +42,7 @@ function RegisterScreen() {
                 expirationDate: expirationDate,
                 cvv: cvv,
             });
-
+            navigation.navigate('Home');
             alert('Account created successfully')
         } catch (err) {
             console.log('Accournt not created', err)

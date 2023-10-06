@@ -26,7 +26,6 @@ function LoginScreen() {
     const handleLogin = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            alert('Logged in successfully')
             navigation.navigate('Home');
         } catch (err) {
             console.log('Error login in ', err)
