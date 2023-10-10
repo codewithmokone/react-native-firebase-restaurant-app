@@ -3,10 +3,14 @@ import React from 'react'
 import * as Icon from "react-native-feather";
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart, selectCartItemsById } from '../redux/slices/cartSlice'
+import { TouchableWithoutFeedback } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function DishRow({ item }) {
 
     const dispatch = useDispatch();
+
+    const navigation = useNavigation()
 
     const totalItems = useSelector(state => selectCartItemsById(state, item.id))
 
@@ -23,47 +27,53 @@ export default function DishRow({ item }) {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={{ flex: 1}}>
-                <View style={{ paddingLeft: 8 }}>
-                    <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
-                    <Text style={{ color: 'gray', marginVertical: 10  }}>{item.description}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', paddingLeft: 8, alignItems: 'center' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {/* <TouchableOpacity
+        <TouchableWithoutFeedback
+            style={styles.container}
+            onPress={() => navigation.navigate('Dish', {...item})}
+        >
+            <View  style={styles.container}>
+                <Image style={{ height: 80, width: 100, borderRadius: 10 }} source={item.image} />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ paddingLeft: 8, justifyContent: 'center', alignContent: 'center' }}>
+                        <Text style={{ fontSize: 18, lineHeight: 28, textAlign: 'center' }}>{item.name}</Text>
+                        <Text style={{ color: 'gray', marginVertical: 10 }}>{item.description}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28 }}>R{item.price}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginLeft: 50 }}>
+                            {/* <TouchableOpacity
                             onPress={handleDecrease}
                             disable={!totalItems.length}
                             style={{ padding: 1, borderRadius: '100%', backgroundColor: '#52A63C', width: 20, alignItems: 'center' }}
                         >
                             <Icon.Minus strokeWidth={3} height={20} width={20} stroke={'white'} />
                         </TouchableOpacity> */}
-                        <Text style={{ paddingHorizontal: 8 }}>
+                            {/* <Text style={{ paddingHorizontal: 8 }}>
                             {totalItems.length}
-                        </Text>
-                        <TouchableOpacity
-                            onPress={handleIncrease}
-                            style={{ padding: 1, borderRadius: '100%', backgroundColor: '#52A63C', width: 20, alignItems: 'center' }}
-                        >
-                            <Icon.Plus strokeWidth={3} height={20} width={20} stroke={'white'} />
-                        </TouchableOpacity>
+                        </Text> */}
+                            <TouchableOpacity
+                                onPress={handleIncrease}
+                                style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 20, alignItems: 'center' }}
+                            >
+                                <Icon.Plus strokeWidth={3} height={20} width={20} stroke={'white'} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, marginLeft: 8 }}>R{item.price}</Text>
                 </View>
             </View>
-            <Image style={{ height: 100, width: 100, borderRadius: 10 }} source={item.image} />
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
+        width: 170,
+        flexWrap: 'column',
         alignItems: 'center',
         backgroundColor: 'white',
         padding: 8,
         marginBottom: 3,
-        marginHorizontal: 4,
+        marginHorizontal: 10,
         marginVertical: 10,
         borderRadius: 5
     },

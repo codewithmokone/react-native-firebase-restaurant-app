@@ -53,7 +53,10 @@ function LoginScreen() {
                     <TextInput
                         style={styles.input}
                         placeholder=" Enter your password"
-                        onChangeText={text => setPassword(text)} />
+                        onChangeText={text => setPassword(text)}
+                        secureTextEntry={true}
+                    />
+                        
                 </View>
                 <View style={{ marginTop: 15 }}>
                     <Pressable style={{ width: 310, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={handleLogin}>

@@ -25,9 +25,7 @@ function RegisterScreen() {
 
     // Handles signing up users to firebase auth
     const handleSignUp = async () => {
-
-        // const user = auth.currentUser;
-
+        
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;

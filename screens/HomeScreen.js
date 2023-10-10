@@ -1,74 +1,29 @@
-import { signOut } from 'firebase/auth';
-import React, { useState } from 'react';
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import * as Icon from "react-native-feather";
-import { auth } from '../config/firebase';
+import React from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Categories from '../components/Categories';
-import FeaturedRow from '../components/FeaturedRow';
-import { featured, todays_specials } from '../constants';
-import { useEffect } from 'react';
+import { featured, featuredDishes,} from '../constants';
 import HomeHeader from '../components/HomeHeader';
-import TodaySpecials from '../components/TodaySpecials';
+import Carousel from '../components/Carousel';
+import DishRow from '../components/DishRow';
 
 function HomeScreen() {
 
-  // const [userInfo, setUserInfo] = useState('')
-
-  // const userDetails = () => {
-  //   const user = auth.currentUser
-
-  //   if(user){
-  //     setUserInfo(user)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   userDetails();
-  // }, [])
-
- 
-
   return (
-    <SafeAreaView style={{alignItems: 'center'}}>
-      <View style={{width: '100%'}}>
+    <SafeAreaView style={{ alignItems: 'center' }}>
+      <View style={{ width: '100%' }}>
         <HomeHeader />
       </View>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '95%', marginLeft: 5}}>
-        <View>
-          {/* <Text>{userInfo.email}</Text> */}
-        </View>
-      </View>
-      {/* <View style={styles.searchContainer}>
-        <View style={styles.search}>
-          <Icon.Search height="25" width="25" stroke="gray" />
-          <TextInput placeholder='Restaurents' style={styles.searchInput} />
-          <View>
-            <Icon.MapPin height="20" width="20" stroke="gray" />
-          </View>
-        </View>
-      </View> */}
-      {/* <View style={{marginVertical: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: '#ACF598', width: '100%', height: 35}}>
-        <Text style={{fontWeight: 700, marginHorizontal: 10}}>Categories</Text>
-      </View> */}
       <ScrollView showsVerticalScrollIndicator={true}
         contentContainerStyle={{
           paddingBottom: 20,
         }}
       >
         <Categories />
-        <View style={{ marginTop: 5 }}>
-          {[todays_specials].map((item, index) => {
-            return (
-              <TodaySpecials 
-                key={index}
-                title={item.title}
-                dishes={item.dishes}
-              />
-            )
-          })}
+        <View style={{ marginTop: 20 }}>
+          <Carousel />
         </View>
-        <View style={{ marginTop: 5 }}>
-          {[featured, featured, featured, featured].map((item, index) => {
+        <View style={{ marginTop: 15 }}>
+          {/* {[featured].map((item, index) => {
             return (
               <FeaturedRow
                 key={index}
@@ -77,7 +32,17 @@ function HomeScreen() {
                 description={item.description}
               />
             )
-          })}
+          })} */}
+        </View>
+        <View style={{ paddingBottom: 144 }}>
+          <Text style={{ marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32, color: '#52A63C' }}>Menu</Text>
+            <View style={{ flexWrap: 'wrap', flexDirection: 'row'}}>
+              {[featuredDishes].map((item, index) => {
+                return (
+                  item.dishes.map((dish, index) => <DishRow item={{ ...dish }} key={index} />)
+                )
+              })}
+            </View>
         </View>
       </ScrollView>
     </SafeAreaView>

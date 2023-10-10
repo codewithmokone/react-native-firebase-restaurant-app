@@ -6,16 +6,16 @@ export default function FeaturedRow({ title, description, restaurants }) {
   return (
     <View>
       <View style={styles.featuredItem}>
-        <View style={{width: '100',marginHorizontal: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <View>
-          <Text>{title}</Text>
-          <Text>{description}</Text>
+        <View style={{width: 100, marginHorizontal: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <View>
+            <Text>Restaurants</Text>
+            {/* <Text>{description}</Text> */}
+          </View>
+          {/* <TouchableOpacity>
+            <Text>See All</Text>
+          </TouchableOpacity> */}
         </View>
-        <TouchableOpacity>
-          <Text>See All</Text>
-        </TouchableOpacity>
       </View>
-        </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

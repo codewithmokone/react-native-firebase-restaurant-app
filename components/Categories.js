@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         borderRadius: '100%',
     },
     categoryImage: {
-        width: 55,
+        width: 58,
         height: 55,
     },
     text: {
