@@ -1,38 +1,35 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { categories } from '../constants'
-// import firestore from '@react-native-firebase/firestore';
 import { collection, getDocs, query } from "firebase/firestore";
-import {db} from '../config/firebase'
+import {db} from '../config/firebase';
 
 export default function Categories() {
 
     const [activeCategory, setActiveCategory] = useState(null);
-    // const [categoryData, setCategoryData] = useState([]);
+    const [categoryData, setCategoryData] = useState([]);
 
     // Handle fetching data from the firestore
-    // const fetchFirestoreData = async () => {
-    //     try {
-    //         const categoryCollection = (collection(db, "categories"));
-    //         const categorySnapshot = await getDocs(
-    //             query(categoryCollection)
-    //         )
-    //         const data =[];
-    //         categorySnapshot.forEach((doc) => {
-    //             const categoryList = doc.data();
-    //             data.push({id: doc.id, ...categoryList});
-    //             console.log('Category Data', categoryList)
-    //         });
-    //         setCategoryData(data);
+    const fetchFirestoreData = async () => {
+        try {
+            const categoryCollection = (collection(db, "categories"));
+            const categorySnapshot = await getDocs(
+                query(categoryCollection)
+            )
+            const data =[];
+            categorySnapshot.forEach((doc) => {
+                const categoryList = doc.data();
+                data.push({id: doc.id, ...categoryList});
+            });
+            setCategoryData(data);
            
-    //     } catch (error) {
-    //         console.error('Error fetching Firestore data:', error);
-    //     }
-    // };
+        } catch (error) {
+            console.error('Error fetching Firestore data:', error);
+        }
+    };
 
     useEffect(() => {
         // Call the function to fetch data
-        // fetchFirestoreData();
+        fetchFirestoreData();
     }, [])
 
     return (
@@ -45,7 +42,7 @@ export default function Categories() {
                 }}
             >
                 {
-                    categories.map((category, index) => {
+                    categoryData.map((category, index) => {
 
                         let isActive = category.index == activeCategory;
                         let btnClass = isActive ? 'bg-gray-600' : 'bg-gray-200';
@@ -57,9 +54,9 @@ export default function Categories() {
                                     style={styles.categoryItem}
                                     onPress={() => setActiveCategory(category.id)}
                                 >
-                                    <Image style={styles.categoryImage} source={category.image} />
+                                    <Image style={styles.categoryImage} source={{uri: category.imageUrl}} />
                                 </TouchableOpacity>
-                                <Text style={styles.text}>{category.name}</Text>
+                                <Text style={styles.text}>{category.title}</Text>
                             </View>
                         )
                     })

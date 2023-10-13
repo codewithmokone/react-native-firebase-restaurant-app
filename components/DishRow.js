@@ -29,35 +29,31 @@ export default function DishRow({ item }) {
     return (
         <TouchableWithoutFeedback
             style={styles.container}
-            onPress={() => navigation.navigate('Dish', {...item})}
+            onPress={() => navigation.navigate('Dish', { ...item })}
         >
-            <View  style={styles.container}>
-                <Image style={{ height: 80, width: 100, borderRadius: 10 }} source={item.image} />
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={{ paddingLeft: 8, justifyContent: 'center', alignContent: 'center' }}>
-                        <Text style={{ fontSize: 18, lineHeight: 28, textAlign: 'center' }}>{item.name}</Text>
-                        <Text style={{ color: 'gray', marginVertical: 10 }}>{item.description}</Text>
+            <View style={styles.container}>
+                <View>
+                    <Image style={{ height: 80, width: 100, borderRadius: 10 }} source={item.image} />
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginHorizontal: 5 }}>
+                    <View>
+                        <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
+                        <Text style={{ color: 'gray', marginVertical: 10, }}>{item.description}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28 }}>R{item.price}</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginLeft: 50 }}>
-                            {/* <TouchableOpacity
+                    <View style={{ flexDirection: 'row', marginLeft:150 }}>
+                    <TouchableOpacity
                             onPress={handleDecrease}
-                            disable={!totalItems.length}
-                            style={{ padding: 1, borderRadius: '100%', backgroundColor: '#52A63C', width: 20, alignItems: 'center' }}
+                            style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
                         >
-                            <Icon.Minus strokeWidth={3} height={20} width={20} stroke={'white'} />
-                        </TouchableOpacity> */}
-                            {/* <Text style={{ paddingHorizontal: 8 }}>
-                            {totalItems.length}
-                        </Text> */}
-                            <TouchableOpacity
-                                onPress={handleIncrease}
-                                style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 20, alignItems: 'center' }}
-                            >
-                                <Icon.Plus strokeWidth={3} height={20} width={20} stroke={'white'} />
-                            </TouchableOpacity>
-                        </View>
+                            <Icon.Minus strokeWidth={3} height={16} width={16} stroke={'white'} />
+                        </TouchableOpacity>
+                        <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, }}>R{item.price}</Text>
+                        <TouchableOpacity
+                            onPress={handleIncrease}
+                            style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
+                        >
+                            <Icon.Plus strokeWidth={3} height={16} width={16} stroke={'white'} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -67,36 +63,16 @@ export default function DishRow({ item }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: 170,
-        flexWrap: 'column',
+        width: 370,
+        flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'white',
         padding: 8,
-        marginBottom: 3,
         marginHorizontal: 10,
         marginVertical: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        shadowColor: '#52A63C',
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
     },
-    restaurantImage: {
-        height: 144,
-        width: 256,
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-    },
-    restaurantDetails: {
-        marginTop: 8,
-        paddingHorizontal: 14,
-        paddingBottom: 16,
-    },
-    text: {
-        fontSize: 18,
-        lineHeight: 28,
-        paddingTop: 2,
-        fontWeight: 700,
-        marginTop: 10,
-        marginLeft: 6
-    },
-    starIcon: {
-        height: 14, width: 14
-    }
 });

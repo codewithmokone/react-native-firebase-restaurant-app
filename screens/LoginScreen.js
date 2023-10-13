@@ -12,15 +12,7 @@ function LoginScreen() {
 
     const navigation = useNavigation()
 
-    // const { user } = useSelector(state => state.user)
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, u => {
-            dispatch(setUser(u));
-        })
-        return unsubscribe;
-    }, [dispatch])
 
     // Handles user login
     const handleLogin = async () => {
@@ -31,6 +23,17 @@ function LoginScreen() {
             console.log('Error login in ', err)
         }
     }
+
+    useEffect(() => {
+        const loggedInUser = () => {
+            const user = auth.currentUser
+            console.log("Login screen",user)
+            dispatch(setUser(user));
+        }
+
+        return loggedInUser()
+        
+    }, [dispatch])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -55,8 +58,7 @@ function LoginScreen() {
                         placeholder=" Enter your password"
                         onChangeText={text => setPassword(text)}
                         secureTextEntry={true}
-                    />
-                        
+                    />     
                 </View>
                 <View style={{ marginTop: 15 }}>
                     <Pressable style={{ width: 310, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={handleLogin}>

@@ -9,24 +9,24 @@ import { db } from '../config/firebase';
 
 export default function EditProfileScreen() {
 
-    const { user } = useSelector(state => state.user)
+    const { userDetails } = useSelector(state => state.user)
 
-    console.log(user)
+    console.log("Edit Screen: ", userDetails)
 
-    const [name, setName] = useState(user.name)
-    const [email, setEmail] = useState(user.email)
-    const [address, setAddress] = useState(user.address)
-    const [contact, setContact] = useState(user.contact)
-    const [cardNumber, setCardNumber] = useState(user.cardNmber)
-    const [expirationDate, setExpirationDate] = useState(user.expirationDate)
-    const [cvv, setCvv] = useState(user.cvv)
+    const [name, setName] = useState(userDetails.name)
+    const [email, setEmail] = useState(userDetails.email)
+    const [address, setAddress] = useState(userDetails.address)
+    const [contact, setContact] = useState(userDetails.contact)
+    const [cardNumber, setCardNumber] = useState(userDetails.cardNmber)
+    const [expirationDate, setExpirationDate] = useState(userDetails.expirationDate)
+    const [cvv, setCvv] = useState(userDetails.cvv)
 
     const navigation = useNavigation();
 
 
     const handleUpdate = async () => {
 
-        let docId = user.userId
+        let docId = userDetails.userId
 
         try{
             const userInfoUpdate = doc(db, "users", docId);

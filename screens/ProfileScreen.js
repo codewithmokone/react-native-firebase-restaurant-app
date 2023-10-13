@@ -16,10 +16,7 @@ export default function ProfileScreen() {
 
     const { user } = useSelector(state => state.user)
 
-    console.log(user)
-
     const dispatch = useDispatch();
-
     const navigation = useNavigation();
 
     // Function to handle account deletion
@@ -96,7 +93,6 @@ export default function ProfileScreen() {
         }
     }
 
-
     useEffect(() => {
         fetchUserInfo();
     }, []);
@@ -116,31 +112,17 @@ export default function ProfileScreen() {
                                 <Text>{userInfo.email}</Text>
                             </View>
                         </View>
-                        {/* <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={{ position: "absolute", top: 50, left: 16, backgroundColor: '#52A63C', padding: 4, borderRadius: '100%' }}
-                >
-                    <Icon.ArrowLeft strokeWidth={3} stroke={'white'} />
-                </TouchableOpacity> */}
-                        {/* <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('EditProfile')}
-                        style={{ marginLeft: 10, marginVertical: 10, backgroundColor: '#52A63C', width: 180, height: 30, justifyContent: 'center', borderRadius: 10 }}
-                    >
-                        <Text style={{ textAlign: 'center', color: 'white' }}>Edit Profile</Text>
-                    </TouchableOpacity>
-                </View> */}
                         <View style={{ marginVertical: 30 }}>
                             <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
                                 <TouchableOpacity
                                     style={{ flexDirection: 'row', alignItems: 'center' }}
                                     onPress={() => navigation.navigate('EditProfile')}
                                 >
-                                    <Icon.User strokeWidth={3} stroke={'#52A63C'} />
+                                    <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} />
                                     <Text style={{ marginLeft: 10 }}>Edit Account</Text>
                                 </TouchableOpacity>
                             </View>
-                            {/* <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
+                            <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
                                 <TouchableOpacity
                                     style={{ flexDirection: 'row', alignItems: 'center' }}
                                     onPress={() => navigation.navigate('PaymentDetails', { ...userInfo })}
@@ -148,7 +130,7 @@ export default function ProfileScreen() {
                                     <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
                                     <Text style={{ marginLeft: 10 }}>Payment Details</Text>
                                 </TouchableOpacity>
-                            </View> */}
+                            </View>
                             <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
                                 <TouchableOpacity
                                     style={{ flexDirection: 'row', alignItems: 'center' }}
@@ -159,7 +141,7 @@ export default function ProfileScreen() {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={{ position: 'absolute', bottom: -350, width: '100%', alignItems: 'center' }}>
+                        <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
                             <TouchableOpacity
                                 style={{ marginHorizontal: 10, backgroundColor: '#52A63C', width: 300, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
                                 onPress={handleLogout}

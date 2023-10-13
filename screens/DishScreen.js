@@ -23,14 +23,12 @@ export default function DishScreen() {
         navigation.navigate('Home')
     }
 
-    console.log("Dish Item", item);
-
     return (
         <View style={styles.container}>
-            <View style={{ width: '100%', height: 350, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{ width: '100%', height: 350, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90,}}>
                 <Image style={{ height: 200, width: 250 }} source={item.image} />
             </View>
-            <View style={{ width: "100%", flex: 1, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: 'white' }}>
+            <View style={{ width: "100%", flex: 1, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 30,borderTopRightRadius: 30, backgroundColor: 'white' }}>
                 <View style={{ flexDirection: 'row', alignContent: 'center', marginTop: -50}}>
                     <Text style={{ fontSize: 18, lineHeight: 36, marginRight: 100}}>{item.name}</Text>
                     <Text style={{ color: '#52A63C', fontSize: 28,marginLeft: 100}}>R{item.price}</Text>

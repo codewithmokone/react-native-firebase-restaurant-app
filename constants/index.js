@@ -165,7 +165,7 @@ export const featuredDishes = {
             name: 'Pizza',
             description: 'cheezy garlic pizza',
             price: 110,
-            image: require('../assets/images/pizzaDish.png')
+            image: require('../assets/categoryImages/pizza.png')
         },
         {
             id: 2,
@@ -197,10 +197,10 @@ export const featuredDishes = {
         },
         {
             id: 6,
-            name: 'BeetRoot',
+            name: 'Chicken Wings',
             description: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
             price: 89,
-            image: require('../assets/categoryImages/chinese.png')
+            image: require('../assets/restaurantImages/chicken-wings.png')
         },
     ]
 }
