@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { ImageBackground, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'

@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
+      console.log("User Info slice: ", state.user)
     },
     setUserInfo: (state, action) => {
       state.user = action.payload;

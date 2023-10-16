@@ -20,6 +20,7 @@ import DishScreen from './screens/DishScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native-animatable';
 import * as Icon from "react-native-feather";
+import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,19 +42,33 @@ function HomeStack() {
 
 function AppNavigation() {
 
-    const { user } = useSelector(state => state.user)
+    // const user = auth.currentUser
 
     const dispatch = useDispatch();
+
+    // const loggedInUser = () => {
+    //     if (user) {
+    //         dispatch(setUser(user));
+           
+    //     } else {
+    //         console.log("No signed in user!")
+    //     }
+
+    //     console.log("Login screen",user)
+        
+    // }
+
+    // useEffect(() => {
+    
+    //     loggedInUser()
+        
+    // }, [dispatch])
+
+    const { user } = useSelector(state => state.user)
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             dispatch(setUser(user));
-            if (user) {
-                const uid = user.uid;
-                console.log("User: ", uid)
-            } else {
-                console.log("No signed in user!")
-            }
         });
 
     }, []);
@@ -63,28 +78,9 @@ function AppNavigation() {
         return (
             <NavigationContainer>
                 <Tab.Navigator initialRouteName="Home" >
-                    <Stack.Screen name="Home" component={HomeStack} options={{
-                        tabBarIcon: ({ }) => (
-                            <View>
-                                <Icon.Home strokeWidth={2} stroke='#52A63C' />
-                            </View>
-                        ),
-                        headerShown: false
-                    }} />
-                    <Stack.Screen name="Cart" component={CartScreen} options={{
-                        tabBarIcon: ({ }) => (
-                            <View>
-                                <Icon.ShoppingCart strokeWidth={2} stroke='#52A63C' />
-                            </View>
-                        ),
-                        headerShown: false,
-                        presentation: 'modal'
-                    }} />
-                    <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerShown: true,   tabBarIcon: ({ }) => (
-                            <View>
-                                <Icon.User strokeWidth={2} stroke='#52A63C' />
-                            </View>
-                        ), }} />
+                    <Stack.Screen name="Home" component={HomeStack} options={{ tabBarIcon: ({ }) => ( <View><Icon.Home strokeWidth={2} stroke='#52A63C'  /></View>), headerShown: false, color:'green' }} />
+                    <Stack.Screen name="Cart" component={CartScreen} options={{tabBarIcon: ({ }) => (<View><Icon.ShoppingCart strokeWidth={2} stroke='#52A63C' /></View>),headerShown: false,presentation: 'modal'}} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerShown: true,  tabBarIcon: ({ }) => (<View><Icon.User strokeWidth={2} stroke='#52A63C' /></View>),  activeColor: 'blue', }} />
                 </Tab.Navigator>
             </NavigationContainer>
         )

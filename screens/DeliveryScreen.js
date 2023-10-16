@@ -11,7 +11,7 @@ import * as Icon from "react-native-feather";
 
 export default function DeliveryScreen() {
 
-    const resturant = useSelector(selectRestaurant);
+    const restaurant = useSelector(selectRestaurant);
     const navigation = useNavigation()
 
     const dispatch = useDispatch();
@@ -26,8 +26,8 @@ export default function DeliveryScreen() {
             <MapView
                 style={{ flex: 1, marginBottom: -50 }}
                 initialRegion={{
-                    latitude: resturant.lat,
-                    longitude: resturant.lng,
+                    latitude: restaurant.lat,
+                    longitude: restaurant.lng,
                     latitudeDelta: 0.01,
                     longitudeDelta: 0.01
                 }}
@@ -35,11 +35,11 @@ export default function DeliveryScreen() {
             >
                 <Marker
                     coordinate={{
-                        latitude: resturant.lat,
-                        longitude: resturant.lng,
+                        latitude: restaurant.lat,
+                        longitude: restaurant.lng,
                     }}
-                    title={resturant.name}
-                    description={resturant.description}
+                    title={restaurant.name}
+                    description={restaurant.description}
                 />
             </MapView>
             <View style={{borderTopRightRadius: 24, borderTopLeftRadius: 24,marginTop:48, position:'relative', backgroundColor: 'white'}}>

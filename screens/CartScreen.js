@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import * as Icon from "react-native-feather";
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { selectRestaurant } from '../redux/slices/restaurantSlice';
 import { addToCart, removeFromCart, selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
 import { useStripe } from '@stripe/stripe-react-native';
 import { SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default function CartScreen() {
 
@@ -18,19 +19,17 @@ export default function CartScreen() {
 
   // const [address, setAddress] = useState(user.address)
 
-  console.log("User Info: ", userDetails);
+  // console.log("User Info: ", userDetails);
 
   const [groupedItems, setGroupedItems] = useState({});
 
   const dispatch = useDispatch()
+  const navigation = useNavigation();
+  const stripe = useStripe()
 
   const deliveryFee = 2
 
-  const navigation = useNavigation();
-
   let name = 'Simon'
-
-  const stripe = useStripe()
 
   const handleIncrease = () => {
     dispatch(addToCart({ ...item }))
@@ -38,27 +37,31 @@ export default function CartScreen() {
 
   const payment = async () => {
     try {
-      const response = await fetch('https://stripecardnodejs.onrender.com/pay', {
+      // Sending request
+      const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
         method: 'POST',
         body: JSON.stringify({ name }),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }
       })
+
       const data = await response.json();
-      if (!response.ok) return alert(data.message);
+      if (!response.ok) return Alert.alert(data.message);
       const clientSecret = data.clientSecret;
       const initSheet = await stripe.initPaymentSheet({
         paymentIntentClientSecret: clientSecret
       });
-      if (initSheet.error) return alert(initSheet.error);
-      const presentSheet = await stripe.presentPaymentSheet();
-      if (presentSheet.error) return alert(presentSheet.error.message)
-      alert('Payment complete, thank you!')
+      if (initSheet.error) return Alert.alert(initSheet.error.message);
+      const presentSheet = await stripe.presentPaymentSheet({
+        clientSecret
+      });
+      if (presentSheet.error) return console.log(presentSheet.error.message)
+      Alert.alert('Payment complete, thank you!')
       navigation.navigate('OrderPreparing')
     } catch (error) {
       console.error(error);
-      alert('Something went wrong, try again later!')
+      Alert.alert('Something went wrong, try again later!')
     }
   }
 
@@ -109,14 +112,14 @@ export default function CartScreen() {
             return (
               <View
                 key={key}
-                style={{ flexDirection: 'row', alignItems: 'center', height: 100 ,paddingHorizontal: 16, backgroundColor: 'white', borderWidth: 1, marginHorizontal: 10, borderRadius: 10 }}
+                style={{ flexDirection: 'row', alignItems: 'center', height: 150, paddingHorizontal: 16, backgroundColor: 'white', borderWidth: 1, marginHorizontal: 10, borderRadius: 10, marginVertical: 10 }}
               >
                 <Text style={{ fontWeight: 700 }}>
                   {items.length} x
                 </Text>
                 <Image style={{ height: 56, width: 56, borderRadius: 100, marginLeft: 10 }} source={dish.image} />
-                <View style={{flexDirection: 'column', justifyContent: 'center', width: 170}}>
-                  <Text style={{ fontWeight: 700, color: 'gray', marginLeft: 10 }}>{dish.name}</Text>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', width: 170 }}>
+                  <Text style={{ fontWeight: 700, marginLeft: 10, marginVertical: 10 }}>{dish.name}</Text>
                   <Text style={{ fontWeight: 700, color: 'gray', marginLeft: 10 }}>{dish.description}</Text>
                 </View>
                 <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 8, marginLeft: 8 }}>R{dish.price}</Text>
@@ -142,17 +145,42 @@ export default function CartScreen() {
           <Text style={{ color: 'white' }}>R{deliveryFee}</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-          <Text style={{ color: 'white', fontWeight: 800 }}>Order Total</Text>
-          <Text style={{ color: 'white', fontWeight: 800 }}>R{deliveryFee + cartTotal}</Text>
+          <Text style={styles.textTotal}>Order Total</Text>
+          <Text style={styles.textTotal}>R{deliveryFee + cartTotal}</Text>
         </View>
-        <TouchableOpacity
-          onPress={payment}
-          style={{ backgroundColor: 'gray', padding: 12, borderRadius: 100 }}>
-          <Text style={{ color: 'white', fontWeight: 700, textAlign: 'center', fontSize: 18, lineHeight: 18 }}>
-            Check Out
-          </Text>
-        </TouchableOpacity>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={payment}
+            style={styles.paymentButton}>
+            <Text style={styles.textPaymentButton}>
+              Check Out
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  textTotal: {
+    color: 'white', 
+    fontWeight: 900,
+  },
+  paymentButton: {
+    backgroundColor: 'gray', 
+    padding: 12, 
+    borderRadius: 100, 
+    width: 350, 
+    height: 60,
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  textPaymentButton: {
+    color: 'white', 
+    fontWeight: 700, 
+    textAlign: 'center', 
+    fontSize: 18, 
+    lineHeight: 18
+  },
+})

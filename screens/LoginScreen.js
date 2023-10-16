@@ -1,18 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
-import React, { useEffect, useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import React, { useState } from 'react'
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { auth } from '../config/firebase';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/slices/userSlice';
 
 function LoginScreen() {
+
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
     const navigation = useNavigation()
-
-    const dispatch = useDispatch();
 
     // Handles user login
     const handleLogin = async () => {
@@ -23,17 +20,6 @@ function LoginScreen() {
             console.log('Error login in ', err)
         }
     }
-
-    useEffect(() => {
-        const loggedInUser = () => {
-            const user = auth.currentUser
-            console.log("Login screen",user)
-            dispatch(setUser(user));
-        }
-
-        return loggedInUser()
-        
-    }, [dispatch])
 
     return (
         <SafeAreaView style={styles.container}>
