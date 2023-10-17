@@ -11,12 +11,17 @@ import { setUserDetails } from '../redux/slices/userDetailsSlice';
 
 export default function ProfileScreen() {
 
-    const [userInfo, setUserInfo] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
-
+    const { data } = useSelector(state => state.data)
     const { user } = useSelector(state => state.user)
 
+    const [userInfo, setUserInfo] = useState(data);
+    const [isLoading, setIsLoading] = useState(true)
+
+
+    console.log("Signed in user: ", data)
+
     const dispatch = useDispatch();
+
     const navigation = useNavigation();
 
     // Function to handle account deletion
@@ -64,22 +69,22 @@ export default function ProfileScreen() {
     // Handles signing out user
     const handleLogout = async () => {
         await signOut(auth);
-        navigation.navigate('Login');
+        Alert.alert('Signed Out')
+        // navigation.navigate('Login');
     }
 
     // Handles fetching the user data from firestore
     const fetchUserInfo = async () => {
 
-        const userId = user.uid
-
-        if (userId) {
+        if (user) {
             try {
                 const userCollection = collection(db, 'users');
-                const userDocRef = doc(userCollection, userId);
+                const userDocRef = doc(userCollection, user);
                 const userDocSnapshot = await getDoc(userDocRef);
 
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
+                    console.log("Profile Screen: ", userData)
                     setUserInfo(userData);
                     dispatch(setUserDetails(userData));
                 } else {

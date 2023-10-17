@@ -9,24 +9,23 @@ import { db } from '../config/firebase';
 
 export default function EditProfileScreen() {
 
-    const { userDetails } = useSelector(state => state.user)
+    const { data } = useSelector(state => state.data)
 
-    console.log("Edit Screen: ", userDetails)
+    console.log("Edit screen: ", data)
 
-    const [name, setName] = useState(userDetails.name)
-    const [email, setEmail] = useState(userDetails.email)
-    const [address, setAddress] = useState(userDetails.address)
-    const [contact, setContact] = useState(userDetails.contact)
-    const [cardNumber, setCardNumber] = useState(userDetails.cardNmber)
-    const [expirationDate, setExpirationDate] = useState(userDetails.expirationDate)
-    const [cvv, setCvv] = useState(userDetails.cvv)
+    const [name, setName] = useState(data.name)
+    const [email, setEmail] = useState(data.email)
+    const [address, setAddress] = useState(data.address)
+    const [contact, setContact] = useState(data.contact)
+    const [cardNumber, setCardNumber] = useState(data.cardNmber)
+    const [expirationDate, setExpirationDate] = useState(data.expirationDate)
+    const [cvv, setCvv] = useState(data.cvv)
 
     const navigation = useNavigation();
 
-
     const handleUpdate = async () => {
 
-        let docId = userDetails.userId
+        let docId = data.userId
 
         try{
             const userInfoUpdate = doc(db, "users", docId);
@@ -95,7 +94,7 @@ export default function EditProfileScreen() {
                         onChangeText={(text) => setCvv(text)}
                     />
                 </View>
-                <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop:150, marginHorizontal: 10, bottom: 0 }}>
+                <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop:80, marginHorizontal: 10, bottom: 0 }}>
                     <TouchableOpacity
                         style={{
                             width: 300,

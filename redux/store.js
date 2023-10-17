@@ -7,7 +7,7 @@ import userDetailsSlice from './slices/userDetailsSlice';
 export const store = configureStore({
   reducer: {
     user: userSlice,
-    userDetails: userDetailsSlice,
+    data: userDetailsSlice,
     cart: cartSlice,
     restaurant: restaurantSlice,
   },

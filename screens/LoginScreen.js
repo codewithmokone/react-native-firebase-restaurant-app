@@ -1,29 +1,66 @@
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
-import { auth } from '../config/firebase';
+import { auth, db } from '../config/firebase';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/slices/userSlice';
+import { setUserDetails } from '../redux/slices/userDetailsSlice';
+import { collection, doc, getDoc } from 'firebase/firestore';
 
 function LoginScreen() {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [userId, setUserId] = useState();
 
     const navigation = useNavigation()
+
+    const dispatch = useDispatch()
 
     // Handles user login
     const handleLogin = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            navigation.navigate('Home');
+            const user = auth.currentUser;
+            let userId = user.uid
+            setUserId(userId)
+            dispatch(setUser(userId))
         } catch (err) {
             console.log('Error login in ', err)
         }
     }
 
+    const fetchUserInfo = async () => {
+
+        console.log("Signed in user: ", userId)
+        
+        if (userId) {
+            try {
+                const userCollection = collection(db, 'users');
+                const userDocRef = doc(userCollection, userId);
+                const userDocSnapshot = await getDoc(userDocRef);
+
+                if (userDocSnapshot.exists()) {
+                    const userData = userDocSnapshot.data();
+                    // console.log("Logged In Screen: ", userData)
+                    dispatch(setUserDetails(userData));
+                } else {
+                    console.log('Failed to get user infromation');
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{width: '100%', alignItems: 'center'}}>
+            <View style={{ width: '100%', alignItems: 'center' }}>
                 <View style={styles.heading} >
                     <Text style={{ fontSize: 25, color: 'white' }}>Login to Account</Text>
                 </View>
@@ -44,7 +81,7 @@ function LoginScreen() {
                         placeholder=" Enter your password"
                         onChangeText={text => setPassword(text)}
                         secureTextEntry={true}
-                    />     
+                    />
                 </View>
                 <View style={{ marginTop: 15 }}>
                     <Pressable style={{ width: 310, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={handleLogin}>

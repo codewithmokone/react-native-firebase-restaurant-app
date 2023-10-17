@@ -11,10 +11,17 @@ import * as Icon from "react-native-feather";
 
 export default function DeliveryScreen() {
 
-    const restaurant = useSelector(selectRestaurant);
-    const navigation = useNavigation()
+    const { data } = useSelector(state => state.data);
+    console.log(data)
+
+    const navigation = useNavigation();
+
+    // const restaurant = useSelector(selectRestaurant);
 
     const dispatch = useDispatch();
+
+    const lng = -85.5324269
+    const lat = 38.2145602
 
     const cancelOrder = () => {
        navigation.navigate('Home');
@@ -26,8 +33,8 @@ export default function DeliveryScreen() {
             <MapView
                 style={{ flex: 1, marginBottom: -50 }}
                 initialRegion={{
-                    latitude: restaurant.lat,
-                    longitude: restaurant.lng,
+                    latitude: lat,
+                    longitude: lng,
                     latitudeDelta: 0.01,
                     longitudeDelta: 0.01
                 }}
@@ -35,11 +42,11 @@ export default function DeliveryScreen() {
             >
                 <Marker
                     coordinate={{
-                        latitude: restaurant.lat,
-                        longitude: restaurant.lng,
+                        latitude: lat,
+                        longitude: lng,
                     }}
-                    title={restaurant.name}
-                    description={restaurant.description}
+                    title="Food Corner"
+                    // description={restaurant.description}
                 />
             </MapView>
             <View style={{borderTopRightRadius: 24, borderTopLeftRadius: 24,marginTop:48, position:'relative', backgroundColor: 'white'}}>
@@ -52,7 +59,7 @@ export default function DeliveryScreen() {
                             20-30 Minutes
                         </Text>
                         <Text style={{color: 'gray', fontWeight: 600, marginTop: 6}}>
-                            Your orer is on its way!
+                            Your order is on its way!
                         </Text>
                     </View>
                     <Image style={{height:96, width: 96}} source={require('../assets/images/bikeGuy2.gif')} />

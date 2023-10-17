@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,7 +20,6 @@ import DishScreen from './screens/DishScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native-animatable';
 import * as Icon from "react-native-feather";
-import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,8 +40,6 @@ function HomeStack() {
 }
 
 function AppNavigation() {
-
-    // const user = auth.currentUser
 
     const dispatch = useDispatch();
 
@@ -67,10 +64,12 @@ function AppNavigation() {
     const { user } = useSelector(state => state.user)
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            dispatch(setUser(user));
-        });
-
+        // onAuthStateChanged(auth, (data) => {
+        //     console.log("App Nav: ", data)
+        //     // setUser(data)
+        //     dispatch(setUser(data));
+        // });
+        // onAuthStateChanged();
     }, []);
 
 

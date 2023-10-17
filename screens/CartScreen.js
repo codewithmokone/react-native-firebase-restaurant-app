@@ -11,31 +11,28 @@ import { StyleSheet } from 'react-native';
 
 export default function CartScreen() {
 
+  const dispatch = useDispatch();
+
   const restaurant = useSelector(selectRestaurant);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const navigation = useNavigation();
+  const stripe = useStripe();
 
-  const { userDetails } = useSelector(state => state.user);
+  const { data } = useSelector(state => state.data);
 
-  // const [address, setAddress] = useState(user.address)
-
-  // console.log("User Info: ", userDetails);
-
+  const [name, setName] = useState(data.name);
+  const [address, setAddress] = useState(data.address);
   const [groupedItems, setGroupedItems] = useState({});
 
-  const dispatch = useDispatch()
-  const navigation = useNavigation();
-  const stripe = useStripe()
-
   const deliveryFee = 2
-
-  let name = 'Simon'
 
   const handleIncrease = () => {
     dispatch(addToCart({ ...item }))
   }
 
   const payment = async () => {
+
     try {
       // Sending request
       const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
@@ -94,7 +91,7 @@ export default function CartScreen() {
       <View style={{ backgroundColor: '#52A63C', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
         <Image style={{ width: 80, height: 80, borderRadius: 100 }} source={require('../assets/images/bikeGuy.png')} />
         {/* <Text>{address}</Text> */}
-        <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 20 }}>Delivered in 20-30 minutes</Text>
+        <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 20 }}>Delivered to {address}</Text>
         <TouchableOpacity>
           <Text style={{ fontWeight: 700, marginRight: 12 }}>Change</Text>
         </TouchableOpacity>

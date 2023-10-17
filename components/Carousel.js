@@ -1,6 +1,6 @@
-import { View, Text, Dimensions} from 'react-native'
-import React from 'react'
-import { FlatList } from 'react-native'
+import { View, Text, Dimensions } from 'react-native';
+import React from 'react';
+import { FlatList } from 'react-native';
 import { Image } from 'react-native';
 
 export default function Carousel() {
@@ -22,17 +22,17 @@ export default function Carousel() {
         }
     ]
 
-    const renderItem = ({item, index}) => {
-        return(
+    const renderItem = ({ item, index }) => {
+        return (
             <View>
-             <Image style={{height: 200, width: screenWidth}} source={item.image} />
+                <Image style={{ height: 200, width: screenWidth }} source={item.image} />
             </View>
         )
     };
 
     return (
         <View>
-            <FlatList data={carouselData} renderItem={renderItem} horizontal={true} pagingEnabled={true} />
+            <FlatList data={carouselData} renderItem={renderItem} horizontal={true} pagingEnabled={true}/>
         </View>
     )
 }

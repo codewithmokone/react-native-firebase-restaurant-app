@@ -47,7 +47,7 @@ export const featured = {
                 {
                     id: 1,
                     name: 'Pizza',
-                    description: 'cheezy garlic pizza',
+                    description: 'Cheezy garlic pizza',
                     price: 110,
                     image: require('../assets/images/pizzaDish.png')
                 },
