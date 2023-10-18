@@ -2,6 +2,7 @@ import { View, Text, Dimensions } from 'react-native';
 import React from 'react';
 import { FlatList } from 'react-native';
 import { Image } from 'react-native';
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 
 export default function Carousel() {
 
@@ -32,7 +33,13 @@ export default function Carousel() {
 
     return (
         <View>
-            <FlatList data={carouselData} renderItem={renderItem} horizontal={true} pagingEnabled={true}/>
+            <SwiperFlatList 
+                autoplay
+                autoplayDelay={4}
+                autoplayLoop
+                data={carouselData} 
+                renderItem={renderItem}
+            />
         </View>
     )
 }

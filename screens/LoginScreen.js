@@ -3,12 +3,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { auth, db } from '../config/firebase';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { setUserDetails } from '../redux/slices/userDetailsSlice';
 import { collection, doc, getDoc } from 'firebase/firestore';
 
 function LoginScreen() {
+
+
+    const { user } = useSelector(state => state.user)
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -24,6 +27,23 @@ function LoginScreen() {
             await signInWithEmailAndPassword(auth, email, password)
             const user = auth.currentUser;
             let userId = user.uid
+            if (userId) {
+                try {
+                    const userCollection = collection(db, 'users');
+                    const userDocRef = doc(userCollection, userId);
+                    const userDocSnapshot = await getDoc(userDocRef);
+    
+                    if (userDocSnapshot.exists()) {
+                        const userData = userDocSnapshot.data();
+                        // console.log("Logged In Screen: ", userData)
+                        dispatch(setUserDetails(userData));
+                    } else {
+                        console.log('Failed to get user infromation');
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            }
             setUserId(userId)
             dispatch(setUser(userId))
         } catch (err) {
@@ -31,32 +51,32 @@ function LoginScreen() {
         }
     }
 
-    const fetchUserInfo = async () => {
+    // const fetchUserInfo = async () => {
 
-        console.log("Signed in user: ", userId)
+    //     console.log("Signed in user: ", userId)
         
-        if (userId) {
-            try {
-                const userCollection = collection(db, 'users');
-                const userDocRef = doc(userCollection, userId);
-                const userDocSnapshot = await getDoc(userDocRef);
+    //     if (userId) {
+    //         try {
+    //             const userCollection = collection(db, 'users');
+    //             const userDocRef = doc(userCollection, userId);
+    //             const userDocSnapshot = await getDoc(userDocRef);
 
-                if (userDocSnapshot.exists()) {
-                    const userData = userDocSnapshot.data();
-                    // console.log("Logged In Screen: ", userData)
-                    dispatch(setUserDetails(userData));
-                } else {
-                    console.log('Failed to get user infromation');
-                }
-            } catch (err) {
-                console.log(err)
-            }
-        }
-    }
+    //             if (userDocSnapshot.exists()) {
+    //                 const userData = userDocSnapshot.data();
+    //                 // console.log("Logged In Screen: ", userData)
+    //                 dispatch(setUserDetails(userData));
+    //             } else {
+    //                 console.log('Failed to get user infromation');
+    //             }
+    //         } catch (err) {
+    //             console.log(err)
+    //         }
+    //     }
+    // }
 
     useEffect(() => {
-        fetchUserInfo();
-    }, []);
+        // fetchUserInfo();
+    }, [user]);
 
     return (
         <SafeAreaView style={styles.container}>

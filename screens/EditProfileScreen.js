@@ -9,9 +9,8 @@ import { db } from '../config/firebase';
 
 export default function EditProfileScreen() {
 
+    // Retrieving data from redux store
     const { data } = useSelector(state => state.data)
-
-    console.log("Edit screen: ", data)
 
     const [name, setName] = useState(data.name)
     const [email, setEmail] = useState(data.email)

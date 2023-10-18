@@ -33,33 +33,40 @@ export default function CartScreen() {
 
   const payment = async () => {
 
-    try {
-      // Sending request
-      const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
-        method: 'POST',
-        body: JSON.stringify({ name }),
-        headers: {
-          "Content-Type": "application/json",
-        }
-      })
-
-      const data = await response.json();
-      if (!response.ok) return Alert.alert(data.message);
-      const clientSecret = data.clientSecret;
-      const initSheet = await stripe.initPaymentSheet({
-        paymentIntentClientSecret: clientSecret
-      });
-      if (initSheet.error) return Alert.alert(initSheet.error.message);
-      const presentSheet = await stripe.presentPaymentSheet({
-        clientSecret
-      });
-      if (presentSheet.error) return console.log(presentSheet.error.message)
-      Alert.alert('Payment complete, thank you!')
-      navigation.navigate('OrderPreparing')
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Something went wrong, try again later!')
+    if(name){
+      try {
+        // Sending request
+        const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
+          method: 'POST',
+          body: JSON.stringify({ name }),
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+  
+        const data = await response.json();
+        if (!response.ok) return Alert.alert(data.message);
+        const clientSecret = data.clientSecret;
+        const initSheet = await stripe.initPaymentSheet({
+          paymentIntentClientSecret: clientSecret
+        });
+        if (initSheet.error) return Alert.alert(initSheet.error.message);
+        const presentSheet = await stripe.presentPaymentSheet({
+          clientSecret
+        });
+        if (presentSheet.error) return console.log(presentSheet.error.message)
+        Alert.alert('Payment complete, thank you!')
+        navigation.navigate('OrderPreparing')
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Something went wrong, try again later!')
+      }
+    }else{
+      Alert.alert("Please login to check out")
+      navigation.navigate('Login')
     }
+
+   
   }
 
   useEffect(() => {

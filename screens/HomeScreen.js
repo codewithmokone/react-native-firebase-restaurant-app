@@ -15,7 +15,7 @@ function HomeScreen() {
       </View>
       <ScrollView showsVerticalScrollIndicator={true}
         contentContainerStyle={{
-          paddingBottom: 20,
+          paddingBottom: 10,
         }}
       >
         <Categories />
@@ -23,16 +23,6 @@ function HomeScreen() {
           <Carousel />
         </View>
         <View style={{ marginTop: 15 }}>
-          {/* {[featured].map((item, index) => {
-            return (
-              <FeaturedRow
-                key={index}
-                title={item.title}
-                restaurants={item.restaurants}
-                description={item.description}
-              />
-            )
-          })} */}
         </View>
         <View style={{ paddingBottom: 144 }}>
           <Text style={{ marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32, color: '#52A63C' }}>Menu</Text>

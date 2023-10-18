@@ -3,24 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
+import { deleteDoc, doc } from 'firebase/firestore';
 import * as Icon from "react-native-feather";
-import { setUserDetails } from '../redux/slices/userDetailsSlice';
-
 
 export default function ProfileScreen() {
 
     const { data } = useSelector(state => state.data)
     const { user } = useSelector(state => state.user)
-
-    const [userInfo, setUserInfo] = useState(data);
-    const [isLoading, setIsLoading] = useState(true)
-
-
-    console.log("Signed in user: ", data)
-
-    const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
@@ -73,90 +63,74 @@ export default function ProfileScreen() {
         // navigation.navigate('Login');
     }
 
-    // Handles fetching the user data from firestore
-    const fetchUserInfo = async () => {
+    if(data){
 
-        if (user) {
-            try {
-                const userCollection = collection(db, 'users');
-                const userDocRef = doc(userCollection, user);
-                const userDocSnapshot = await getDoc(userDocRef);
+        const [userInfo, setUserInfo] = useState(data);
 
-                if (userDocSnapshot.exists()) {
-                    const userData = userDocSnapshot.data();
-                    console.log("Profile Screen: ", userData)
-                    setUserInfo(userData);
-                    dispatch(setUserDetails(userData));
-                } else {
-                    console.log('Failed to get user infromation');
-                }
-            } catch (err) {
-                console.log(err)
-            } finally {
-                setIsLoading(false);
-            }
-        }
+        return (
+            <SafeAreaView style={{ flex: 1, backgroundColor: 'offwhite' }}>
+                        <View>
+                            <View style={{ flexDirection: 'row', marginVertical: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ marginVertical: 20, fontWeight: '700', fontSize: 30, color: '#52A63C' }}>{userInfo.name}</Text>
+                                    <Text>{userInfo.email}</Text>
+                                </View>
+                            </View>
+                            <View style={{ marginVertical: 30 }}>
+                                <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
+                                    <TouchableOpacity
+                                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                                        onPress={() => navigation.navigate('EditProfile')}
+                                    >
+                                        <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} />
+                                        <Text style={{ marginLeft: 10 }}>Edit Account</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
+                                    <TouchableOpacity
+                                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                                        onPress={() => navigation.navigate('PaymentDetails', { ...userInfo })}
+                                    >
+                                        <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
+                                        <Text style={{ marginLeft: 10 }}>Payment Details</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
+                                    <TouchableOpacity
+                                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                                        onPress={handleDeleteAccount}
+                                    >
+                                        <Icon.Delete strokeWidth={3} stroke={'#52A63C'} />
+                                        <Text style={{ marginLeft: 10 }}>Delete Account</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
+                                <TouchableOpacity
+                                    style={{ marginHorizontal: 10, backgroundColor: '#52A63C', width: 300, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
+                                    onPress={handleLogout}
+                                >
+                                    <Text style={{ color: 'white' }}>Log out</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+            </SafeAreaView>
+        )
+    }else{
+        return (
+            <SafeAreaView style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontSize: 20}}>Please login to view profile</Text>
+                    <TouchableOpacity
+                        style={{marginVertical: 50, backgroundColor: '#52A63C', width: 200, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
+                        onPress={() => navigation.navigate('Login')}
+                    >
+                        <Text>Login</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+        )
     }
 
-    useEffect(() => {
-        fetchUserInfo();
-    }, []);
-
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'offwhite' }}>
-            {
-                isLoading ? (
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <ActivityIndicator size="large" color="#00ff00" />
-                    </View>
-                ) : (
-                    <View>
-                        <View style={{ flexDirection: 'row', marginVertical: 20, alignItems: 'center', justifyContent: 'center' }}>
-                            <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ marginVertical: 20, fontWeight: '700', fontSize: 30, color: '#52A63C' }}>{userInfo.name}</Text>
-                                <Text>{userInfo.email}</Text>
-                            </View>
-                        </View>
-                        <View style={{ marginVertical: 30 }}>
-                            <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: 'row', alignItems: 'center' }}
-                                    onPress={() => navigation.navigate('EditProfile')}
-                                >
-                                    <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} />
-                                    <Text style={{ marginLeft: 10 }}>Edit Account</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: 'row', alignItems: 'center' }}
-                                    onPress={() => navigation.navigate('PaymentDetails', { ...userInfo })}
-                                >
-                                    <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
-                                    <Text style={{ marginLeft: 10 }}>Payment Details</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
-                                <TouchableOpacity
-                                    style={{ flexDirection: 'row', alignItems: 'center' }}
-                                    onPress={handleDeleteAccount}
-                                >
-                                    <Icon.Delete strokeWidth={3} stroke={'#52A63C'} />
-                                    <Text style={{ marginLeft: 10 }}>Delete Account</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
-                            <TouchableOpacity
-                                style={{ marginHorizontal: 10, backgroundColor: '#52A63C', width: 300, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
-                                onPress={handleLogout}
-                            >
-                                <Text style={{ color: 'white' }}>Log out</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                )
-            }
-        </SafeAreaView>
-    )
+   
 }
