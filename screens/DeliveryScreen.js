@@ -12,12 +12,7 @@ import * as Icon from "react-native-feather";
 export default function DeliveryScreen() {
 
     const { data } = useSelector(state => state.data);
-    // console.log(data)
-
     const navigation = useNavigation();
-
-    // const restaurant = useSelector(selectRestaurant);
-
     const dispatch = useDispatch();
 
     const lng = -85.5324269

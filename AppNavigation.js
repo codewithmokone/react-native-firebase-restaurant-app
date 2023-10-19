@@ -30,7 +30,7 @@ function AppNavigation() {
                 <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true }} />
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Payment" component={PaymentScreen} options={{  }} />
                 <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
             </Stack.Navigator>

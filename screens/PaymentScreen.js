@@ -4,30 +4,27 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { db } from '../config/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import * as Icon from "react-native-feather";
 
 const PaymentScreen = () => {
 
     const stripe = useStripe()
-    const { data } = useSelector(state => state.data)
+    const { params } = useRoute()
     const navigation = useNavigation()
 
-    const { params } = useRoute()
+    const { data } = useSelector(state => state.data)
 
     const items = params
 
-    const [userId, setUserId] =useState(data.userId)
+    const [userId, setUserId] = useState(data.userId)
     const [name, setName] = useState(data.name);
     const [email, setEmail] = useState(data.email);
     const [address, setAddress] = useState(data.address);
     const [contact, setContact] = useState(data.contact);
-    const [dishName, setDishName] = useState(items.items.name);
-    const [dishIngredients, setDishIngredients] = useState(items.items.description);
-    const [price, setPrice] = useState(items.items.price);
 
-    let total = items.items.total
+    let total = 10
 
-    console.log("Details: ", userId)
 
     const payment = async () => {
 
@@ -58,42 +55,40 @@ const PaymentScreen = () => {
             Alert.alert('Payment complete, thank you!')
             navigation.navigate('OrderPreparing')
 
-            console.log("Details: ", userId)
+            // const orderRef = collection(db, 'orders').doc(userId); // Fix the path to the user's orders
+            // items.forEach(async (order) => {
+            //     try {
+            //         const docRef = await orderRef.collection('orderItems').add(order); // Assuming you want to store orders in a subcollection 'orderItems'
+            //         console.log(`Order added with ID: ${docRef.id}`);
+            //     } catch (error) {
+            //         console.error('Error adding order: ', error);
+            //     }
+            // })
 
-            try {
-                const orderRef = doc(db, 'users', userId)
-                await setDoc(orderRef, { capital: true }, { merge: true }), {
-                    order: {
-                        items: {
-                            dishName: dishName,
-                            dishIngredients: dishIngredients,
-                            price: price
-                        },
-                        totalPrice: total,
-                    },
-                };
-                console.log('Order captured successfully')
-            } catch (err) {
-                console.log('Order not captured to database', err)
+            await setDoc(doc(db, 'orders', userId)), {
+                name: name,
             }
-        } catch (error) {
-            console.error(error);
-            Alert.alert('Something went wrong, try again later!')
+            console.log('Order captured successfully')
+            // await setDoc(orderRef, order, { merge: true });
+
+        } catch (err) {
+            console.log('Order not captured to database', err)
         }
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <View style={{ justifyContent: 'flex-start' }}>
+        <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
+            <View style={{}}>
                 <View>
-                    <Text style={{ fontSize: 18, marginVertical: 15, textAlign: 'left' }}>Card:</Text>
+                    <Text style={{ fontSize: 18, marginVertical: 10, textAlign: 'left' }}>Card:</Text>
+                    <Text>Selected card:</Text>
                 </View>
-                <View>
-                    <Text>Saved card:</Text>
-                    <Text>{data.card.cardNmber}</Text>
+                <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+                    <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
+                    <Text style={{ marginLeft: 5 }}>{data.card.bankName}</Text>
                 </View>
             </View>
-            <View style={{ marginVertical: 15 }}>
+            <View style={{ marginVertical: 10 }}>
                 <View style={{ marginVertical: 10 }}>
                     <Text style={{ fontSize: 18, marginVertical: 15 }}>Shipping Information</Text>
                     <View>
@@ -151,11 +146,12 @@ export default PaymentScreen
 const styles = StyleSheet.create({
     shippingInput: {
         borderWidth: 2,
-        borderRadius: 20,
+        // borderRadius: 20,
+        borderColor: 'gray',
         width: 350,
         height: 50,
-        marginVertical: 5,
-        paddingHorizontal: 10
+        marginVertical: 2,
+        paddingHorizontal: 5
     },
     paymentButton: {
         width: 350,

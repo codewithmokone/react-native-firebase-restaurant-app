@@ -9,35 +9,35 @@ import { db } from '../config/firebase';
 
 export default function EditProfileScreen() {
 
+    const navigation = useNavigation();
+
     // Retrieving data from redux store
+    const { user } = useSelector(state => state.user)
     const { data } = useSelector(state => state.data)
+    console.log(user)
 
     const [name, setName] = useState(data.name)
     const [email, setEmail] = useState(data.email)
     const [address, setAddress] = useState(data.address)
     const [contact, setContact] = useState(data.contact)
-    const [cardNumber, setCardNumber] = useState(data.cardNmber)
-    const [expirationDate, setExpirationDate] = useState(data.expirationDate)
-    const [cvv, setCvv] = useState(data.cvv)
-
-    const navigation = useNavigation();
+    // const [cardNumber, setCardNumber] = useState(data.cardNmber)
+    // const [expirationDate, setExpirationDate] = useState(data.expirationDate)
+    // const [cvv, setCvv] = useState(data.cvv)
 
     const handleUpdate = async () => {
 
-        let docId = data.userId
-
         try{
-            const userInfoUpdate = doc(db, "users", docId);
+            const userInfoUpdate = doc(db, "users", user);
             await updateDoc(userInfoUpdate, {
                 name: name,
                 email: email,
                 address: address,
                 contact: contact,
-                cardNmber: cardNumber,
-                expirationDate: expirationDate,
-                cvv: cvv,
+                // cardNmber: cardNumber,
+                // expirationDate: expirationDate,
+                // cvv: cvv,
             });
-            console.log('User information updated');
+            alert('User information updated');
         }catch(err){
             console.log(err)
         }
@@ -74,7 +74,7 @@ export default function EditProfileScreen() {
                         placeholder=' Contact'
                         onChangeText={(text) => setContact(text)}
                     />
-                     <TextInput
+                     {/* <TextInput
                         value={cardNumber}
                         style={styles.textInputFields}
                         placeholder=' Contact'
@@ -91,7 +91,7 @@ export default function EditProfileScreen() {
                         style={styles.textInputFields}
                         placeholder=' Contact'
                         onChangeText={(text) => setCvv(text)}
-                    />
+                    /> */}
                 </View>
                 <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop:80, marginHorizontal: 10, bottom: 0 }}>
                     <TouchableOpacity
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderRadius: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        paddingHorizontal:10
     },
 })

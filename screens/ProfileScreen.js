@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
@@ -30,16 +30,13 @@ export default function ProfileScreen() {
                     text: 'Delete',
                     onPress: async () => {
                       // Delete the Firestore document
-                      const userDocRef = doc(db, 'users', user.userId);
+                      const userDocRef = doc(db, 'users', user);
                       await deleteDoc(userDocRef);
         
                       // Delete the user from Firebase Authentication
                       const currentUser = auth.currentUser;
                       await currentUser.delete();
-        
-                      // Sign the user out (optional)
-                      auth.signOut();
-        
+
                       // Navigate to a screen (e.g., a login screen) after deletion
                       navigation.navigate('Login');
                     },
@@ -65,15 +62,13 @@ export default function ProfileScreen() {
 
     if(data){
 
-        const [userInfo, setUserInfo] = useState(data);
-
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'offwhite' }}>
+            <SafeAreaView style={styles.container}>
                         <View>
                             <View style={{ flexDirection: 'row', marginVertical: 20, alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ marginVertical: 20, fontWeight: '700', fontSize: 30, color: '#52A63C' }}>{userInfo.name}</Text>
-                                    <Text>{userInfo.email}</Text>
+                                    <Text style={{ marginVertical: 20, fontWeight: '700', fontSize: 30, color: '#52A63C' }}>{data.name}</Text>
+                                    <Text>{data.email}</Text>
                                 </View>
                             </View>
                             <View style={{ marginVertical: 30 }}>
@@ -89,7 +84,7 @@ export default function ProfileScreen() {
                                 <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
                                     <TouchableOpacity
                                         style={{ flexDirection: 'row', alignItems: 'center' }}
-                                        onPress={() => navigation.navigate('PaymentDetails', { ...userInfo })}
+                                        onPress={() => navigation.navigate('PaymentDetails', { ...data })}
                                     >
                                         <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
                                         <Text style={{ marginLeft: 10 }}>Payment Details</Text>
@@ -107,7 +102,7 @@ export default function ProfileScreen() {
                             </View>
                             <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
                                 <TouchableOpacity
-                                    style={{ marginHorizontal: 10, backgroundColor: '#52A63C', width: 300, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
+                                    style={styles.logoutButton}
                                     onPress={handleLogout}
                                 >
                                     <Text style={{ color: 'white' }}>Log out</Text>
@@ -122,7 +117,7 @@ export default function ProfileScreen() {
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{fontSize: 20}}>Please login to view profile</Text>
                     <TouchableOpacity
-                        style={{marginVertical: 50, backgroundColor: '#52A63C', width: 200, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}
+                        style={styles.logoutButton}
                         onPress={() => navigation.navigate('Login')}
                     >
                         <Text>Login</Text>
@@ -131,6 +126,31 @@ export default function ProfileScreen() {
             </SafeAreaView>
         )
     }
-
-   
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        backgroundColor: 'offwhite'
+    },
+    loginButton: {
+        marginVertical: 50, 
+        backgroundColor: '#52A63C', 
+        width: 200, 
+        height: 40, 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderRadius: 10
+    },
+    logoutButton: {
+        marginHorizontal: 10, 
+        backgroundColor: '#52A63C', 
+        width: 300, 
+        height: 40, 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderRadius: 10
+    }
+})

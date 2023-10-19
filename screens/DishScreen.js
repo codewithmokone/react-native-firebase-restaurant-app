@@ -10,12 +10,10 @@ import { addToCart } from '../redux/slices/cartSlice';
 export default function DishScreen() {
 
     const { params } = useRoute();
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     let item = params;
-
-    const dispatch = useDispatch()
-
-    const navigation = useNavigation()
 
     // handles increasing the number of items
     const handleAddToCart = () => {

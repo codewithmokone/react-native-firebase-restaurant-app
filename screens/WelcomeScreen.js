@@ -1,10 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 
 function WelcomeScreen() {
 
     const navigation = useNavigation()
+
+    useEffect(() => {
+        setTimeout(() => {
+            // Navigate to home screen
+            navigation.navigate('TabScreen');
+        }, 5000)
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -25,14 +33,6 @@ function WelcomeScreen() {
                         },
                     ]}
                 />
-            </View>
-
-            <View style={{marginBottom: 70}}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('TabScreen')}
-                >
-                    <Text style={{ color: '#52A63C', fontSize: 18}}>Click here to continue</Text>
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

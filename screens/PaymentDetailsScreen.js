@@ -7,11 +7,13 @@ import { useSelector } from 'react-redux';
 
 export default function PaymentDetailsScreen() {
 
+    const navigation = useNavigation();
+
     const { data } = useSelector(state => state.data)
 
     const [card, setCard] = useState(data);
 
-    const navigation = useNavigation();
+    
 
     return (
         <SafeAreaView style={{flex:1}} >

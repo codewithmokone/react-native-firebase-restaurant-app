@@ -10,11 +10,10 @@ import { setUserData } from '../redux/slices/userDataSlice';
 
 function LoginScreen() {
 
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const navigation = useNavigation()
-
     const dispatch = useDispatch()
 
     // Handles user login
@@ -24,6 +23,7 @@ function LoginScreen() {
             const user = auth.currentUser;
 
             let userId = user.uid
+            dispatch(setUser(userId))
 
             if (userId) {
                 try {

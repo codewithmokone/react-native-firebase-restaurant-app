@@ -11,16 +11,14 @@ import { StyleSheet } from 'react-native';
 export default function CartScreen() {
 
   const { data } = useSelector(state => state.data); // Fetches user data from redux
-
-  const [address, setAddress] = useState('');
-  const [groupedItems, setGroupedItems] = useState({});
-
   const restaurant = useSelector(selectRestaurant);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const navigation = useNavigation();
-
   const dispatch = useDispatch();
+
+  const [address, setAddress] = useState('');
+  const [groupedItems, setGroupedItems] = useState({});
 
   const deliveryFee = 2 // Constant for delivery fee
 
@@ -57,7 +55,7 @@ export default function CartScreen() {
 
   // Items passed to the params
   const items = {
-    items: cartItems,
+    cartItems,
     total: cartTotal + deliveryFee
   }
 
@@ -65,7 +63,7 @@ export default function CartScreen() {
   const navigateToPayment = async () => {
 
     if (data) {
-      navigation.navigate('Payment', { items })
+      navigation.navigate('Payment', { ...items })
     } else {
       userPrompt()
     }
