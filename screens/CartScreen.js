@@ -5,69 +5,72 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectRestaurant } from '../redux/slices/restaurantSlice';
 import { addToCart, removeFromCart, selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
-import { useStripe } from '@stripe/stripe-react-native';
 import { SafeAreaView } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 export default function CartScreen() {
 
-  const dispatch = useDispatch();
+  const { data } = useSelector(state => state.data); // Fetches user data from redux
+
+  const [address, setAddress] = useState('');
+  const [groupedItems, setGroupedItems] = useState({});
 
   const restaurant = useSelector(selectRestaurant);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const navigation = useNavigation();
-  const stripe = useStripe();
 
-  const { data } = useSelector(state => state.data);
+  const dispatch = useDispatch();
 
-  const [name, setName] = useState(data.name);
-  const [address, setAddress] = useState(data.address);
-  const [groupedItems, setGroupedItems] = useState({});
-
-  const deliveryFee = 2
+  const deliveryFee = 2 // Constant for delivery fee
 
   const handleIncrease = () => {
     dispatch(addToCart({ ...item }))
   }
 
-  const payment = async () => {
-
-    if(name){
-      try {
-        // Sending request
-        const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
-          method: 'POST',
-          body: JSON.stringify({ name }),
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-  
-        const data = await response.json();
-        if (!response.ok) return Alert.alert(data.message);
-        const clientSecret = data.clientSecret;
-        const initSheet = await stripe.initPaymentSheet({
-          paymentIntentClientSecret: clientSecret
-        });
-        if (initSheet.error) return Alert.alert(initSheet.error.message);
-        const presentSheet = await stripe.presentPaymentSheet({
-          clientSecret
-        });
-        if (presentSheet.error) return console.log(presentSheet.error.message)
-        Alert.alert('Payment complete, thank you!')
-        navigation.navigate('OrderPreparing')
-      } catch (error) {
-        console.error(error);
-        Alert.alert('Something went wrong, try again later!')
-      }
-    }else{
-      Alert.alert("Please login to check out")
-      navigation.navigate('Login')
-    }
-
-   
+  // Prompts the user to login or sign up
+  const userPrompt = () => {
+    Alert.alert(
+      'Sign Up or Login to continue',
+      ' ',
+      [
+        {
+          text: 'Register',
+          onPress: () => navigation.navigate('Register'),
+          style: 'cancel',
+        },
+        {
+          text: 'Login',
+          onPress: () => navigation.navigate('Login'),
+          style: 'cancel',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () =>
+          Alert.alert(
+            'This alert was dismissed by tapping outside of the alert dialog.',
+          ),
+      },
+    );
   }
+
+  // Items passed to the params
+  const items = {
+    items: cartItems,
+    total: cartTotal + deliveryFee
+  }
+
+  // Handles navigating to payment and params
+  const navigateToPayment = async () => {
+
+    if (data) {
+      navigation.navigate('Payment', { items })
+    } else {
+      userPrompt()
+    }
+  }
+
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
@@ -126,14 +129,19 @@ export default function CartScreen() {
                   <Text style={{ fontWeight: 700, marginLeft: 10, marginVertical: 10 }}>{dish.name}</Text>
                   <Text style={{ fontWeight: 700, color: 'gray', marginLeft: 10 }}>{dish.description}</Text>
                 </View>
-                <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 8, marginLeft: 8 }}>R{dish.price}</Text>
-
-                <TouchableOpacity
-                  onPress={() => dispatch(removeFromCart({ id: dish.id }))}
-                  style={{ borderRadius: 100, padding: 4, backgroundColor: '#52A63C' }}
-                >
-                  <Icon.Minus strokeWidth={2} height={20} width={20} stroke="white" />
-                </TouchableOpacity>
+                <View style={{borderWidth: 1, borderRaius:10, flexDirection:'row', alignItems: 'center', justifyContent:'center', borderColor:'#52A63C'}}>
+                  <TouchableOpacity
+                    onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                  >
+                    <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                  </TouchableOpacity>
+                  <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 8, marginLeft: 8 }}>R{dish.price}</Text>
+                  <TouchableOpacity
+                    onPress={handleIncrease}
+                  >
+                    <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                  </TouchableOpacity>
+                </View>
               </View>
             )
           })
@@ -152,9 +160,9 @@ export default function CartScreen() {
           <Text style={styles.textTotal}>Order Total</Text>
           <Text style={styles.textTotal}>R{deliveryFee + cartTotal}</Text>
         </View>
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity
-            onPress={payment}
+            onPress={navigateToPayment}
             style={styles.paymentButton}>
             <Text style={styles.textPaymentButton}>
               Check Out
@@ -168,23 +176,23 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   textTotal: {
-    color: 'white', 
-    fontWeight: 900,
+    color: 'white',
+    fontWeight: "900",
   },
   paymentButton: {
-    backgroundColor: 'gray', 
-    padding: 12, 
-    borderRadius: 100, 
-    width: 350, 
+    backgroundColor: 'gray',
+    padding: 12,
+    borderRadius: 100,
+    width: 350,
     height: 60,
-    alignItems: 'center', 
+    alignItems: 'center',
     justifyContent: 'center'
   },
   textPaymentButton: {
-    color: 'white', 
-    fontWeight: 700, 
-    textAlign: 'center', 
-    fontSize: 18, 
+    color: 'white',
+    fontWeight: "700",
+    textAlign: 'center',
+    fontSize: 18,
     lineHeight: 18
   },
 })

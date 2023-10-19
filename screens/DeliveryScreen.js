@@ -12,7 +12,7 @@ import * as Icon from "react-native-feather";
 export default function DeliveryScreen() {
 
     const { data } = useSelector(state => state.data);
-    console.log(data)
+    // console.log(data)
 
     const navigation = useNavigation();
 

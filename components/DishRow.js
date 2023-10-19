@@ -40,19 +40,19 @@ export default function DishRow({ item }) {
                         <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
                         <Text style={{ color: 'gray', marginVertical: 10, }}>{item.description}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginLeft:150 }}>
+                    <View style={{ flexDirection: 'row', marginLeft:150, borderWidth: 1, borderRadius:100, borderColor: '#52A63C' }}>
                     <TouchableOpacity
                             onPress={handleDecrease}
-                            style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
+                            style={{ padding: 1, borderRadius: 100, width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
                         >
-                            <Icon.Minus strokeWidth={3} height={16} width={16} stroke={'white'} />
+                            <Icon.Minus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
                         </TouchableOpacity>
                         <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, }}>R{item.price}</Text>
                         <TouchableOpacity
                             onPress={handleIncrease}
-                            style={{ padding: 1, borderRadius: 100, backgroundColor: '#52A63C', width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
+                            style={{ padding: 1, borderRadius: 100, width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
                         >
-                            <Icon.Plus strokeWidth={3} height={16} width={16} stroke={'white'} />
+                            <Icon.Plus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
                         </TouchableOpacity>
                     </View>
                 </View>

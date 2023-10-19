@@ -5,11 +5,11 @@ const initialState = {
   userLoading: false
 }
 
-export const userDetailsSlice = createSlice({
-  name: 'userDetails',
+export const userDataSlice = createSlice({
+  name: 'data',
   initialState,
   reducers: {
-    setUserDetails: (state, action) => {
+    setUserData: (state, action) => {
       state.data = action.payload;
       // console.log("User Details Slice: ", state.data)
     },
@@ -17,6 +17,6 @@ export const userDetailsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserDetails } = userDetailsSlice.actions
+export const { setUserData } = userDataSlice.actions
 
-export default userDetailsSlice.reducer
+export default userDataSlice.reducer

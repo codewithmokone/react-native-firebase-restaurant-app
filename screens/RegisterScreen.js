@@ -12,6 +12,7 @@ function RegisterScreen() {
     const [address, setAddress] = useState("")
     const [contactNumber, setContactNumber] = useState("")
     const [password, setPassword] = useState("")
+    const [bankName, setBankName] = useState("")
     const [cardNumber, setCardNUmber] = useState("")
     const [expirationDate, setExpirationDate] = useState("")
     const [cvv, setCvv] = useState("")
@@ -36,9 +37,12 @@ function RegisterScreen() {
                 email: email,
                 address: address,
                 contact: contactNumber,
-                cardNmber: cardNumber,
-                expirationDate: expirationDate,
-                cvv: cvv,
+                card: {
+                    bankName: bankName,
+                    cardNmber: cardNumber,
+                    expirationDate: expirationDate,
+                    cvv: cvv,
+                },
             });
             navigation.navigate('Home');
             alert('Account created successfully')
@@ -69,30 +73,35 @@ function RegisterScreen() {
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder=" Enter your email"
+                            placeholder=" Enter email"
                             onChangeText={text => setEmail(text)}
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder=" Enter your address"
+                            placeholder=" Enter address"
                             onChangeText={text => setAddress(text)}
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder=" Enter your contact number"
+                            placeholder=" Enter contact number"
                             onChangeText={text => setContactNumber(text)}
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder=" Enter your password"
+                            placeholder=" Enter password"
                             onChangeText={text => setPassword(text)}
                             secureTextEntry={true}
+                        />
+                         <TextInput
+                            style={styles.input}
+                            placeholder=" Enter bank name"
+                            onChangeText={text => setBankName(text)}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder=" Enter your card number"
                             onChangeText={text => setCardNUmber(text)}
-                            secureTextEntry={true}
+                         
                         />
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                             <View>
@@ -100,7 +109,7 @@ function RegisterScreen() {
                                     style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 160 }}
                                     placeholder=" Enter Expiry Date"
                                     onChangeText={text => setExpirationDate(text)}
-                                    secureTextEntry={true}
+                              
                                 />
                             </View>
                             <View>
