@@ -23,24 +23,25 @@ export default function DishScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={{ width: '100%', height: 350, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90,}}>
-                <Image style={{ height: 200, width: 250 }} source={item.image} />
+            <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90, }}>
+
             </View>
-            <View style={{ width: "100%", flex: 1, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 30,borderTopRightRadius: 30, backgroundColor: 'white' }}>
-                <View style={{ flexDirection: 'row', alignContent: 'center', marginTop: -10}}>
-                    <Text style={{ fontSize: 18, lineHeight: 36, marginRight: 120}}>{item.name}</Text>
-                    <Text style={{ color: '#52A63C', fontSize: 28,marginLeft: 120}}>R{item.price}</Text>
+            <View style={styles.dishInfo}>
+                <Image style={{ height: 200, width: 250, position: 'absolute', top: -100 }} source={item.image} />
+                <View style={{ justifyContent: 'center', alignContent: 'center', marginTop: 50}}>
+                    <Text style={{ fontSize: 28, lineHeight: 36, marginTop: -150 }}>{item.name}</Text>
                 </View>
                 <View>
-                <Text style={{ color: 'gray', marginBottom: 250, marginHorizontal: 10 }}>{item.description}</Text>
+                    <Text style={{ fontSize: 20, color: 'gray', marginHorizontal: 10 }}>{item.description}</Text>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
                         <TouchableOpacity
                             onPress={handleAddToCart}
-                            style={{ borderRadius: 100, backgroundColor: '#52A63C', width: 350, height: 60, alignItems: 'center', justifyContent: 'center' }}
+                            style={styles.addToCartButton}
                         >
-                            <Text>Add To Cart</Text>
+                            <Text style={{ color: 'white', marginLeft: 15 }}>Add To Cart</Text>
+                            <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}>R{item.price}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -58,4 +59,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#52A63C',
         borderRadius: 5
     },
+    addToCartButton: {
+        marginTop: 0,
+        borderRadius: 100,
+        flexDirection: 'row',
+        backgroundColor: '#52A63C',
+        width: 182,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    dishInfo: {
+        width: "100%",
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        backgroundColor: 'white',
+    }
 });

@@ -13,6 +13,7 @@ import DishScreen from './screens/DishScreen';
 import TabScreen from './TabScreen';
 import CartScreen from './screens/CartScreen';
 import PaymentScreen from './screens/PaymentScreen';
+import OrderDetails from './screens/OrderDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ function AppNavigation() {
                 <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true }} />
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Payment" component={PaymentScreen} options={{  }} />
+                <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ title: 'Order Details' }} />
                 <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
             </Stack.Navigator>

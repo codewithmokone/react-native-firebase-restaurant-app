@@ -4,15 +4,17 @@ import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { useSelector } from 'react-redux';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import * as Icon from "react-native-feather";
 
 export default function ProfileScreen() {
 
+    const navigation = useNavigation();
+
     const { data } = useSelector(state => state.data)
     const { user } = useSelector(state => state.user)
 
-    const navigation = useNavigation();
+    // const [orders, setOrders] = useState()
 
     // Function to handle account deletion
     const handleDeleteAccount = async () => {
@@ -60,6 +62,29 @@ export default function ProfileScreen() {
         // navigation.navigate('Login');
     }
 
+    // const orderHistory = async () => {
+    //     try {
+    //         const userCollection = collection(db, 'orders');
+    //         const userDocRef = doc(userCollection, user);
+    //         const userDocSnapshot = await getDoc(userDocRef);
+
+    //         if (userDocSnapshot.exists()) {
+    //             const userInfo = userDocSnapshot.data();
+    //             // console.log("Orders info: ", userInfo)
+    //             setOrders(userInfo)
+    //             // dispatch(setUserData(userInfo));
+    //         } else {
+    //             console.log('Failed to get user infromation');
+    //         }
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     orderHistory();
+    // },[])
+
     if(data){
 
         return (
@@ -84,6 +109,15 @@ export default function ProfileScreen() {
                                 <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
                                     <TouchableOpacity
                                         style={{ flexDirection: 'row', alignItems: 'center' }}
+                                        onPress={() => navigation.navigate('OrderDetails', { user })}
+                                    >
+                                        <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
+                                        <Text style={{ marginLeft: 10 }}>Orders</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginHorizontal: 15,  marginVertical: 15 }}>
+                                    <TouchableOpacity
+                                        style={{ flexDirection: 'row', alignItems: 'center' }}
                                         onPress={() => navigation.navigate('PaymentDetails', { ...data })}
                                     >
                                         <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
@@ -100,7 +134,7 @@ export default function ProfileScreen() {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
+                            <View style={{ position: 'absolute', bottom: -250, width: '100%', alignItems: 'center' }}>
                                 <TouchableOpacity
                                     style={styles.logoutButton}
                                     onPress={handleLogout}
@@ -146,11 +180,11 @@ const styles = StyleSheet.create({
     logoutButton: {
         marginHorizontal: 10, 
         backgroundColor: '#52A63C', 
-        width: 300, 
-        height: 40, 
+        width: 350, 
+        height: 50, 
         flexDirection: 'row', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        borderRadius: 10
+        borderRadius: 50
     }
 })

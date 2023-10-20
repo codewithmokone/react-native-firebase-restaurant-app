@@ -55,9 +55,11 @@ export default function CartScreen() {
 
   // Items passed to the params
   const items = {
-    cartItems,
+    cartItems ,
     total: cartTotal + deliveryFee
   }
+
+  console.log(items)
 
   // Handles navigating to payment and params
   const navigateToPayment = async () => {
@@ -68,7 +70,6 @@ export default function CartScreen() {
       userPrompt()
     }
   }
-
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
