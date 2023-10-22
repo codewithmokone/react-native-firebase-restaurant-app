@@ -122,36 +122,71 @@ export const featured = {
     ]
 }
 
-export const todays_specials = {
+export const burgerMenu = {
     id: 1,
-    title: 'Most Loved Meals',
-    dishes: [
+    title: 'Most Loved Burgers',
+    Burger: [
         {
             id: 1,
-            name: 'Pizza',
-            description: 'cheezy garlic pizza',
-            price: 110,
+            name: 'ORIGINAL BBQ',
+            description: 'Grilled red onion, lettuce & tomato',
+            price: 97,
             image: require('../assets/images/pizzaDish.png')
         },
         {
             id: 2,
-            name: 'Burger ',
-            description: 'Grilled red onion, lettuce & tomato',
-            price: 97,
+            name: 'CLASSIC CHEESE',
+            description: 'Cheddar cheese, grilled red onion,lettuce & tomato',
+            price: 108,
             image: require('../assets/categoryImages/burger.png')
         },
         {
             id: 3,
-            name: 'Salad',
-            description: 'Smoked salmon, baby leaf lettuce, cherry tomatoes, cucumber, feta, avo, with lemon & dill dressing',
-            price: 165,
+            name: 'CHEESE & BACON',
+            description: 'Bacon, cheddar cheese, grilled red onion,lettuce & tomato',
+            price: 119,
             image: require('../assets/categoryImages/salad.png')
         },
         {
             id: 4,
-            name: 'Sushi',
-            description: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
-            price: 103,
+            name: 'REVERSE CHEESE',
+            description: 'Double patty, cheddar cheese, red onion,gherkins, smothered in sriracha cheese sauce & dried onion flakes',
+            price: 149,
+            image: require('../assets/images/pizzaDish.png')
+        },
+    ]
+}
+
+export const pizzaMenu = {
+    id: 1,
+    title: 'Most Loved pizza',
+    Burger: [
+        {
+            id: 1,
+            name: 'ORIGINAL BBQ',
+            description: 'Grilled red onion, lettuce & tomato',
+            price: 97,
+            image: require('../assets/images/pizzaDish.png')
+        },
+        {
+            id: 2,
+            name: 'CLASSIC CHEESE',
+            description: 'Cheddar cheese, grilled red onion,lettuce & tomato',
+            price: 108,
+            image: require('../assets/categoryImages/burger.png')
+        },
+        {
+            id: 3,
+            name: 'CHEESE & BACON',
+            description: 'Bacon, cheddar cheese, grilled red onion,lettuce & tomato',
+            price: 119,
+            image: require('../assets/categoryImages/salad.png')
+        },
+        {
+            id: 4,
+            name: 'REVERSE CHEESE',
+            description: 'Double patty, cheddar cheese, red onion,gherkins, smothered in sriracha cheese sauce & dried onion flakes',
+            price: 149,
             image: require('../assets/images/pizzaDish.png')
         },
     ]
@@ -204,3 +239,5 @@ export const featuredDishes = {
         },
     ]
 }
+
+

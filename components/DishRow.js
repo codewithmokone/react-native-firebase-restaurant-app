@@ -33,9 +33,9 @@ export default function DishRow({ item }) {
         >
             <View style={styles.container}>
                 <View>
-                    <Image style={{ height: 80, width: 100, borderRadius: 10 }} source={item.image} />
+                    <Image style={styles.dishImage} source={item.image} />
                 </View>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginHorizontal: 5 }}>
+                <View style={styles.dishDetailsContainer}>
                     <View>
                         <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
                         <Text style={{ color: 'gray', marginVertical: 10, }}>{item.description}</Text>
@@ -75,4 +75,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
+    dishImage: {
+        height: 80, 
+        width: 100, 
+        borderRadius: 10
+    },
+    dishDetailsContainer: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginHorizontal: 5
+    }
 });

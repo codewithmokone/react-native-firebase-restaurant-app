@@ -23,7 +23,7 @@ const PaymentScreen = () => {
     const [address, setAddress] = useState(data.address);
     const [contact, setContact] = useState(data.contact);
     const [isEditEmail, setIsEditEmail] = useState(false)
-    const [isEditName, setIsEditName] = useState(false)
+    const [isEditing, setIsEditing] = useState(false)
     const [isEditAddress, setIsEditAddress] = useState(false)
     const [isEditContact, setIsEditContact] = useState(false)
 
@@ -40,7 +40,7 @@ const PaymentScreen = () => {
     }
 
     const handleSavePress = () => {
-        setIsEditName(false)
+        setIsEditing(false)
     }
 
     const tokenizeCard = async () => {
@@ -115,22 +115,23 @@ const PaymentScreen = () => {
                     <Text style={{ marginLeft: 5 }}>{data.card.bankName}</Text>
                 </View>
             </View>
-            <View style={{ marginVertical: 10, height: 260}}>
+            <View style={{ marginVertical: 10, height: 260 }}>
                 <View style={{ marginVertical: 10 }}>
                     <Text style={{ fontSize: 18, marginVertical: 15, fontWeight: 800 }}>Shipping Information</Text>
                     <View>
                         <Text>Email:</Text>
                         {
-                            isEditName ? (
-                                <View>
-                                    <TextInput
-                                        value={email}
-                                        placeholder="Email"
-                                        style={styles.shippingInput}
-                                        onChangeText={text => setEmail(text)}
-                                    />
-                                </View>
-                            )
+                            isEditing ?
+                                (
+                                    <View>
+                                        <TextInput
+                                            value={email}
+                                            placeholder="Email"
+                                            style={styles.shippingInput}
+                                            onChangeText={text => setEmail(text)}
+                                        />
+                                    </View>
+                                )
                                 :
                                 (
                                     <View>
@@ -144,7 +145,7 @@ const PaymentScreen = () => {
                 <Text style={{ marginVertical: 5, fontWeight: 800, }}>Shipping Address:</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    {isEditName ? (
+                    {isEditing ? (
                         <View>
                             <TextInput
                                 style={styles.shippingInput}
@@ -171,14 +172,14 @@ const PaymentScreen = () => {
                         </View>
                     )}
 
-                    {isEditName ? (
+                    {isEditing ? (
                         <TouchableOpacity onPress={handleSavePress} style={{ marginLeft: -12, position: 'absolute', right: -6, top: -122 }}>
-                            <Text style={{fontSize: 16}}>Save</Text>
+                            <Text style={{ fontSize: 16, color: '#52A63C' }}>Save</Text>
                             {/* <Icon.Save strokeWidth={3} stroke={'#52A63C'} /> */}
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity onPress={handleEditName} style={{ marginLeft: -12, position: 'absolute', right: 10, top: -117 }}>
-                            <Text style={{fontSize: 16}}>Edit</Text>
+                            <Text style={{ fontSize: 16, color: '#52A63C' }}>Edit</Text>
                             {/* <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} /> */}
                         </TouchableOpacity>
                     )}
@@ -210,11 +211,11 @@ const styles = StyleSheet.create({
     shippingInput: {
         borderWidth: 1,
         // borderRadius: 20,
-        borderColor: 'gray',
-        width: 300,
+        borderColor: '#52A63C',
+        width: 350,
         height: 30,
         marginVertical: 2,
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
     },
     paymentButton: {
         width: 350,
