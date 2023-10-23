@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { createSelector } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -30,6 +31,15 @@ export const { addToCart, removeFromCart, emptyCart } = cartSlice.actions;
 export const selectCartItems = state => state.cart.items;
 
 export const selectCartItemsById = (state, id) => state.cart.items.filter(item => item.id == id);
+
+export const selectCartItemsByIdMemoized = createSelector(
+  (state) => state.cart, // Input selector
+  (_, itemId) => itemId, // Additional parameters, in this case, the itemId
+  (cart, itemId) => {
+    // Your selector logic here
+    return cart.items.filter(item => item.id === itemId);
+  }
+);
 
 export const selectCartTotal = state => state.cart.items.reduce((total, item) => total = total+item.price, 0)
 

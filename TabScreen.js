@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 export default function TabScreen() {
     return (
-            <Tab.Navigator initialRouteName="Home" tabBarOptions={{ activeTintColor: '#52A63C' }}>
+            <Tab.Navigator initialRouteName="Home" screenOptions={{ activeTintColor: '#52A63C' }}>
                 <Stack.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ }) => (<View><Icon.Home strokeWidth={2} stroke='#52A63C' /></View>), headerShown: false, color: 'green' }} />
                 <Stack.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: ({ }) => (<View><Icon.ShoppingCart strokeWidth={2} stroke='#52A63C' /></View>), headerShown: false, presentation: 'modal' }} />
                 <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerShown: true, tabBarIcon: ({ }) => (<View><Icon.User strokeWidth={2} stroke='#52A63C' /></View>), activeColor: 'blue', }} />

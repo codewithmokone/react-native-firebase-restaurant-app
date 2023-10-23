@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const MenuCard = () => {
 
-    const {menu} = useSelector(state => state.data)
+    // const {menu} = useSelector(state => state.data)
 
     console.log("Menu Card: ", menu)
 

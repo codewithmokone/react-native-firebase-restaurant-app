@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
@@ -21,7 +21,6 @@ function LoginScreen() {
         try {
             await signInWithEmailAndPassword(auth, email, password)
             const user = auth.currentUser;
-
             let userId = user.uid
             dispatch(setUser(userId))
 
@@ -30,7 +29,7 @@ function LoginScreen() {
                     const userCollection = collection(db, 'users');
                     const userDocRef = doc(userCollection, userId);
                     const userDocSnapshot = await getDoc(userDocRef);
-    
+
                     if (userDocSnapshot.exists()) {
                         const userInfo = userDocSnapshot.data();
                         // console.log("Logged In Screen: ", userData)
@@ -74,10 +73,13 @@ function LoginScreen() {
                         secureTextEntry={true}
                     />
                 </View>
-                <View style={{ marginTop: 15 }}>
-                    <Pressable style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={handleLogin}>
+                <View style={{  }}>
+                    <TouchableOpacity
+                        onPress={handleLogin}
+                        style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
+                    >
                         <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>

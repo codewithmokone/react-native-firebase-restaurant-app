@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     categoryImage: {
         width: 58,
         height: 55,
+        resizeMode: 'contain'
     },
     text: {
         fontSize: 12,

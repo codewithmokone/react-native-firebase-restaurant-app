@@ -22,10 +22,7 @@ const PaymentScreen = () => {
     const [email, setEmail] = useState(data.email);
     const [address, setAddress] = useState(data.address);
     const [contact, setContact] = useState(data.contact);
-    const [isEditEmail, setIsEditEmail] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
-    const [isEditAddress, setIsEditAddress] = useState(false)
-    const [isEditContact, setIsEditContact] = useState(false)
 
     let total = items.total
 

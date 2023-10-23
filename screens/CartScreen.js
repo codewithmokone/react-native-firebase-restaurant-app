@@ -10,7 +10,7 @@ import { StyleSheet } from 'react-native';
 
 export default function CartScreen() {
 
-  const { data } = useSelector(state => state.data); // Fetches user data from redux
+  // const { data } = useSelector(state => state.data); // Fetches user data from redux
   const restaurant = useSelector(selectRestaurant);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);

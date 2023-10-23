@@ -48,28 +48,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  searchContainer: {
-    width: '97%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-    paddingBottom: 2
-  },
-  search: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 3,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 40,
-    marginHorizontal: 1
-  },
-  searchInput: {
-    flex: 1,
-    width: 300,
-    marginLeft: 90
-  },
 });

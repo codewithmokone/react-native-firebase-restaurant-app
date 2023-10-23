@@ -2,15 +2,10 @@ import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Image } from 'react-native'
-import { ViewComponent } from 'react-native'
 import { SafeAreaView } from 'react-native'
-import MenuCard from '../components/MenuCard'
 import { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import * as Icon from "react-native-feather";
 import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../redux/slices/cartSlice'
-import { ScrollView } from 'react-native'
 import { FlatList } from 'react-native'
 
 const MenuScreen = () => {
@@ -48,10 +43,10 @@ const MenuScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <View style={{ backgroundColor: 'green', height: 200, justifyContent: 'center', alignItems: 'center' }}>
-          <Image style={{ width: 120, height: 120 }} source={{ uri: category.imageUrl }} />
+        <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
+          <Image style={{ width: 120, height: 120, resizeMode: 'cover' }} source={{ uri: category.imageUrl }} />
         </View>
-        <View>
+        <View style={{}}>
           <FlatList
             data={menuArray}
             keyExtractor={(item, index) => index.toString()}
@@ -60,7 +55,7 @@ const MenuScreen = () => {
                 onPress={() => navigation.navigate('Dish', { ...item })}
               >
                 <View style={{
-                  height: 100,
+                  height: 120,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -69,12 +64,12 @@ const MenuScreen = () => {
                 }}
                 >
                   <View style={{width: 300}}>
-                    <Text style={{fontSize:15, fontWeight: 500}}>{item.name}</Text>
-                    <Text  style={{marginVertical:5}}>Description: {item.descr}</Text>
+                    <Text style={{fontSize:15, fontWeight: 600}}>{item.name}</Text>
+                    <Text  style={{marginVertical:5, color: 'gray'}}>{item.descr}</Text>
                     <Text>Price: R{item.price}</Text>
                   </View>
-                  <View style={{width: 70, alignItems: 'center' }}>
-                    <Image source={{ uri: item.image }} style={{ width: 50, height: 90 }} />
+                  <View style={{width: 70, alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
+                    <Image source={{ uri: item.image }} style={{ width: 100, height: 90, resizeMode: 'contain' }} />
                   </View>
                 </View>
               </TouchableWithoutFeedback>
