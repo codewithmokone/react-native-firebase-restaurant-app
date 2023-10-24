@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -15,10 +15,28 @@ import CartScreen from './screens/CartScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import OrderDetails from './screens/OrderDetails';
 import MenuScreen from './screens/MenuScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setUser } from './redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import { setUserData } from './redux/slices/userDataSlice';
 
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const asyncData = async () => {
+             const value = await AsyncStorage.getItem('token');
+             const fetchedData = JSON.parse(value)
+             if(fetchedData !== null){
+                dispatch(setUser(fetchedData.userId))
+                dispatch(setUserData(fetchedData))
+             }
+         }
+         asyncData()
+     },[])
 
     return (
         <NavigationContainer>

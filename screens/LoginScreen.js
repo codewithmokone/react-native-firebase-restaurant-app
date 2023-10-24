@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { setUserData } from '../redux/slices/userDataSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen() {
 
@@ -33,6 +34,7 @@ function LoginScreen() {
                     if (userDocSnapshot.exists()) {
                         const userInfo = userDocSnapshot.data();
                         // console.log("Logged In Screen: ", userData)
+                        AsyncStorage.setItem('token', JSON.stringify(userInfo))
                         dispatch(setUserData(userInfo));
                     } else {
                         console.log('Failed to get user infromation');

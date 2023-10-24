@@ -1,20 +1,19 @@
-import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity, Alert, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { useSelector } from 'react-redux';
-import { collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { deleteDoc, doc} from 'firebase/firestore';
 import * as Icon from "react-native-feather";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
 
     const navigation = useNavigation();
 
-    const { data } = useSelector(state => state.data)
-    const { user } = useSelector(state => state.user)
-
-    // const [orders, setOrders] = useState()
+    const { data } = useSelector(state => state.data) // Fetching data from redux
+    const { user } = useSelector(state => state.user) // Fetching data from redux
 
     // Function to handle account deletion
     const handleDeleteAccount = async () => {
@@ -58,32 +57,10 @@ export default function ProfileScreen() {
     // Handles signing out user
     const handleLogout = async () => {
         await signOut(auth);
-        Alert.alert('Signed Out')
-        // navigation.navigate('Login');
+        AsyncStorage.removeItem('token');
+        Alert.alert('Signed Out');
+        navigation.navigate('Home');
     }
-
-    // const orderHistory = async () => {
-    //     try {
-    //         const userCollection = collection(db, 'orders');
-    //         const userDocRef = doc(userCollection, user);
-    //         const userDocSnapshot = await getDoc(userDocRef);
-
-    //         if (userDocSnapshot.exists()) {
-    //             const userInfo = userDocSnapshot.data();
-    //             // console.log("Orders info: ", userInfo)
-    //             setOrders(userInfo)
-    //             // dispatch(setUserData(userInfo));
-    //         } else {
-    //             console.log('Failed to get user infromation');
-    //         }
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     orderHistory();
-    // },[])
 
     if(data){
 
