@@ -29,7 +29,7 @@ const MenuScreen = () => {
     dispatch(removeFromCart({ id: menu.id }))
   }
 
-  console.log("Dish Menu: ", category)
+
 
   const menuArray = Object.keys(menu).map((key) => ({
     descr: menu[key].descr,
@@ -38,7 +38,8 @@ const MenuScreen = () => {
     image: menu[key].imageUrl
   }));
 
-  console.log("Dish Menu: ", menuArray)
+  const extras = category.extras;
+  // console.log("Dish Menu: ", menuArray)
 
   return (
     <SafeAreaView>
@@ -52,7 +53,10 @@ const MenuScreen = () => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Dish', { ...item })}
+                onPress={() => navigation.navigate('Dish', { 
+                  item: item, 
+                  extras: extras 
+                })}
               >
                 <View style={{
                   height: 120,

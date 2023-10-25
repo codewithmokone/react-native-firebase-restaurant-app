@@ -1,19 +1,51 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
+import { Checkbox } from 'react-native-paper';
 
 export default function DishScreen() {
+
+    const [selectedExtras, setSelectedExtras] = useState([]);
+    const [checked, setChecked] = useState(false);
 
     const { params } = useRoute();
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-    let item = params;
+    let { item, extras } = params;
+
+
+
+    const extrasArray = Object.keys(extras).map((key) => ({
+        name: extras[key].name,
+        price: extras[key].price,
+    }));
+
+
+    const radio1 = {
+        name: extrasArray[1].name,
+        price: extrasArray[1].price,
+    }
+
+    const radio2 = {
+        name: extrasArray[0].name,
+        price: extrasArray[0].price,
+    }
+
+    console.log("Dish View: ", radio2.price)
+
+
+    // const extrasArray = Array.isArray(extras) ? extras.map(extra => ({
+    //     name: extra.name,
+    //     price: extra.price,
+    // })) : [];
+
+    // console.log("Dish View: ", extras)
 
     // handles increasing the number of items
     const handleAddToCart = () => {
@@ -21,7 +53,17 @@ export default function DishScreen() {
         navigation.navigate('Home')
     }
 
-    console.log(item)
+    const handleExtraSelection = (extra) => {
+        const isSelected = selectedExtras.includes(extra);
+
+        if (isSelected) {
+            // If the extra is already selected, remove it from the list
+            setSelectedExtras(selectedExtras.filter((item) => item !== extra));
+        } else {
+            // If it's not selected, add it to the list
+            setSelectedExtras([...selectedExtras, extra]);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -29,14 +71,26 @@ export default function DishScreen() {
 
             </View>
             <View style={styles.dishInfo}>
-                <Image style={{ height: 200, width: 250, position: 'absolute', top: -100, resizeMode: 'contain' }} source={{uri: item.image}} />
+                <Image style={{ height: 200, width: 250, position: 'absolute', top: -100, resizeMode: 'contain' }} source={{ uri: item.image }} />
                 <View style={{ justifyContent: 'center', alignContent: 'center', marginTop: 50 }}>
-                    <Text style={{ fontSize: 28, lineHeight: 36, marginTop: 50 }}>{item.name}</Text>
+                    <Text style={{ fontSize: 24, lineHeight: 36, marginTop: 50 }}>{item.name}</Text>
                 </View>
                 <View>
-                    <Text style={{ fontSize: 20, color: 'gray', marginHorizontal: 10 }}>{item.descr}</Text>
+                    <Text style={{ fontSize: 18, color: 'gray', marginHorizontal: 10, marginTop: 5 }}>{item.descr}</Text>
                 </View>
-                <View style={{ flex:1 , alignItems: 'center', justifyContent: 'flex-end', marginBottom: 36 }}>
+                <View style={styles.extraItem}>
+                    <Text>What would you like to add?</Text>
+                    <View>
+                        <Checkbox
+                            status={checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setChecked(!checked);
+                            }}
+                            style={{ borderRadius: 10 }}
+                        />
+                    </View>
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: 36 }}>
                     <TouchableOpacity
                         onPress={handleAddToCart}
                         style={styles.addToCartButton}
