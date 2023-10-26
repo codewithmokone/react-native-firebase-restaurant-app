@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
+import { TextInput } from 'react-native-paper'
 
 function RegisterScreen() {
 
@@ -26,7 +27,7 @@ function RegisterScreen() {
 
     // Handles signing up users to firebase auth
     const handleSignUp = async () => {
-        
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
@@ -53,81 +54,104 @@ function RegisterScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-                <View style={{width: '100%', marginBottom: 70, justifyContent: 'center', alignItems: 'center'}}>
-                    <View style={styles.heading} >
-                        <Text style={styles.headingText}>Create New Account</Text>
-                    </View>
-                    <View style={styles.loginNavLink}>
-                        <Text>Already registered? </Text>
-                        <Pressable
-                            onPress={handleNavigate}>
-                            <Text style={{ color: 'blue' }}>Sign In</Text>
-                        </Pressable>
-                    </View>
-                    <View style={styles.inputSection}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter your name and surname"
-                            onChangeText={text => setName(text)}
-                            keyboardType="email-address"
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter email"
-                            onChangeText={text => setEmail(text)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter address"
-                            onChangeText={text => setAddress(text)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter contact number"
-                            onChangeText={text => setContactNumber(text)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter password"
-                            onChangeText={text => setPassword(text)}
-                            secureTextEntry={true}
-                        />
-                         <TextInput
-                            style={styles.input}
-                            placeholder=" Enter bank name"
-                            onChangeText={text => setBankName(text)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder=" Enter your card number"
-                            onChangeText={text => setCardNUmber(text)}
-                         
-                        />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
-                            <View>
-                                <TextInput
-                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 160 }}
-                                    placeholder=" Enter Expiry Date"
-                                    onChangeText={text => setExpirationDate(text)}
-                              
-                                />
-                            </View>
-                            <View>
-                                <TextInput
-                                    style={{ backgroundColor: 'white', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 10, marginTop: 5, marginBottom: 15, width: 120, marginLeft: 5 }}
-                                    placeholder=" Enter CVV"
-                                    onChangeText={text => setCvv(text)}
-                                    secureTextEntry={true}
-                                />
-                            </View>
+
+            <View style={{ width: '100%', marginBottom: 70, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={styles.heading} >
+                    <Text style={styles.headingText}>Create New Account</Text>
+                </View>
+                <View style={styles.loginNavLink}>
+                    <Text>Already registered? </Text>
+                    <Pressable
+                        onPress={handleNavigate}>
+                        <Text style={{ color: 'blue' }}>Sign In</Text>
+                    </Pressable>
+                </View>
+                <View style={styles.inputSection}>
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Name'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setName(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Email'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setEmail(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Address'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setAddress(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Contact'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setContact(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Password'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setPassword(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Bank Name'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setBankName(text)}
+                    />
+                    <TextInput
+                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        label='Card Number'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                        onChangeText={text => setCardNUmber(text)}
+                    />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+                        <View style={{ width: '50%' }}>
+                            <TextInput
+                                style={{ marginTop: 2, width: "90%" }}
+                                label='Expiry Date'
+                                // mode='outlined'
+                                required
+                                activeOutlineColor='green'
+                                onChangeText={text => setExpirationDate(text)}
+                            />
+                        </View>
+                        <View style={{ width: '30%' }}>
+                            <TextInput
+                                style={{ marginTop: 2, width: "90%", marginLeft: 10 }}
+                                label='CVV'
+                                mode='outlined'
+                                required
+                                activeOutlineColor='green'
+                                onChangeText={text => setCvv(text)}
+                            />
                         </View>
                     </View>
-                    <View style={styles.buttonSection}>
-                        <Pressable style={{ width: 350, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
-                            <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
-                        </Pressable>
-                    </View>
                 </View>
+                <View style={styles.buttonSection}>
+                    <Pressable style={{ width: 350, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
+                        <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
+                    </Pressable>
+                </View>
+            </View>
         </SafeAreaView>
     )
 }
@@ -142,7 +166,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     heading: {
-        marginTop: 50,
+        marginTop: 60,
         marginBottom: 20
     },
     headingText: {
@@ -156,7 +180,7 @@ const styles = StyleSheet.create({
     },
     inputSection: {
         width: '100%',
-        marginTop: 20,
+        marginTop: 10,
         alignItems: 'center',
 
     },

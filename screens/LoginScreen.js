@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { setUserData } from '../redux/slices/userDataSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button, TextInput, Title } from 'react-native-paper';
 
 function LoginScreen() {
 
@@ -54,7 +55,9 @@ function LoginScreen() {
         <SafeAreaView style={styles.container}>
             <View style={{ width: '100%', alignItems: 'center' }}>
                 <View style={styles.heading} >
-                    <Text style={{ fontSize: 25, color: 'white' }}>Login to Account</Text>
+                    <Title style={{ fontSize: 25, color: 'white' }}>
+                        Login to Account
+                    </Title>
                 </View>
                 <View style={{ flexDirection: 'row', marginBottom: 40 }}>
                     <Text>Haven't registered? </Text>
@@ -64,7 +67,7 @@ function LoginScreen() {
                     </Pressable>
                 </View>
                 <View style={styles.inputSection}>
-                    <TextInput
+                    {/* <TextInput
                         style={styles.input}
                         placeholder="Enter your email"
                         onChangeText={text => setEmail(text)} />
@@ -73,15 +76,39 @@ function LoginScreen() {
                         placeholder="Enter your password"
                         onChangeText={text => setPassword(text)}
                         secureTextEntry={true}
+                    /> */}
+                    <TextInput
+                        style={{ marginTop: 2 }}
+                        label='Email'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
+                    />
+                    <TextInput
+                        style={{ marginTop: 15 }}
+                        label='Password'
+                        mode='outlined'
+                        required
+                        activeOutlineColor='green'
                     />
                 </View>
-                <View style={{  }}>
+                <View style={{ width: '90%', marginTop:15 }}>
                     <TouchableOpacity
                         onPress={handleLogin}
                         style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
                     >
                         <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>
                     </TouchableOpacity>
+                    {/* <Button
+                        style={{ marginTop: 15, alignContent:"center" }}
+                        icon="send"
+                        mode="contained"
+                        onPress={handleLogin}
+                        buttonColor='white'
+                        textColor='green'
+                    >
+                        Login
+                    </Button> */}
                 </View>
             </View>
         </SafeAreaView>
