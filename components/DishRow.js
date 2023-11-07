@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function DishRow({ item }) {
 
+    console.log("Dish Row Log: ", item)
+
     const dispatch = useDispatch();
 
     const navigation = useNavigation()
@@ -26,39 +28,41 @@ export default function DishRow({ item }) {
         dispatch(removeFromCart({ id: item.id }))
     }
 
-    return (
-        <TouchableWithoutFeedback
-            style={styles.container}
-            onPress={() => navigation.navigate('Dish', { ...item })}
-        >
-            <View style={styles.container}>
-                <View>
-                    <Image style={styles.dishImage} source={item.image} />
-                </View>
-                <View style={styles.dishDetailsContainer}>
-                    <View style={{ width: '100%' }}>
-                        <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
-                        <Text style={{ color: 'gray', marginVertical: 10, }}>{item.description}</Text>
+    if(item){
+        return (
+            <TouchableWithoutFeedback
+                style={styles.container}
+                onPress={() => navigation.navigate('Dish', { item: item })}
+            >
+                <View style={styles.container}>
+                    <View>
+                        <Image style={styles.yrw``} source={item.image} />
                     </View>
-                    <View style={{ flexDirection: 'row', marginLeft: 'auto', borderWidth: 1 , borderRadius: 100, borderColor: '#52A63C' }}>
-                        <TouchableOpacity
-                            onPress={handleDecrease}
-                            style={{ padding: 1, borderRadius: 100, width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
-                        >
-                            <Icon.Minus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
-                        </TouchableOpacity>
-                        <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, }}>R{item.price}</Text>
-                        <TouchableOpacity
-                            onPress={handleIncrease}
-                            style={{ padding: 1, borderRadius: 100, width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
-                        >
-                            <Icon.Plus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
-                        </TouchableOpacity>
+                    <View style={styles.dishDetailsContainer}>
+                        <View style={{ width: '100%' }}>
+                            <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
+                            <Text style={{ color: 'gray', marginVertical: 10, }}>{item.descr}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', marginLeft: 'auto', borderWidth: 1 , borderRadius: 100, borderColor: '#52A63C' }}>
+                            <TouchableOpacity
+                                onPress={handleDecrease}
+                                style={{ padding: 1, borderRadius: 100, width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
+                            >
+                                <Icon.Minus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
+                            </TouchableOpacity>
+                            <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, }}>R{item.price}</Text>
+                            <TouchableOpacity
+                                onPress={handleIncrease}
+                                style={{ padding: 1, borderRadius: 100, width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
+                            >
+                                <Icon.Plus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </TouchableWithoutFeedback>
-    )
+            </TouchableWithoutFeedback>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

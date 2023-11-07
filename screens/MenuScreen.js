@@ -11,13 +11,12 @@ import { FlatList } from 'react-native'
 const MenuScreen = () => {
 
   const { params } = useRoute()
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   let category = params
 
   const [menu, setMenu] = useState(category.menu)
-
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
 
   // handles increasing the number of items
   const handleIncrease = () => {
@@ -28,8 +27,6 @@ const MenuScreen = () => {
   const handleDecrease = () => {
     dispatch(removeFromCart({ id: menu.id }))
   }
-
-
 
   const menuArray = Object.keys(menu).map((key) => ({
     descr: menu[key].descr,
@@ -45,7 +42,7 @@ const MenuScreen = () => {
     <SafeAreaView>
       <View>
         <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
-          <Image style={{ width: 120, height: 120, resizeMode: 'cover' }} source={{ uri: category.imageUrl }} />
+          <Image style={{ width: 400, height: 320, resizeMode: 'contain' }} source={{ uri: category.imageUrl }} />
         </View>
         <View style={{}}>
           <FlatList

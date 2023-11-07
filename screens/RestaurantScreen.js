@@ -40,7 +40,7 @@ export default function RestaurantScreen() {
                         <CartIcon />
                         <ScrollView>
                             <View style={{ position: "relative" }}>
-                                <Image style={{ width: "100%", height: 288, marginBottom: -40 }} source={item.image} />
+                                <Image style={{ width: 100, height: 288, marginBottom: -40 }} source={item.image} />
                                 <TouchableOpacity
                                     onPress={() => navigation.goBack()}
                                     style={{ position: "absolute", top: 50, left: 16, backgroundColor: '#52A63C', padding: 4, borderRadius: '100%' }}

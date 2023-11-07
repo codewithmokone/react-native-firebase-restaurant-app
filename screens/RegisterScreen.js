@@ -8,6 +8,8 @@ import { TextInput } from 'react-native-paper'
 
 function RegisterScreen() {
 
+    const navigation = useNavigation()
+
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
@@ -17,8 +19,6 @@ function RegisterScreen() {
     const [cardNumber, setCardNUmber] = useState("")
     const [expirationDate, setExpirationDate] = useState("")
     const [cvv, setCvv] = useState("")
-
-    const navigation = useNavigation()
 
     // Handles navigating to the login page
     const handleNavigate = () => {

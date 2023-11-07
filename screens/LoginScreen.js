@@ -12,11 +12,11 @@ import { Button, TextInput, Title } from 'react-native-paper';
 
 function LoginScreen() {
 
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const navigation = useNavigation()
-    const dispatch = useDispatch()
 
     // Handles user login
     const handleLogin = async () => {
@@ -83,6 +83,7 @@ function LoginScreen() {
                         mode='outlined'
                         required
                         activeOutlineColor='green'
+                        onChangeText={(text) => setEmail(text)}
                     />
                     <TextInput
                         style={{ marginTop: 15 }}
@@ -90,6 +91,7 @@ function LoginScreen() {
                         mode='outlined'
                         required
                         activeOutlineColor='green'
+                        onChangeText={(text) => setPassword(text)}
                     />
                 </View>
                 <View style={{ width: '90%', marginTop:15 }}>

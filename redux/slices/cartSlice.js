@@ -9,6 +9,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
         state.items = [...state.items, action.payload]
+        // console.log("Cart Redux", state.items)
     },
     removeFromCart: (state, action) => {
        let newCart = [...state.items];
@@ -41,6 +42,6 @@ export const selectCartItemsByIdMemoized = createSelector(
   }
 );
 
-export const selectCartTotal = state => state.cart.items.reduce((total, item) => total = total+item.price, 0)
+export const selectCartTotal = state => state.cart.items.reduce((total, item) => total = total+item.totalAmount, 0)
 
 export default cartSlice.reducer

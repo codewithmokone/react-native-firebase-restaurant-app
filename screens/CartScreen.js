@@ -7,6 +7,7 @@ import { selectRestaurant } from '../redux/slices/restaurantSlice';
 import { addToCart, removeFromCart, selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
 import { SafeAreaView } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { Card, PaperProvider } from 'react-native-paper';
 
 export default function CartScreen() {
 
@@ -17,7 +18,9 @@ export default function CartScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState('');
+  console.log(data.address)
+
+  const [address, setAddress] = useState(data.address);
   const [groupedItems, setGroupedItems] = useState({});
 
   const deliveryFee = 2 // Constant for delivery fee
@@ -55,11 +58,9 @@ export default function CartScreen() {
 
   // Items passed to the params
   const items = {
-    cartItems ,
+    cartItems,
     total: cartTotal + deliveryFee
   }
-
-  // console.log(items)
 
   // Handles navigating to payment and params
   const navigateToPayment = async () => {
@@ -100,10 +101,10 @@ export default function CartScreen() {
       <View style={{ backgroundColor: '#52A63C', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
         <Image style={{ width: 80, height: 80, borderRadius: 100 }} source={require('../assets/images/bikeGuy.png')} />
         {/* <Text>{address}</Text> */}
-        <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 20 }}>Delivered to {address}</Text>
-        <TouchableOpacity>
+        <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 5 }}>Delivering to {address}</Text>
+        {/* <TouchableOpacity>
           <Text style={{ fontWeight: 700, marginRight: 12 }}>Change</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -116,32 +117,38 @@ export default function CartScreen() {
           Object.entries(groupedItems).map(([key, items]) => {
             let dish = items[0];
             return (
-              <View
+              <Card
                 key={key}
-                style={{ flexDirection: 'row', alignItems: 'center', height: 150, paddingHorizontal: 16, backgroundColor: 'white', borderWidth: 1, marginHorizontal: 10, borderRadius: 10, marginVertical: 10 }}
+                style={{ height: 100, paddingHorizontal: 16, backgroundColor: 'white', marginHorizontal: 20, borderRadius: 10, marginVertical: 10 }}
               >
-                <Text style={{ fontWeight: 700 }}>
+                <View
+
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 100, marginHorizontal: 20, borderRadius: 10, }}
+                >
+                  <Text style={{ fontWeight: 700 }}>
                   {items.length} x
                 </Text>
-                <Image style={{ height: 56, width: 56, borderRadius: 100, marginLeft: 10 }} source={dish.image} />
-                <View style={{ flexDirection: 'column', justifyContent: 'center', width: 170 }}>
-                  <Text style={{ fontWeight: 700, marginLeft: 10, marginVertical: 10 }}>{dish.name}</Text>
-                  <Text style={{ fontWeight: 700, color: 'gray', marginLeft: 10 }}>{dish.description}</Text>
+                  <Image style={{ height: 56, width: 56, borderRadius: 100, marginLeft: 10 }} source={{ uri: dish.image }} />
+                  <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent:'center', width: 130 }}>
+                    <Text style={{ fontWeight: 700, marginLeft: 4}}>{dish.name}</Text>
+                    {/* <Text style={{ fontWeight: 700, color: 'gray', marginLeft:4 }}>{dish.extra}</Text> */}
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderColor: '#52A63C' }}>
+                    <TouchableOpacity
+                      onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                    >
+                      <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                    </TouchableOpacity>
+                    <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 8, marginLeft: 8 }}>R{dish.totalAmount}</Text>
+                    <TouchableOpacity
+                      onPress={handleIncrease}
+                    >
+                      <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={{borderWidth: 1, borderRaius:10, flexDirection:'row', alignItems: 'center', justifyContent:'center', borderColor:'#52A63C'}}>
-                  <TouchableOpacity
-                    onPress={() => dispatch(removeFromCart({ id: dish.id }))}
-                  >
-                    <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                  </TouchableOpacity>
-                  <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginRight: 8, marginLeft: 8 }}>R{dish.price}</Text>
-                  <TouchableOpacity
-                    onPress={handleIncrease}
-                  >
-                    <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                  </TouchableOpacity>
-                </View>
-              </View>
+              </Card>
+
             )
           })
         }
@@ -176,7 +183,7 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   textTotal: {
     color: 'white',
-    fontWeight: "900",
+    fontWeight: 900,
   },
   paymentButton: {
     backgroundColor: 'gray',
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
   },
   textPaymentButton: {
     color: 'white',
-    fontWeight: "700",
+    fontWeight: 700,
     textAlign: 'center',
     fontSize: 18,
     lineHeight: 18

@@ -87,12 +87,13 @@ const PaymentScreen = () => {
 
             const orderRef = doc(db, 'orders', userId);
             await setDoc(orderRef, {
+                userId: userId,
                 items: {
                     dish: items.cartItems,
                     total: total,
                     timestamp: serverTimestamp()
-                }
-            }, { merge: true })
+                },
+            })
             console.log('Order captured successfully')
 
         } catch (err) {

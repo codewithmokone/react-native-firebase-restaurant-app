@@ -6,14 +6,10 @@ import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
-import { Checkbox } from 'react-native-paper';
+import { Checkbox, Divider } from 'react-native-paper';
 import { FlatList } from 'react-native-web';
 
 export default function DishScreen() {
-
-    const [selectedExtras, setSelectedExtras] = useState([]);
-    const [isChecked, setChecked] = useState(false);
-
 
     const { params } = useRoute();
     const dispatch = useDispatch()
@@ -21,11 +17,35 @@ export default function DishScreen() {
 
     let { item, extras } = params;
 
+    console.log("From home screen",item)
+
+    const [selectedExtras, setSelectedExtras] = useState([]);
+    const [isChecked, setChecked] = useState(false);
+
+    // handles increasing the number of items
+    // const handleAddToCart = () => {
+    //     dispatch(addToCart({ ...item }))
+    //     navigation.navigate('Home')
+    // }
+
     // handles increasing the number of items
     const handleAddToCart = () => {
-        dispatch(addToCart({ ...item }))
-        navigation.navigate('Home')
+        const totalAmount = calculateTotalAmount();
+        const combinedTotal = item.price + totalAmount;
+        dispatch(addToCart({ ...item, extras: selectedExtras, totalAmount: combinedTotal }));
+        navigation.navigate('Home');
     }
+
+    // Function to calculate the total amount including extras
+    const calculateTotalAmount = () => {
+        let totalAmount = item.price;
+        for (const extra of selectedExtras) {
+            totalAmount += extra.price;
+        }
+        return totalAmount;
+    };
+
+    console.log(calculateTotalAmount())
 
     const handleExtraSelection = (extra) => {
         const isSelected = selectedExtras.includes(extra);
@@ -40,34 +60,36 @@ export default function DishScreen() {
     return (
         <View style={styles.container}>
             <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90, }}>
-
+                <Image style={{ height: 200, width: 250, resizeMode: 'contain' }} source={{ uri: item.image }} />
             </View>
             <View style={styles.dishInfo}>
-                <Image style={{ height: 200, width: 250, position: 'absolute', top: -100, resizeMode: 'contain' }} source={{ uri: item.image }} />
-                <View style={{ justifyContent: 'center', alignContent: 'center', marginTop: 50 }}>
-                    <Text style={{ fontSize: 24, lineHeight: 36, marginTop: 50 }}>{item.name}</Text>
+                <View style={{ width: '100%', backgroundColor: 'white', height:85, borderBottomWidth:3, borderColor: '#52A63C' }}>
+                    <Text style={{ fontSize: 20, lineHeight: 36, textAlign: 'left', marginHorizontal: 10 }}>{item.name}</Text>
+                    <Text style={{ fontSize: 16, color: 'gray', marginHorizontal: 10, marginTop: 1, textAlign: 'left' }}>{item.descr}</Text>
                 </View>
-                <View>
-                    <Text style={{ fontSize: 18, color: 'gray', marginHorizontal: 10, marginTop: 5, textAlign: 'left' }}>{item.descr}</Text>
+                <View style={{width: '100%', marginHorizontal: 10, backgroundColor:'white' }}>
+                    <Text style={{ textAlign: 'left', marginHorizontal: 10, fontSize: 18, marginVertical: 15 }}>What would you like to add?</Text>
+                    <Divider />
                 </View>
-                <View style={{ marginVertical: 10, width: '100%', marginHorizontal: 10 }}>
-                    <Text style={{ textAlign: 'left', marginHorizontal: 10, fontSize: 18 }}>What would you like to add?</Text>
-                </View>
-                <View style={{ width: '100%', marginHorizontal: 10 }}>
+                <View style={{ width: '100%', marginHorizontal: 10,backgroundColor:'white',borderBottomWidth:3, borderColor: '#52A63C' }}>
                     {
-                        extras.map((extra, index) => (
-                            <View key={index} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 10 }}>
-                                <TouchableOpacity
-                                    onPress={() => handleExtraSelection(extra)}
-                                    style={styles.checkbox}
-                                >
-                                    <Text>{selectedExtras.includes(extra) ? 'X' : ''}</Text>
-                                </TouchableOpacity>
-                                <View style={styles.extraInfo}>
-                                    <Text style={styles.extraName}>{extra.name}</Text>
-                                    <Text style={styles.extraPrice}>{extra.price}</Text>
+                        
+                        extras && extras.map((extra, index) => (
+                            <>
+                                <View key={index} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 5 }}>
+                                    <TouchableOpacity
+                                        onPress={() => handleExtraSelection(extra)}c
+                                        style={styles.checkbox}
+                                    >
+                                        <Text>{selectedExtras.includes(extra) ? 'X' : ''}</Text>
+                                    </TouchableOpacity>
+                                    <View style={styles.extraInfo}>
+                                        <Text style={styles.extraName}>{extra.name}</Text>
+                                        <Text style={styles.extraPrice}>R {extra.price}</Text>
+                                    </View>
                                 </View>
-                            </View>
+                                <Divider />
+                            </>
                         ))
                     }
                 </View>
@@ -77,7 +99,7 @@ export default function DishScreen() {
                         style={styles.addToCartButton}
                     >
                         <Text style={{ color: 'white', marginLeft: 15 }}>Add To Cart</Text>
-                        <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}>R{item.price}</Text>
+                        <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}> R{calculateTotalAmount()}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -91,7 +113,7 @@ const styles = StyleSheet.create({
         flexWrap: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#52A63C',
+        // backgroundColor: '#52A63C',
         borderRadius: 5
     },
     addToCartButton: {
@@ -110,12 +132,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
         backgroundColor: 'white',
     },
     extraInfo: {
         width: '80%',
+        heigh:20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -124,16 +147,20 @@ const styles = StyleSheet.create({
     },
     checkbox: {
         width: '7%',
+        height: 25,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
+        borderRadius: 20,
         marginHorizontal: 10,
         marginVertical: 5,
     },
     extraName: {
-        fontSize: 20,
+        fontSize: 18,
+        color: 'gray',
     },
     extraPrice: {
-        fontSize: 20,
+        fontSize: 18,
+        color: 'gray'
     },
 });

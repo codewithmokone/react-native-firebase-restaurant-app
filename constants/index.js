@@ -46,14 +46,14 @@ export const featured = {
             dishes: [
                 {
                     id: 1,
-                    name: 'Pizza',
+                    name: 'Cheezy Beef Pizza',
                     description: 'Cheezy garlic pizza',
                     price: 110,
                     image: require('../assets/images/pizzaDish.png')
                 },
                 {
                     id: 2,
-                    name: 'Burger ',
+                    name: 'clasic Cheese Burger ',
                     description: 'Grilled red onion, lettuce & tomato',
                     price: 97,
                     image: require('../assets/categoryImages/burger.png')
@@ -75,49 +75,6 @@ export const featured = {
             ]
 
         },
-        // {
-        //     id: 2,
-        //     name: 'Papa Johns',
-        //     image: require('../assets/images/pizza.png'),
-        //     description: 'Hot and spicy pizzas',
-        //     lng: -85.5324269,
-        //     lat: 38.2145602,
-        //     address: '434 second street',
-        //     stars: 4,
-        //     reviews: '4.6k',
-        //     category: 'Pizza',
-        //     dishes: [
-        //         {
-        //            id: 1,
-        //            name: 'Something Meaty',
-        //            description: 'Ham, pepperoni, bacon, ground beef, BBQ sauce',
-        //            price: 139,
-        //            image:  require('../assets/images/pizzaDish.png')
-        //         },
-        //         {
-        //            id: 2,
-        //            name: 'Garlic Meaty Supreme',
-        //            description: 'Garlic spread base, pepperoni, ham, bacon, ground beef',
-        //            price: 129,
-        //            image:  require('../assets/images/pizzaDish.png')
-        //         },
-        //         {
-        //            id: 3,
-        //            name: 'Mexican Fiesta',
-        //            description: 'Ground beef, jalapeño, green pepper, onion, Mexican sauce',
-        //            price: 139,
-        //            image:  require('../assets/images/pizzaDish.png')
-        //         },
-        //         {
-        //             id: 4,
-        //             name: 'Hawaiian',
-        //             description: 'Ham, pineapple',
-        //             price: 109,
-        //             image:  require('../assets/images/pizzaDish.png')
-        //          },
-        //     ]
-
-        // },
 
     ]
 }
@@ -193,47 +150,47 @@ export const pizzaMenu = {
 }
 
 export const featuredDishes = {
-    id: 1,
-    dishes: [
+    id:1,
+    dish: [
         {
             id: 1,
             name: 'Pizza',
-            description: 'cheezy garlic pizza',
+            descr: 'cheezy garlic pizza',
             price: 110,
             image: require('../assets/categoryImages/pizza.png')
         },
         {
             id: 2,
             name: 'Burger ',
-            description: 'Grilled red onion, lettuce & tomato',
+            descr: 'Grilled red onion, lettuce & tomato',
             price: 97,
             image: require('../assets/categoryImages/burger.png')
         },
         {
             id: 3,
             name: 'Salad',
-            description: 'Smoked salmon, baby leaf lettuce, cherry tomatoes, cucumber, feta, avo, with lemon & dill dressing',
+            descr: 'Smoked salmon, baby leaf lettuce, cherry tomatoes, cucumber, feta, avo, with lemon & dill dressing',
             price: 165,
             image: require('../assets/categoryImages/salad.png')
         },
         {
             id: 4,
             name: 'Sushi',
-            description: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
+            descr: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
             price: 103,
             image: require('../assets/categoryImages/chinese.png')
         },
         {
             id: 5,
             name: 'Tuna',
-            description: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
+            descr: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
             price: 155,
             image: require('../assets/categoryImages/chinese.png')
         },
         {
             id: 6,
             name: 'Chicken Wings',
-            description: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
+            descr: 'spicy salmon, prawn, avo, dill pickle & mayo with teriyaki sauce',
             price: 89,
             image: require('../assets/restaurantImages/chicken-wings.png')
         },
