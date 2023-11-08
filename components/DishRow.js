@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart, selectCartItemsById, selectCartItemsByIdMemoized } from '../redux/slices/cartSlice'
 import { TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Button, Card } from 'react-native-paper';
 
 export default function DishRow({ item }) {
 
-    console.log("Dish Row Log: ", item)
+    // console.log("Dish Row Log: ", item)
 
     const dispatch = useDispatch();
 
@@ -28,38 +29,38 @@ export default function DishRow({ item }) {
         dispatch(removeFromCart({ id: item.id }))
     }
 
-    if(item){
+    if (item) {
         return (
             <TouchableWithoutFeedback
                 style={styles.container}
                 onPress={() => navigation.navigate('Dish', { item: item })}
             >
-                <View style={styles.container}>
-                    <View>
-                        <Image style={styles.yrw``} source={item.image} />
-                    </View>
-                    <View style={styles.dishDetailsContainer}>
-                        <View style={{ width: '100%' }}>
-                            <Text style={{ fontSize: 18, lineHeight: 28 }}>{item.name}</Text>
-                            <Text style={{ color: 'gray', marginVertical: 10, }}>{item.descr}</Text>
+                <Card style={{ width: 370, marginTop: 10, flexDirection: 'row', height: 100 }}>
+                    <View style={{ flexDirection: 'row', width: '90%' }}>
+                        <Card.Cover source={item.image} style={{ width: 100, height: 100 }} />
+                        <View style={{ flexDirection: 'column', width: '100%' }}>
+                            <Card.Title
+                                title={item.name}
+                                subtitle={item.description}
+                                style={{ width: '70%' }}
+                            />
+                            <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, marginLeft: 18, marginTop: -7}}>R{item.price}</Text>
+                            {/* <Card.Actions style={{ width: '100%', marginLeft: -40, marginTop: -14, justifyContent: 'center', alignItems: 'center' }}>
+                                <Button mode="text" onPress={handleDecrease}>
+                                    <Icon.Minus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
+                                </Button>
+                                <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, marginLeft: -28 }}>R{item.price}</Text>
+                                <Button
+                                    mode="text"
+                                    onPress={handleIncrease}
+                                    style={{ marginLeft: -20, justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                    <Icon.Plus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
+                                </Button>
+                            </Card.Actions> */}
                         </View>
-                        <View style={{ flexDirection: 'row', marginLeft: 'auto', borderWidth: 1 , borderRadius: 100, borderColor: '#52A63C' }}>
-                            <TouchableOpacity
-                                onPress={handleDecrease}
-                                style={{ padding: 1, borderRadius: 100, width: 29, alignItems: 'center', justifyContent: 'center', marginRight: 5 }}
-                            >
-                                <Icon.Minus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
-                            </TouchableOpacity>
-                            <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, }}>R{item.price}</Text>
-                            <TouchableOpacity
-                                onPress={handleIncrease}
-                                style={{ padding: 1, borderRadius: 100, width: 27, alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}
-                            >
-                                <Icon.Plus strokeWidth={5} height={16} width={16} stroke={'#52A63C'} />
-                            </TouchableOpacity>
-                        </View>
                     </View>
-                </View>
+                </Card>
             </TouchableWithoutFeedback>
         )
     }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../config/firebase';
 import { useSelector } from 'react-redux';
 import { collection, doc, getDoc } from 'firebase/firestore';
+// import { List } from 'react-native-paper';
 
 const OrderDetails = () => {
 
@@ -10,7 +11,9 @@ const OrderDetails = () => {
 
     const [date, setDate] = useState('')
     const [orderInfo, setOrderInfo] = useState('');
+    const [expanded, setExpanded] = useState(true);
     const [total, setTotal] = useState('');
+    const handlePress = () => setExpanded(!expanded);
 
     const orderHistory = async () => {
         try {
@@ -46,6 +49,23 @@ const OrderDetails = () => {
                 <View style={{ backgroundColor: 'white' }}>
                     {orderInfo ? (
                         orderInfo.map((item, index) => (
+                            // <List.Section title="Accordions">
+                            //     <List.Accordion
+                            //         title="Uncontrolled Accordion"
+                            //         left={props => <List.Icon {...props} icon="folder" />}>
+                            //         <List.Item title="First item" />
+                            //         <List.Item title="Second item" />
+                            //     </List.Accordion>
+
+                            //     <List.Accordion
+                            //         title="Controlled Accordion"
+                            //         left={props => <List.Icon {...props} icon="folder" />}
+                            //         expanded={expanded}
+                            //         onPress={handlePress}>
+                            //         <List.Item title="First item" />
+                            //         <List.Item title="Second item" />
+                            //     </List.Accordion>
+                            // </List.Section>
                             <>
                                 <View key={index} style={{ marginTop: 10, marginHorizontal: 5, }}>
                                     <View style={{ height: 30, justifyContent: 'center', backgroundColor: 'whitesmoke' }}>

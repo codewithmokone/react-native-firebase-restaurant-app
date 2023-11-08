@@ -3,13 +3,15 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteDoc, doc} from 'firebase/firestore';
 import * as Icon from "react-native-feather";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setUserData } from '../redux/slices/userDataSlice';
 
 export default function ProfileScreen() {
 
+    const dispatch = useDispatch()
     const navigation = useNavigation();
 
     const { data } = useSelector(state => state.data) // Fetching data from redux
@@ -58,6 +60,7 @@ export default function ProfileScreen() {
     const handleLogout = async () => {
         await signOut(auth);
         AsyncStorage.removeItem('token');
+        dispatch(setUserData(null))
         Alert.alert('Signed Out');
         navigation.navigate('Home');
     }

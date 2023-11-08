@@ -82,7 +82,7 @@ export const featured = {
 export const burgerMenu = {
     id: 1,
     title: 'Most Loved Burgers',
-    Burger: [
+    dishes: [
         {
             id: 1,
             name: 'ORIGINAL BBQ',

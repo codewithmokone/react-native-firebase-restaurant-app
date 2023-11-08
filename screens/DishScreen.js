@@ -17,7 +17,7 @@ export default function DishScreen() {
 
     let { item, extras } = params;
 
-    console.log("From home screen",item)
+    console.log("From home screen", item)
 
     const [selectedExtras, setSelectedExtras] = useState([]);
     const [isChecked, setChecked] = useState(false);
@@ -59,26 +59,30 @@ export default function DishScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90, }}>
+            <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90}}>
                 <Image style={{ height: 200, width: 250, resizeMode: 'contain' }} source={{ uri: item.image }} />
             </View>
             <View style={styles.dishInfo}>
-                <View style={{ width: '100%', backgroundColor: 'white', height:85, borderBottomWidth:3, borderColor: '#52A63C' }}>
-                    <Text style={{ fontSize: 20, lineHeight: 36, textAlign: 'left', marginHorizontal: 10 }}>{item.name}</Text>
-                    <Text style={{ fontSize: 16, color: 'gray', marginHorizontal: 10, marginTop: 1, textAlign: 'left' }}>{item.descr}</Text>
+                <View style={{ width: '100%', backgroundColor: 'white', height: 85, borderBottomWidth: 1.5, borderColor: '#52A63C' }}>
+                    <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 5}}>
+                        <Text style={{ fontSize: 18, lineHeight: 36, textAlign: 'left', marginHorizontal: 10, fontWeight: 600, color: '#52A63C' }}>{item.name}</Text>
+                        <Text style={{ fontSize: 16, lineHeight: 36, textAlign: 'left', marginHorizontal: 10, fontWeight: 500, marginRight:25 }}>from R {item.price}</Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 14, color: 'gray', marginHorizontal: 10, marginTop: 1, marginBottom:20 ,textAlign: 'left' }}>{item.descr}</Text>
+                    </View>
                 </View>
-                <View style={{width: '100%', marginHorizontal: 10, backgroundColor:'white' }}>
+                <View style={{ width: '100%', marginHorizontal: 10, backgroundColor: 'white' }}>
                     <Text style={{ textAlign: 'left', marginHorizontal: 10, fontSize: 18, marginVertical: 15 }}>What would you like to add?</Text>
                     <Divider />
                 </View>
-                <View style={{ width: '100%', marginHorizontal: 10,backgroundColor:'white',borderBottomWidth:3, borderColor: '#52A63C' }}>
+                <View style={{ width: '100%', marginHorizontal: 10, backgroundColor: 'white' }}>
                     {
-                        
                         extras && extras.map((extra, index) => (
                             <>
-                                <View key={index} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 5 }}>
+                                <View key={index} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 5, marginLeft: -5 }}>
                                     <TouchableOpacity
-                                        onPress={() => handleExtraSelection(extra)}c
+                                        onPress={() => handleExtraSelection(extra)} c
                                         style={styles.checkbox}
                                     >
                                         <Text>{selectedExtras.includes(extra) ? 'X' : ''}</Text>
@@ -98,7 +102,7 @@ export default function DishScreen() {
                         onPress={handleAddToCart}
                         style={styles.addToCartButton}
                     >
-                        <Text style={{ color: 'white', marginLeft: 15 }}>Add To Cart</Text>
+                        <Text style={{ color: 'white', marginLeft: 15, fontSize:18 }}>Add To Cart</Text>
                         <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}> R{calculateTotalAmount()}</Text>
                     </TouchableOpacity>
                 </View>
@@ -121,8 +125,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         flexDirection: 'row',
         backgroundColor: '#52A63C',
-        width: 182,
-        height: 50,
+        width: 370,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'space-between',
 
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
     },
     extraInfo: {
         width: '80%',
-        heigh:20,
+        heigh: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -156,11 +160,11 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     extraName: {
-        fontSize: 18,
-        color: 'gray',
+        fontSize: 16,
+        color: '#908E9B',
     },
     extraPrice: {
-        fontSize: 18,
-        color: 'gray'
+        fontSize: 16,
+        color: '#908E9B'
     },
 });
