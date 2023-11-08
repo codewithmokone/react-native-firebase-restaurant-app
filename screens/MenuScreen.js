@@ -44,7 +44,7 @@ const MenuScreen = () => {
     <SafeAreaView>
       <View>
         <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
-          <Image style={{ width: 400, height: 320, resizeMode: 'contain' }} source={{ uri: category.imageUrl }} />
+          <Image style={{ width: 400, height: 210, resizeMode: 'stretch'}} source={{ uri: category.imageUrl }} />
         </View>
         <View style={{}}>
           <FlatList

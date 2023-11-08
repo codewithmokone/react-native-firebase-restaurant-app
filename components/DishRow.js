@@ -35,7 +35,7 @@ export default function DishRow({ item }) {
                 style={styles.container}
                 onPress={() => navigation.navigate('Dish', { item: item })}
             >
-                <Card style={{ width: 370, marginTop: 10, flexDirection: 'row', height: 100 }}>
+                <Card style={{ width: 370, marginTop: 10, flexDirection: 'row', height: 100, backgroundColor: 'white' }}>
                     <View style={{ flexDirection: 'row', width: '90%' }}>
                         <Card.Cover source={item.image} style={{ width: 100, height: 100 }} />
                         <View style={{ flexDirection: 'column', width: '100%' }}>
