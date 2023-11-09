@@ -71,9 +71,8 @@ export default function Categories() {
                                             dispatch(setMenu(category.menu))
                                             navigation.navigate("MenuScreen", { ...category })
                                           } else {
-                                            setSelectedCategoryMenu([]); // No menu available for this category
+                                            setSelectedCategoryMenu([]);
                                         }
-                                        
                                     }}
                                 >
                                     <Image style={styles.categoryImage} source={{ uri: category.iconUrl }} />

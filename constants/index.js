@@ -85,32 +85,32 @@ export const burgerMenu = {
     dishes: [
         {
             id: 1,
-            name: 'ORIGINAL BBQ',
+            name: 'Original BBQ Burger',
             description: 'Grilled red onion, lettuce & tomato',
             price: 97,
-            image: require('../assets/images/pizzaDish.png')
-        },
-        {
-            id: 2,
-            name: 'CLASSIC CHEESE',
-            description: 'Cheddar cheese, grilled red onion,lettuce & tomato',
-            price: 108,
             image: require('../assets/categoryImages/burger.png')
         },
         {
-            id: 3,
-            name: 'CHEESE & BACON',
+            id: 2,
+            name: 'Meaty Pizza',
             description: 'Bacon, cheddar cheese, grilled red onion,lettuce & tomato',
-            price: 119,
-            image: require('../assets/categoryImages/salad.png')
-        },
-        {
-            id: 4,
-            name: 'REVERSE CHEESE',
-            description: 'Double patty, cheddar cheese, red onion,gherkins, smothered in sriracha cheese sauce & dried onion flakes',
-            price: 149,
+            price: 108,
             image: require('../assets/images/pizzaDish.png')
-        },
+        }
+        // {
+        //     id: 3,
+        //     name: '',
+        //     description: '',
+        //     price: 119,
+        //     image: require('../assets/categoryImages/salad.png')
+        // },
+        // {
+        //     id: 4,
+        //     name: 'REVERSE CHEESE',
+        //     description: 'Double patty, cheddar cheese, red onion,gherkins, smothered in sriracha cheese sauce & dried onion flakes',
+        //     price: 149,
+        //     image: require('../assets/images/pizzaDish.png')
+        // },
     ]
 }
 

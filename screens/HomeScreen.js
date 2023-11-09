@@ -5,37 +5,14 @@ import { burgerMenu } from '../constants';
 import HomeHeader from '../components/HomeHeader';
 import Carousel from '../components/Carousel';
 import DishRow from '../components/DishRow';
-import { Card } from 'react-native-paper';
-import { Image } from 'react-native';
-import { db } from '../config/firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+// import { Card } from 'react-native-paper';
+// import { Image } from 'react-native';
+// import { db } from '../config/firebase';
+// import { collection, getDocs, query } from 'firebase/firestore';
 
 function HomeScreen() {
 
-  const [favorite, setFavorite] = useState('');
-
-  // Handles fetching data from firebase
-  // const festchData = async () => {
-  //   try {
-  //     const favoriteCollection = (collection(db, "favorites"));
-  //     const favSnapshot = await getDocs(
-  //       query(favoriteCollection)
-  //     )
-  //     const data = [];
-  //     favSnapshot.forEach((doc) => {
-  //       const favList = doc.data();
-  //       data.push({ id: doc.id, ...favList });
-  //     });
-  //     setFavorite(data);
-
-  //   } catch (error) {
-  //     console.error('Error fetching Firestore data:', error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   festchData();
-  // }, [])
+  // const [specials, setSpecials] = useState('');
 
   return (
     <SafeAreaView style={{ alignItems: 'center' }}>
@@ -54,11 +31,15 @@ function HomeScreen() {
         <View style={{ marginTop: 15 }}>
         </View>
         <View style={{ paddingBottom: 144 }}>
-          <Text style={{ marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32, color: '#52A63C' }}>Favourite Meals</Text>
+          <Text style={{ marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32, color: '#52A63C' }}>Specials</Text>
           <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            {[burgerMenu].map((item, index) => {
+            { [burgerMenu].map((item, index) => {
               return item.dishes.map((item, index) => <DishRow item={{ ...item }} key={index} />)
             })}
+            {/* {[specials.menu].map((item, index) => {
+              // console.log("Specials menu", item.menu)
+              return <DishRow item={{ ...item }} key={index} />
+            })} */}
           </View>
         </View>
       </ScrollView>

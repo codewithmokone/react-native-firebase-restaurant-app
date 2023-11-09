@@ -43,8 +43,9 @@ const MenuScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <View style={{ height: 200, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
-          <Image style={{ width: 400, height: 210, resizeMode: 'stretch'}} source={{ uri: category.imageUrl }} />
+        <View style={{ justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
+          {/* <Image style={{ width: 400, height: 210, resizeMode: 'stretch'}} source={{ uri: category.imageUrl }} /> */}
+          <Text style={{marginVertical:10, fontSize: 18}} >{category.subTitle}</Text>
         </View>
         <View style={{}}>
           <FlatList
@@ -63,7 +64,7 @@ const MenuScreen = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: 'white',
-                  borderBottomWidth: 0.5
+                  borderBottomWidth: 0.4
                 }}
                 >
                   <View style={{width: 300}}>
@@ -74,7 +75,6 @@ const MenuScreen = () => {
                   <View style={{width: 70, alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
                     <Image source={{ uri: item.image }} style={{ width: 100, height: 90, resizeMode: 'contain' }} />
                   </View>
-                  <Divider />
                 </View>
               </TouchableWithoutFeedback>
             )}

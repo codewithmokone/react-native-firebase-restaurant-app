@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
 import { Checkbox, Divider } from 'react-native-paper';
-import { FlatList } from 'react-native-web';
+// import { FlatList } from 'react-native-web';
 
 export default function DishScreen() {
 
@@ -16,8 +16,6 @@ export default function DishScreen() {
     const navigation = useNavigation()
 
     let { item, extras } = params;
-
-    console.log("From home screen", item)
 
     const [selectedExtras, setSelectedExtras] = useState([]);
     const [isChecked, setChecked] = useState(false);
@@ -31,7 +29,7 @@ export default function DishScreen() {
     // handles increasing the number of items
     const handleAddToCart = () => {
         const totalAmount = calculateTotalAmount();
-        const combinedTotal = item.price + totalAmount;
+        const combinedTotal = totalAmount;
         dispatch(addToCart({ ...item, extras: selectedExtras, totalAmount: combinedTotal }));
         navigation.navigate('Home');
     }
@@ -44,8 +42,6 @@ export default function DishScreen() {
         }
         return totalAmount;
     };
-
-    console.log(calculateTotalAmount())
 
     const handleExtraSelection = (extra) => {
         const isSelected = selectedExtras.includes(extra);
