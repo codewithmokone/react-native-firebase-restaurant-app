@@ -2,7 +2,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { db } from '../config/firebase';
 import { useSelector } from 'react-redux';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 // import { List } from 'react-native-paper';
 
 const OrderDetails = () => {
@@ -16,28 +16,23 @@ const OrderDetails = () => {
     const handlePress = () => setExpanded(!expanded);
 
     const orderHistory = async () => {
-        try {
-            const orderCollection = collection(db, 'orders');
-            const orderDocRef = doc(orderCollection, user);
-            const orderDocSnapshot = await getDoc(orderDocRef);
 
-            if (orderDocSnapshot.exists()) {
-                const orderData = orderDocSnapshot.data();
-                const date = orderData.items.timestamp
-                const items = orderData.items.dish
-                const total = orderData.items.total
-                setDate(date)
-                setOrderInfo(items)
-                setTotal(total)
-            } else {
-                console.log('Failed to get user infromation');
-            }
+        try {
+            const orderRef = query(collection(db, 'orders'), where("userId", "==", user));
+            const querySnapshot = await getDocs(orderRef);
+
+            querySnapshot.forEach((doc) => {
+                const ordersRef = (doc.data())
+                setOrderInfo(ordersRef)
+                
+            })
         } catch (err) {
             console.log(err)
         }
     }
 
-    console.log("Orders info: ", date)
+    // console.log("Orders info: ", date)
+    console.log("Order History", orderInfo)
 
     useEffect(() => {
         orderHistory();
