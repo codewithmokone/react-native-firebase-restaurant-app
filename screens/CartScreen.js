@@ -21,9 +21,7 @@ export default function CartScreen() {
   const [address, setAddress] = useState(data.address);
   const [groupedItems, setGroupedItems] = useState({});
 
-  const deliveryFee = 2 // Constant for delivery fee
-
-  console.log(cartItems);
+  const deliveryFee = 15 // Constant for delivery fee
 
   const handleIncrease = (item) => {
 
@@ -116,81 +114,84 @@ export default function CartScreen() {
           Object.entries(groupedItems).map(([key, items]) => {
             // let dish = items[1];
             return (
-              <View
-                key={key}
-                style={{ height: 100, borderRadius: 10, marginVertical: 10 }}
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  paddingBottom: 40
+                }}
               >
-                {
-                  items.map((item, index) => (
-                    <Card
-                      key={index}
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginHorizontal: 10,
-                        marginVertical: 10,
-                        borderRadius: 10,
-                        height: 270,
-                        backgroundColor: 'white',
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          // height: 'auto',
-                          width: 370,
-                          marginHorizontal: 10,
-                          borderRadius: 10
-                        }}>
+                <View
+                  key={key}
+                // style={{ height: 100, borderRadius: 10, marginVertical: 10 }}
+                >
+                  {
+                    items.map((item, index) => (
+                      <Card
+                        key={index}
+                        style={styles.card}
+                      >
+                        <View
+                          style={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: 'auto',
+                            width: 370,
+                            marginHorizontal: 10,
+                            borderRadius: 10
+                          }}>
 
-                        {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
-                        <View style={{ width: '95%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                          <Text style={{ fontWeight: 700, fontSize: 16, }}>{item.name}</Text>
-                          <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginLeft: 8 }}>R{item.price}</Text>
+                          {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
+                          <View style={{ width: '95%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 'auto' }}>
+                            <Text style={{ fontWeight: 700, fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
+                            <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
+                          </View>
+                          <Card.Content style={{ borderBottomWidth: 0.4, height: 'auto', justifyContent: 'center', width: '95%' }}>
+                            <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15, marginVertical: 10 }}>{item.descr}</Text>
+                          </Card.Content>
+                          <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', height: 'auto', marginVertical: 5 }}>
+                            <Text style={{ marginVertical: 5 }}>Extras:</Text>
+                            <View style={{ flexDirection: 'column', width: '100%', borderBottomWidth: 0.3 }}>
+                              {
+                                item.extras.map(item => (
+                                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                                    <Text style={{ color: 'gray', lineHeight: 26 }}>{item.name}</Text>
+                                    <Text style={{ color: 'gray', marginLeft: 10 }}>R{item.price}</Text>
+                                  </View>
+                                ))
+                              }
+                            </View>
+                          </Card.Content>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                            <Card.Content style={{ width: '50%', marginLeft: 15 }}>
+                              <Text variant="bodyMedium" style={{ fontWeight: 500, marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
+                            </Card.Content>
+                            <Card.Actions style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderColor: '#52A63C', width: '50%' }}>
+                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 'auto' }}>
+                                <Button
+                                  onPress={() => dispatch(removeFromCart({ id: item.id }))}>
+                                  <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                                </Button>
+                                <Text style={{ fontWeight: 700 }}>x{item.length}</Text>
+                                <Button
+                                  onPress={() => dispatch(addToCart({ ...item }))}>
+                                  <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                                </Button>
+                              </View>
+                            </Card.Actions>
+
+                          </View>
                         </View>
-                        <Card.Content style={{ borderBottomWidth: 0.4, height: 60, justifyContent: 'center', width: '95%' }}>
-                          <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15 }}>{item.descr}</Text>
-                        </Card.Content>
-                        <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', height: 70, marginVertical: 5 }}>
-                          <Text style={{ marginVertical: 5 }}>Extras:</Text>
-                          <View style={{ flexDirection: 'column', width: '100%', height: 50, borderBottomWidth:0.3 }}>
-                            {
-                              item.extras.map(item => (
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                                  <Text style={{ color: 'gray', marginLeft: 10 }}>{item.name}</Text>
-                                  <Text style={{ color: 'gray', marginLeft: 10 }}>R{item.price}</Text>
-                                </View>
-                              ))
-                            }
-                          </View>
-                        </Card.Content>
-                        <Card.Content style={{ borderBottomWidth: 0.4, height: 60, justifyContent: 'center', width: '95%' }}>
-                          <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15 }}>R{cartTotal}</Text>
-                        </Card.Content>
-                        <Card.Actions style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderColor: '#52A63C', width: '80%', height: 70 }}>
-                          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginTop:50, width:'100%', height:50}}>
-                            <Button
-                              onPress={() => dispatch(removeFromCart({ id: item.id }))}>
-                              <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                            </Button>
-                            <Text style={{ fontWeight: 700 }}>x{item.length}</Text>
-                            <Button
-                              onPress={() => dispatch(addToCart({ ...item }))}>
-                              <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                            </Button>
-                          </View>
-                        </Card.Actions>
-                      </View>
-                    </Card>
-                  ))
-                }
-              </View>
+                      </Card>
+                    ))
+                  }
+                </View>
+              </ScrollView>
             )
           })
         }
       </ScrollView>
+      {/* Section for check out button */}
       <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
           <Text >Subtotal</Text>
@@ -240,4 +241,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 18,
   },
+  card: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
+    marginVertical: 10,
+    borderRadius: 10,
+    height: 'auto',
+    backgroundColor: 'white',
+  }
 })

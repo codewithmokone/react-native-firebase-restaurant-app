@@ -55,62 +55,43 @@ function LoginScreen() {
         <SafeAreaView style={styles.container}>
             <View style={{ width: '100%', alignItems: 'center' }}>
                 <View style={styles.heading} >
-                    <Title style={{ fontSize: 25, color: 'white' }}>
-                        Login to Account
+                    <Title style={{ fontSize: 28, color: 'white' }}>
+                        Login
                     </Title>
-                </View>
-                <View style={{ flexDirection: 'row', marginBottom: 40 }}>
-                    <Text>Haven't registered? </Text>
-                    <Pressable
-                        onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ color: 'blue' }}>Sign Up</Text>
-                    </Pressable>
-                </View>
+                    <Text style={{color:'white', marginTop: 10, fontSize:16}}>Please Sign in to continue.</Text>
+                </View>             
                 <View style={styles.inputSection}>
-                    {/* <TextInput
-                        style={styles.input}
-                        placeholder="Enter your email"
-                        onChangeText={text => setEmail(text)} />
                     <TextInput
-                        style={styles.input}
-                        placeholder="Enter your password"
-                        onChangeText={text => setPassword(text)}
-                        secureTextEntry={true}
-                    /> */}
-                    <TextInput
-                        style={{ marginTop: 2 }}
+                         style={{ marginTop: 15, borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5' }}
                         label='Email'
-                        mode='outlined'
+                        mode='standard'
                         required
-                        activeOutlineColor='green'
+                        // activeOutlineColor='white'
                         onChangeText={(text) => setEmail(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 15 }}
+                        style={{ marginTop: 15, borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5' }}
                         label='Password'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={(text) => setPassword(text)}
                     />
                 </View>
-                <View style={{ width: '90%', marginTop:15 }}>
+                <View style={{ width: '90%', marginTop:30 }}>
                     <TouchableOpacity
                         onPress={handleLogin}
-                        style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
+                        style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}
                     >
                         <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>
                     </TouchableOpacity>
-                    {/* <Button
-                        style={{ marginTop: 15, alignContent:"center" }}
-                        icon="send"
-                        mode="contained"
-                        onPress={handleLogin}
-                        buttonColor='white'
-                        textColor='green'
-                    >
-                        Login
-                    </Button> */}
+                </View>
+                <View style={{ flexDirection: 'row', marginTop:20 }}>
+                    <Text>Haven't registered? </Text>
+                    <Pressable
+                        onPress={() => navigation.navigate('Register')}>
+                        <Text style={{ color: 'white' }}>Sign Up</Text>
+                    </Pressable>
                 </View>
             </View>
         </SafeAreaView>
@@ -127,6 +108,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     heading: {
+        width:'90%',
         marginBottom: 20
     },
     headingText: {

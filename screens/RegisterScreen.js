@@ -63,62 +63,62 @@ function RegisterScreen() {
                     <Text>Already registered? </Text>
                     <Pressable
                         onPress={handleNavigate}>
-                        <Text style={{ color: 'blue' }}>Sign In</Text>
+                        <Text style={{ color: 'white' }}>Sign In</Text>
                     </Pressable>
                 </View>
                 <View style={styles.inputSection}>
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                        style={styles.input}
                         label='Name'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setName(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Email'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setEmail(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Address'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setAddress(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Contact'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setContact(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Password'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setPassword(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Bank Name'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setBankName(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 2, width: "90%", marginVertical: 5 }}
+                         style={styles.input}
                         label='Card Number'
-                        mode='outlined'
+                        mode='standard'
                         required
                         activeOutlineColor='green'
                         onChangeText={text => setCardNUmber(text)}
@@ -126,9 +126,9 @@ function RegisterScreen() {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                         <View style={{ width: '50%' }}>
                             <TextInput
-                                style={{ marginTop: 2, width: "90%" }}
+                                style={{ marginTop: 2, width: "90%",borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5', height: 50 }}
                                 label='Expiry Date'
-                                // mode='outlined'
+                                // mode='standard'
                                 required
                                 activeOutlineColor='green'
                                 onChangeText={text => setExpirationDate(text)}
@@ -136,9 +136,9 @@ function RegisterScreen() {
                         </View>
                         <View style={{ width: '30%' }}>
                             <TextInput
-                                style={{ marginTop: 2, width: "90%", marginLeft: 10 }}
+                                style={{ marginTop: 2, width: "90%", marginLeft: 10,borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5', height: 50 }}
                                 label='CVV'
-                                mode='outlined'
+                                mode='standard'
                                 required
                                 activeOutlineColor='green'
                                 onChangeText={text => setCvv(text)}
@@ -147,7 +147,7 @@ function RegisterScreen() {
                     </View>
                 </View>
                 <View style={styles.buttonSection}>
-                    <Pressable style={{ width: 350, height: 40, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} onPress={handleSignUp}>
+                    <Pressable style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop:60 }} onPress={handleSignUp}>
                         <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
                     </Pressable>
                 </View>
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     headingText: {
+        color:'#F5F5F5',
         fontWeight: 'bold',
         fontSize: 25,
     },
@@ -189,13 +190,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     input: {
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginVertical: 15,
-        width: '90%',
-        height: 45
+        marginTop: 2, 
+        width: "90%", 
+        marginVertical: 5,
+        borderBottomEndRadius:5, 
+        borderBottomLeftRadius:5, 
+        backgroundColor: '#F5F5F5', 
+        height:50
     },
     buttonSection: {
         flex: 1,

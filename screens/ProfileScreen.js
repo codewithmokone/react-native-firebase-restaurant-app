@@ -129,9 +129,9 @@ export default function ProfileScreen() {
         return (
             <SafeAreaView style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontSize: 20}}>Please login to view profile</Text>
+                    <Text style={{fontSize: 18}}>Please login to view profile</Text>
                     <TouchableOpacity
-                        style={styles.logoutButton}
+                        style={styles.loginButton}
                         onPress={() => navigation.navigate('Login')}
                     >
                         <Text>Login</Text>
@@ -148,14 +148,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'offwhite'
     },
     loginButton: {
-        marginVertical: 50, 
+        marginVertical: 20, 
         backgroundColor: '#52A63C', 
-        width: 200, 
-        height: 40, 
+        width: 220, 
+        height: 50, 
         flexDirection: 'row', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        borderRadius: 10
+        borderRadius: 50
     },
     logoutButton: {
         marginHorizontal: 10, 
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        borderRadius: 50
+        borderRadius: 50,
+        marginTop: 20
     }
 })

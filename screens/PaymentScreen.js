@@ -4,7 +4,7 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { db } from '../config/firebase';
-import { collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import * as Icon from "react-native-feather";
 
 const PaymentScreen = () => {
@@ -25,8 +25,6 @@ const PaymentScreen = () => {
     const [isEditing, setIsEditing] = useState(false)
 
     let total = items.total
-
-    console.log(items.cartItems)
 
     const handleEditName = () => {
         setIsEditName(true)
@@ -56,6 +54,7 @@ const PaymentScreen = () => {
         }
     }
 
+    // Handles the payment function
     const payment = async () => {
 
         try {
@@ -85,8 +84,7 @@ const PaymentScreen = () => {
             Alert.alert('Payment complete, thank you!')
             navigation.navigate('OrderPreparing')
 
-            const orderRef = doc(db, 'orders', userId);
-            await setDoc(orderRef, {
+            await addDoc(collection(db, 'orders'), {
                 userId: userId,
                 items: {
                     dish: items.cartItems,
