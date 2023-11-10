@@ -1,17 +1,15 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import * as Icon from "react-native-feather";
+// import * as Icon from "react-native-feather";
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart, selectCartItemsById, selectCartItemsByIdMemoized } from '../redux/slices/cartSlice'
+import { addToCart, removeFromCart, selectCartItemsByIdMemoized } from '../redux/slices/cartSlice'
 import { TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Card } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 import { db } from '../config/firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 export default function DishRow({ item }) {
-
-    // console.log("Dish Row Log: ", item)
 
     const [specials, setSpecials] = useState([]);
 
@@ -27,10 +25,6 @@ export default function DishRow({ item }) {
             const favoriteCollection = (collection(db, "specials"));
             const favSnapshot = await getDocs(favoriteCollection)
 
-            // const favSnapshot = await getDocs(
-            //     query(favoriteCollection)
-            // )
-
             const data = [];
             favSnapshot.forEach((doc) => {
                 const favList = doc.data();
@@ -42,8 +36,6 @@ export default function DishRow({ item }) {
             console.error('Error fetching Firestore data:', error);
         }
     }
-
-    console.log("Dish screen: ", specials.name)
 
     useEffect(() => {
         festchData();
@@ -59,56 +51,35 @@ export default function DishRow({ item }) {
         dispatch(removeFromCart({ id: item.id }))
     }
 
-    // Rendering data from json file
-    if (item) {
-        return (
-            <TouchableWithoutFeedback
-                style={styles.container}
-                onPress={() => navigation.navigate('Dish', { item: item })}
-            >
-                <Card style={{ width: 370, marginTop: 10, flexDirection: 'row', height: 100, backgroundColor: 'white' }}>
-                    <View style={{ flexDirection: 'row', width: '90%' }}>
-                        <Card.Cover source={item.image} style={{ width: 100, height: 100 }} />
-                        <View style={{ flexDirection: 'column', width: '100%' }}>
-                            <Card.Title
-                                title={item.name}
-                                subtitle={item.description}
-                                style={{ width: '70%' }}
-                            />
-                            <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, marginLeft: 18, marginTop: -7 }}>R{item.price}</Text>
-                        </View>
-                    </View>
-                </Card>
-            </TouchableWithoutFeedback>
-        )
-    }
-
     // Rendering data from firebase store
-    if (specials) {
-        {
-            specials[0].map((item, index) => {
+    return (
+        <View>
+            {specials.map((special, index) => (
                 <TouchableWithoutFeedback
                     key={index}
                     style={styles.container}
-                    onPress={() => navigation.navigate('Dish', { item: item })}
+                    onPress={() => navigation.navigate('Dish', {
+                        item: special,
+                        extras: special.extras
+                    })}
                 >
-                    <Card style={{ width: 370, marginTop: 10, flexDirection: 'row', height: 100, backgroundColor: 'white' }}>
+                    <Card style={styles.card}>
                         <View style={{ flexDirection: 'row', width: '90%' }}>
-                            <Card.Cover source={item.imageUrl} style={{ width: 100, height: 100 }} />
+                            <Card.Cover source={{ uri: special.image }} style={{ width: 100, height: 100, resizeMode: 'repeat' }} />
                             <View style={{ flexDirection: 'column', width: '100%' }}>
                                 <Card.Title
-                                    title={item.name}
-                                    subtitle={item.description}
+                                    title={special.name}
                                     style={{ width: '70%' }}
                                 />
-                                <Text style={{ color: '#52A63C', fontSize: 18, lineHeight: 28, marginLeft: 18, marginTop: -7 }}>R{item.price}</Text>
+                                <Text style={styles.description}>{special.descr}</Text>
+                                <Text style={styles.price}>R{special.price}</Text>
                             </View>
                         </View>
                     </Card>
                 </TouchableWithoutFeedback>
-            })
-        }
-    }
+            ))}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -125,6 +96,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
+    card: {
+        width: 370,
+        marginTop: 10,
+        flexDirection: 'row',
+        height: 100,
+        backgroundColor: 'white'
+    },
     dishImage: {
         height: 80,
         width: 100,
@@ -135,5 +113,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 5,
+    },
+    description: {
+        color: 'gray',
+        fontSize: 16,
+        lineHeight: 16,
+        marginLeft: 18,
+        marginTop: -7,
+        marginVertical: 10
+    },
+    price: {
+        color: '#52A63C',
+        fontSize: 16,
+        lineHeight: 28,
+        marginLeft: 18,
+        marginTop: -7
     }
 });

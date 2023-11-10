@@ -38,7 +38,6 @@ const MenuScreen = () => {
   }));
 
   const extras = category.extras;
-  // console.log("Dish Menu: ", menuArray)
 
   return (
     <SafeAreaView>

@@ -86,110 +86,108 @@ const PaymentScreen = () => {
 
             await addDoc(collection(db, 'orders'), {
                 userId: userId,
-                items: {
-                    dish: items.cartItems,
-                    total: total,
-                    timestamp: serverTimestamp()
-                },
+                dish: items.cartItems,
+                total: total,
+                date: Date()
             })
-            console.log('Order captured successfully')
+        console.log('Order captured successfully')
 
-        } catch (err) {
-            console.log('Order not captured to database', err)
-        }
+    } catch (err) {
+        console.log('Order not captured to database', err)
     }
+}
 
-    return (
-        <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
-            <View style={{}}>
-                <View>
-                    <Text style={{ fontSize: 18, marginVertical: 10, textAlign: 'left' }}>Card:</Text>
-                    <Text>Selected card:</Text>
-                </View>
-                <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
-                    <Text style={{ marginLeft: 5 }}>{data.card.bankName}</Text>
-                </View>
-            </View>
-            <View style={{ marginVertical: 10, height: 260 }}>
-                <View style={{ marginVertical: 10 }}>
-                    <Text style={{ fontSize: 18, marginVertical: 15, fontWeight: 800 }}>Shipping Information</Text>
-                    <View>
-                        <Text>Email:</Text>
-                        {
-                            isEditing ?
-                                (
-                                    <View>
-                                        <TextInput
-                                            value={email}
-                                            placeholder="Email"
-                                            style={styles.shippingInput}
-                                            onChangeText={text => setEmail(text)}
-                                        />
-                                    </View>
-                                )
-                                :
-                                (
-                                    <View>
-                                        <Text style={styles.text}>{email}</Text>
-                                    </View>
-                                )
-                        }
-
-                    </View>
-                </View>
-                <Text style={{ marginVertical: 5, fontWeight: 800, }}>Shipping Address:</Text>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    {isEditing ? (
-                        <View>
-                            <TextInput
-                                style={styles.shippingInput}
-                                value={name}
-                                onChangeText={(text) => setName(text)}
-                            />
-                            <TextInput
-                                style={styles.shippingInput}
-                                value={address}
-                                onChangeText={(text) => setAddress(text)}
-                            />
-                            <TextInput
-                                style={styles.shippingInput}
-                                value={contact}
-                                onChangeText={(text) => setContact(text)}
-                            />
-                        </View>
-
-                    ) : (
-                        <View>
-                            <Text style={styles.text}>{name}</Text>
-                            <Text style={styles.text}>{address}</Text>
-                            <Text style={styles.text}>{contact}</Text>
-                        </View>
-                    )}
-
-                    {isEditing ? (
-                        <TouchableOpacity onPress={handleSavePress} style={{ marginLeft: -12, position: 'absolute', right: -6, top: -122 }}>
-                            <Text style={{ fontSize: 16, color: '#52A63C' }}>Save</Text>
-                            {/* <Icon.Save strokeWidth={3} stroke={'#52A63C'} /> */}
-                        </TouchableOpacity>
-                    ) : (
-                        <TouchableOpacity onPress={handleEditName} style={{ marginLeft: -12, position: 'absolute', right: 10, top: -117 }}>
-                            <Text style={{ fontSize: 16, color: '#52A63C' }}>Edit</Text>
-                            {/* <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} /> */}
-                        </TouchableOpacity>
-                    )}
-                </View>
-            </View>
+return (
+    <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
+        <View style={{}}>
             <View>
-                <TouchableOpacity
-                    onPress={payment}
-                    style={styles.paymentButton}
-                >
-                    <Text style={{ color: 'white' }}>Pay Order</Text>
-                </TouchableOpacity>
+                <Text style={{ fontSize: 18, marginVertical: 10, textAlign: 'left' }}>Card:</Text>
+                <Text>Selected card:</Text>
             </View>
-            {/* <View>
+            <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+                <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
+                <Text style={{ marginLeft: 5 }}>{data.card.bankName}</Text>
+            </View>
+        </View>
+        <View style={{ marginVertical: 10, height: 260 }}>
+            <View style={{ marginVertical: 10 }}>
+                <Text style={{ fontSize: 18, marginVertical: 15, fontWeight: 800 }}>Shipping Information</Text>
+                <View>
+                    <Text>Email:</Text>
+                    {
+                        isEditing ?
+                            (
+                                <View>
+                                    <TextInput
+                                        value={email}
+                                        placeholder="Email"
+                                        style={styles.shippingInput}
+                                        onChangeText={text => setEmail(text)}
+                                    />
+                                </View>
+                            )
+                            :
+                            (
+                                <View>
+                                    <Text style={styles.text}>{email}</Text>
+                                </View>
+                            )
+                    }
+
+                </View>
+            </View>
+            <Text style={{ marginVertical: 5, fontWeight: 800, }}>Shipping Address:</Text>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                {isEditing ? (
+                    <View>
+                        <TextInput
+                            style={styles.shippingInput}
+                            value={name}
+                            onChangeText={(text) => setName(text)}
+                        />
+                        <TextInput
+                            style={styles.shippingInput}
+                            value={address}
+                            onChangeText={(text) => setAddress(text)}
+                        />
+                        <TextInput
+                            style={styles.shippingInput}
+                            value={contact}
+                            onChangeText={(text) => setContact(text)}
+                        />
+                    </View>
+
+                ) : (
+                    <View>
+                        <Text style={styles.text}>{name}</Text>
+                        <Text style={styles.text}>{address}</Text>
+                        <Text style={styles.text}>{contact}</Text>
+                    </View>
+                )}
+
+                {isEditing ? (
+                    <TouchableOpacity onPress={handleSavePress} style={{ marginLeft: -12, position: 'absolute', right: -6, top: -122 }}>
+                        <Text style={{ fontSize: 16, color: '#52A63C' }}>Save</Text>
+                        {/* <Icon.Save strokeWidth={3} stroke={'#52A63C'} /> */}
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity onPress={handleEditName} style={{ marginLeft: -12, position: 'absolute', right: 10, top: -117 }}>
+                        <Text style={{ fontSize: 16, color: '#52A63C' }}>Edit</Text>
+                        {/* <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} /> */}
+                    </TouchableOpacity>
+                )}
+            </View>
+        </View>
+        <View>
+            <TouchableOpacity
+                onPress={payment}
+                style={styles.paymentButton}
+            >
+                <Text style={{ color: 'white' }}>Pay Order</Text>
+            </TouchableOpacity>
+        </View>
+        {/* <View>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Cart')}
                     style={{ marginVertical: 20 }}
@@ -197,8 +195,8 @@ const PaymentScreen = () => {
                     <Text style={{ color: 'red' }}>Cancel Order</Text>
                 </TouchableOpacity>
             </View> */}
-        </SafeAreaView>
-    )
+    </SafeAreaView>
+)
 }
 
 export default PaymentScreen

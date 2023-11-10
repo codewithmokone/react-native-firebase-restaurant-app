@@ -18,7 +18,6 @@ export default function DishScreen() {
     let { item, extras } = params;
 
     const [selectedExtras, setSelectedExtras] = useState([]);
-    const [isChecked, setChecked] = useState(false);
 
     // handles increasing the number of items
     // const handleAddToCart = () => {

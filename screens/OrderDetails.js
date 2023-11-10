@@ -10,29 +10,29 @@ const OrderDetails = () => {
     const { user } = useSelector(state => state.user)
 
     const [date, setDate] = useState('')
-    const [orderInfo, setOrderInfo] = useState('');
+    const [orderInfo, setOrderInfo] = useState([]);
     const [expanded, setExpanded] = useState(true);
     const [total, setTotal] = useState('');
     const handlePress = () => setExpanded(!expanded);
 
+    // Handels fetching data from firestore database
     const orderHistory = async () => {
 
         try {
             const orderRef = query(collection(db, 'orders'), where("userId", "==", user));
             const querySnapshot = await getDocs(orderRef);
 
+            const ordersData = [];
+
             querySnapshot.forEach((doc) => {
-                const ordersRef = (doc.data())
-                setOrderInfo(ordersRef)
-                
+                const orderData = doc.data()
+                ordersData.push(orderData)
+                setOrderInfo(ordersData)
             })
         } catch (err) {
             console.log(err)
         }
     }
-
-    // console.log("Orders info: ", date)
-    console.log("Order History", orderInfo)
 
     useEffect(() => {
         orderHistory();
@@ -42,52 +42,36 @@ const OrderDetails = () => {
         <SafeAreaView>
             <ScrollView>
                 <View style={{ backgroundColor: 'white' }}>
-                    {orderInfo ? (
-                        orderInfo.map((item, index) => (
-                            // <List.Section title="Accordions">
-                            //     <List.Accordion
-                            //         title="Uncontrolled Accordion"
-                            //         left={props => <List.Icon {...props} icon="folder" />}>
-                            //         <List.Item title="First item" />
-                            //         <List.Item title="Second item" />
-                            //     </List.Accordion>
-
-                            //     <List.Accordion
-                            //         title="Controlled Accordion"
-                            //         left={props => <List.Icon {...props} icon="folder" />}
-                            //         expanded={expanded}
-                            //         onPress={handlePress}>
-                            //         <List.Item title="First item" />
-                            //         <List.Item title="Second item" />
-                            //     </List.Accordion>
-                            // </List.Section>
-                            <>
-                                <View key={index} style={{ marginTop: 10, marginHorizontal: 5, }}>
+                    {orderInfo && orderInfo.length > 0 ? (
+                        orderInfo.map((order, orderIndex) => (
+                            <View key={orderIndex}>
+                                <View style={{ marginTop: 10, marginHorizontal: 5 }}>
                                     <View style={{ height: 30, justifyContent: 'center', backgroundColor: 'whitesmoke' }}>
-                                        <Text style={{ marginHorizontal: 5, color: 'gray', fontWeight: 600 }}>ORDER SUMMARY</Text>
+                                        <Text style={{ marginHorizontal: 5, color: 'gray', fontWeight: '600' }}>ORDER SUMMARY</Text>
                                     </View>
-                                    <View>
-                                        <Text style={{ marginVertical: 7, marginHorizontal: 5, fontWeight: 600 }}>{item.name}</Text>
-                                    </View>
-                                    <Text style={{ marginVertical: 5, marginHorizontal: 5 }}>{item.description}</Text>
-                                    <Text style={{ marginVertical: 5, marginHorizontal: 5 }}>R{item.price}</Text>
+                                    <Text style={{ marginVertical: 7, marginHorizontal: 5, fontWeight: '600' }}>Date: {order.date}</Text>
+                                    {order.dish.map((dish, dishIndex) => (
+                                        <View key={dishIndex}>
+                                            <Text style={{ marginVertical: 5, marginHorizontal: 5, fontWeight: '600' }}>{dish.name}</Text>
+                                            <Text style={{ marginVertical: 5, marginHorizontal: 5 }}>{dish.descr}</Text>
+                                            <Text style={{ marginVertical: 5, marginHorizontal: 5 }}>Price: R{dish.price}</Text>
+                                            {dish.extras && dish.extras.length > 0 && (
+                                                <Text style={{ marginVertical: 5, marginHorizontal: 5 }}>Extras: {dish.extras.map(extra => `${extra.name} (R${extra.price})`).join(', ')}</Text>
+                                            )}
+                                        </View>
+                                    ))}
+                                    <Text style={{ marginVertical: 5, marginHorizontal: 5, fontWeight: '800' }} > Order total: R{order.total}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ marginVertical: 5, marginHorizontal: 10, fontWeight: 800 }}>Order total:</Text>
-                                    <Text style={{ marginVertical: 5, marginHorizontal: 10, fontWeight: 800 }}>R{total}</Text>
-                                </View>
-                            </>
+                            </View>
                         ))
                     ) : (
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Text>No order information available.</Text>
                         </View>
-
                     )}
                 </View>
             </ScrollView>
-        </SafeAreaView>
-
+        </SafeAreaView >
     )
 }
 
