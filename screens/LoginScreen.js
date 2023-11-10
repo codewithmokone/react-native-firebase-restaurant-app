@@ -62,17 +62,18 @@ function LoginScreen() {
                 </View>             
                 <View style={styles.inputSection}>
                     <TextInput
-                         style={{ marginTop: 15, borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5' }}
+                         style={{ marginTop: 15, backgroundColor:''}}
                         label='Email'
-                        mode='standard'
+                        mode='flat'
                         required
+                        outlineStyle={{borderRadius:14}}
                         // activeOutlineColor='white'
                         onChangeText={(text) => setEmail(text)}
                     />
                     <TextInput
-                        style={{ marginTop: 15, borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5' }}
+                        style={{ marginTop: 15, borderBottomEndRadius:5, borderBottomLeftRadius:8}}
                         label='Password'
-                        mode='standard'
+                        mode='outlined'
                         required
                         activeOutlineColor='green'
                         onChangeText={(text) => setPassword(text)}

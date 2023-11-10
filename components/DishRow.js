@@ -15,9 +15,9 @@ export default function DishRow({ item }) {
 
     const dispatch = useDispatch();
     const navigation = useNavigation()
-    const totalItems = useSelector(state => selectCartItemsByIdMemoized(state, item.id))
+    // const totalItems = useSelector(state => selectCartItemsByIdMemoized(state, item.id))
 
-    if (!totalItems) return null;
+    // if (!totalItems) return null;
 
     //Handles fetching data from firebase
     const festchData = async () => {
@@ -65,14 +65,18 @@ export default function DishRow({ item }) {
                 >
                     <Card style={styles.card}>
                         <View style={{ flexDirection: 'row', width: '90%' }}>
-                            <Card.Cover source={{ uri: special.image }} style={{ width: 100, height: 100, resizeMode: 'repeat' }} />
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Card.Cover source={{ uri: special.image }} style={{ width: 100, height: 60, resizeMode: 'cover', marginHorizontal: 10, backgroundColor: 'white', marginTop: 15, marginLeft: 10 }} />
+                            </View>
                             <View style={{ flexDirection: 'column', width: '100%' }}>
                                 <Card.Title
                                     title={special.name}
                                     style={{ width: '70%' }}
                                 />
-                                <Text style={styles.description}>{special.descr}</Text>
-                                <Text style={styles.price}>R{special.price}</Text>
+                                <Card.Content>
+                                    <Text style={styles.description} variant="bodyMedium">{special.descr}</Text>
+                                    <Text style={styles.price}>R{special.price}</Text>
+                                </Card.Content>
                             </View>
                         </View>
                     </Card>
@@ -116,17 +120,17 @@ const styles = StyleSheet.create({
     },
     description: {
         color: 'gray',
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 16,
-        marginLeft: 18,
-        marginTop: -7,
+        // marginLeft: 18,
+        marginTop: -8,
         marginVertical: 10
     },
     price: {
         color: '#52A63C',
         fontSize: 16,
         lineHeight: 28,
-        marginLeft: 18,
+        // marginLeft: 18,
         marginTop: -7
     }
 });

@@ -33,13 +33,14 @@ function HomeScreen() {
         <View style={{ paddingBottom: 144 }}>
           <Text style={{ marginLeft: 10, paddingHorizontal: 4, paddingVertical: 4, fontWeight: 400, fontSize: 18, lineHeight: 32, color: '#52A63C' }}>Specials</Text>
           <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            { [burgerMenu].map((item, index) => {
+            {/* { [burgerMenu].map((item, index) => {
               return item.dishes.map((item, index) => <DishRow item={{ ...item }} key={index} />)
-            })}
+            })} */}
             {/* {[specials.menu].map((item, index) => {
               // console.log("Specials menu", item.menu)
               return <DishRow item={{ ...item }} key={index} />
             })} */}
+            <DishRow />
           </View>
         </View>
       </ScrollView>

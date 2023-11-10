@@ -7,7 +7,7 @@ import { selectRestaurant } from '../redux/slices/restaurantSlice';
 import { addToCart, removeFromCart, selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
 import { SafeAreaView } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { Button, Card, Divider } from 'react-native-paper';
+import { Button, Card, Divider, Dialog, Portal, PaperProvider, } from 'react-native-paper';
 
 export default function CartScreen() {
 
@@ -18,8 +18,13 @@ export default function CartScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState(data.address);
+  // const [address, setAddress] = useState(data.address);
   const [groupedItems, setGroupedItems] = useState({});
+  const [visible, setVisible] = useState(false);
+
+  const showDialog = () => setVisible(false);
+
+  const hideDialog = () => setVisible(false);
 
   const deliveryFee = 15 // Constant for delivery fee
 
@@ -29,6 +34,25 @@ export default function CartScreen() {
 
   // Prompts the user to login or sign up
   const userPrompt = () => {
+
+    // return (
+    //   <PaperProvider>
+    //     <View style={{ backgroundColor: 'white' }}>
+    //       <Portal style={{ backgroundColor: 'white' }}>
+    //         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
+    //           {/* <Dialog.Title>Alert</Dialog.Title> */}
+    //           <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
+    //             <Text variant="bodyLarge">Please Login or Register to continue.</Text>
+    //           </Dialog.Content>
+    //           <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+    //             <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
+    //             <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
+    //           </Dialog.Actions>
+    //         </Dialog>
+    //       </Portal>
+    //     </View>
+    //   </PaperProvider>
+    // )
     Alert.alert(
       'Sign Up or Login to continue',
       ' ',
@@ -66,6 +90,25 @@ export default function CartScreen() {
       navigation.navigate('Payment', { ...items })
     } else {
       userPrompt()
+      // setVisible(true)
+      // return (
+      //   <PaperProvider>
+      //     <View style={{ backgroundColor: 'white' }}>
+      //       <Portal style={{ backgroundColor: 'white' }}>
+      //         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
+      //           {/* <Dialog.Title>Alert</Dialog.Title> */}
+      //           <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
+      //             <Text variant="bodyLarge">Please Login or Register to continue.</Text>
+      //           </Dialog.Content>
+      //           <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+      //             <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
+      //             <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
+      //           </Dialog.Actions>
+      //         </Dialog>
+      //       </Portal>
+      //     </View>
+      //   </PaperProvider>
+      // )
     }
   }
 
@@ -98,7 +141,12 @@ export default function CartScreen() {
       <View style={{ backgroundColor: '#52A63C', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
         <Image style={{ width: 80, height: 80, borderRadius: 100 }} source={require('../assets/images/bikeGuy.png')} />
         {/* <Text>{address}</Text> */}
-        <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 5 }}>Delivering to {address}</Text>
+        {data ? (
+          <Text style={{ paddingLeft: 4, flex: 1, marginLeft: 5 }}>Delivering to {data.address}</Text>
+        ) : (
+          <></>
+        )}
+
         {/* <TouchableOpacity>
           <Text style={{ fontWeight: 700, marginRight: 12 }}>Change</Text>
         </TouchableOpacity> */}
@@ -190,6 +238,22 @@ export default function CartScreen() {
             )
           })
         }
+        <PaperProvider>
+          <View style={{ backgroundColor: 'white' }}>
+            <Portal style={{ backgroundColor: 'white' }}>
+              <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
+                {/* <Dialog.Title>Alert</Dialog.Title> */}
+                <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Text variant="bodyLarge">Please Login or Register to continue.</Text>
+                </Dialog.Content>
+                <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                  <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
+                  <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
+                </Dialog.Actions>
+              </Dialog>
+            </Portal>
+          </View>
+        </PaperProvider>
       </ScrollView>
       {/* Section for check out button */}
       <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, }}>
@@ -201,6 +265,7 @@ export default function CartScreen() {
           <Text >Delivery Fee</Text>
           <Text >R{deliveryFee}</Text>
         </View>
+        <Divider />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
           <Text style={styles.textTotal}>Order Total</Text>
           <Text style={styles.textTotal}>R{deliveryFee + cartTotal}</Text>
@@ -210,7 +275,7 @@ export default function CartScreen() {
             onPress={navigateToPayment}
             style={styles.paymentButton}>
             <Text style={styles.textPaymentButton}>
-              Check Out
+              Checkout
             </Text>
           </TouchableOpacity>
         </View>
@@ -221,7 +286,7 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   textTotal: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 800,
   },
   paymentButton: {
@@ -229,7 +294,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 100,
     width: 350,
-    height: 50,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
