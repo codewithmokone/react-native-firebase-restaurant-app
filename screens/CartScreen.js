@@ -29,30 +29,10 @@ export default function CartScreen() {
   const deliveryFee = 15 // Constant for delivery fee
 
   const handleIncrease = (item) => {
-
   }
 
   // Prompts the user to login or sign up
   const userPrompt = () => {
-
-    // return (
-    //   <PaperProvider>
-    //     <View style={{ backgroundColor: 'white' }}>
-    //       <Portal style={{ backgroundColor: 'white' }}>
-    //         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
-    //           {/* <Dialog.Title>Alert</Dialog.Title> */}
-    //           <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
-    //             <Text variant="bodyLarge">Please Login or Register to continue.</Text>
-    //           </Dialog.Content>
-    //           <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-    //             <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
-    //             <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
-    //           </Dialog.Actions>
-    //         </Dialog>
-    //       </Portal>
-    //     </View>
-    //   </PaperProvider>
-    // )
     Alert.alert(
       'Sign Up or Login to continue',
       ' ',
@@ -190,11 +170,11 @@ export default function CartScreen() {
                           }}>
 
                           {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
-                          <View style={{ width: '95%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 'auto' }}>
+                          <View style={{ width: '95%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
                             <Text style={{ fontWeight: 700, fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
                             <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
                           </View>
-                          <Card.Content style={{ borderBottomWidth: 0.4, height: 'auto', justifyContent: 'center', width: '95%' }}>
+                          <Card.Content style={{ borderBottomWidth: 0.4, height: 70, justifyContent: 'center', width: '95%' }}>
                             <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15, marginVertical: 10 }}>{item.descr}</Text>
                           </Card.Content>
                           <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', height: 'auto', marginVertical: 5 }}>
@@ -210,7 +190,7 @@ export default function CartScreen() {
                               }
                             </View>
                           </Card.Content>
-                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center',height:70 }}>
                             <Card.Content style={{ width: '50%', marginLeft: 15 }}>
                               <Text variant="bodyMedium" style={{ fontWeight: 500, marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
                             </Card.Content>
@@ -256,12 +236,12 @@ export default function CartScreen() {
         </PaperProvider>
       </ScrollView>
       {/* Section for check out button */}
-      <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, }}>
+      <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor:'gray' }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
           <Text >Subtotal</Text>
           <Text >R{cartTotal}</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical:10 }}>
           <Text >Delivery Fee</Text>
           <Text >R{deliveryFee}</Text>
         </View>
