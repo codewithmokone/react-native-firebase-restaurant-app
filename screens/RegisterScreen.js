@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
-import { TextInput } from 'react-native-paper'
+import { } from 'react-native-paper'
 
 function RegisterScreen() {
 
@@ -69,85 +69,67 @@ function RegisterScreen() {
                 <View style={styles.inputSection}>
                     <TextInput
                         style={styles.input}
-                        label='Name'
-                        mode='standard'
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Name and surname'
                         onChangeText={text => setName(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Email'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Email'
                         onChangeText={text => setEmail(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Address'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Address'
                         onChangeText={text => setAddress(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Contact'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Contact'
                         onChangeText={text => setContact(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Password'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Password'
                         onChangeText={text => setPassword(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Bank Name'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Bank name'
                         onChangeText={text => setBankName(text)}
                     />
                     <TextInput
-                         style={styles.input}
-                        label='Card Number'
-                        mode='standard'
+                        style={styles.input}
                         required
-                        activeOutlineColor='green'
+                        placeholder=' Card number'
                         onChangeText={text => setCardNUmber(text)}
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                         <View style={{ width: '50%' }}>
                             <TextInput
-                                style={{ marginTop: 2, width: "90%",borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5', height: 50 }}
-                                label='Expiry Date'
-                                // mode='standard'
+                                style={{ borderRadius:10, marginTop: 2, width: "90%", backgroundColor: '#F5F5F5', height: 50 }}
                                 required
-                                activeOutlineColor='green'
+                                placeholder=' Expiry date'
                                 onChangeText={text => setExpirationDate(text)}
                             />
                         </View>
                         <View style={{ width: '30%' }}>
                             <TextInput
-                                style={{ marginTop: 2, width: "90%", marginLeft: 10,borderBottomEndRadius:5, borderBottomLeftRadius:5, backgroundColor: '#F5F5F5', height: 50 }}
-                                label='CVV'
-                                mode='standard'
+                                style={{ borderRadius:10, marginTop: 2, width: "90%", marginLeft: 10, backgroundColor: '#F5F5F5', height: 50 }}
                                 required
-                                activeOutlineColor='green'
+                                placeholder=' CVV'
                                 onChangeText={text => setCvv(text)}
                             />
                         </View>
                     </View>
                 </View>
                 <View style={styles.buttonSection}>
-                    <Pressable style={{ width: 350, height: 50, borderRadius: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop:60 }} onPress={handleSignUp}>
+                    <Pressable style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
                         <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
                     </Pressable>
                 </View>
@@ -170,7 +152,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     headingText: {
-        color:'#F5F5F5',
+        color: '#F5F5F5',
         fontWeight: 'bold',
         fontSize: 25,
     },
@@ -190,13 +172,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     input: {
-        marginTop: 2, 
-        width: "90%", 
-        marginVertical: 5,
-        borderBottomEndRadius:5, 
-        borderBottomLeftRadius:5, 
-        backgroundColor: '#F5F5F5', 
-        height:50
+        marginTop: 2,
+        width: "90%",
+        marginVertical: 10,
+        borderRadius:10,
+        backgroundColor: '#F5F5F5',
+        height: 50
     },
     buttonSection: {
         flex: 1,
