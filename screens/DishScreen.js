@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
 import { Checkbox, Divider } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 // import { FlatList } from 'react-native-web';
 
 export default function DishScreen() {
@@ -80,7 +81,7 @@ export default function DishScreen() {
                                         onPress={() => handleExtraSelection(extra)} c
                                         style={styles.checkbox}
                                     >
-                                        <Text>{selectedExtras.includes(extra) ? 'X' : ''}</Text>
+                                        <Text>{selectedExtras.includes(extra) ? <Icon name="check" size={20} color="black" /> : ''}</Text>
                                     </TouchableOpacity>
                                     <View style={styles.extraInfo}>
                                         <Text style={styles.extraName}>{extra.name}</Text>

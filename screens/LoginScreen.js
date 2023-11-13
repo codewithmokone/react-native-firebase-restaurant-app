@@ -3,20 +3,31 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../config/firebase';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { setUserData } from '../redux/slices/userDataSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+// import TextInputComponent from '../components/TextInputComponent';
 
 function LoginScreen() {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
+    // State variable to hold email address
     const [email, setEmail] = useState('');
+    // State variable to hold password address
     const [password, setPassword] = useState('');
+    // State variable to track to track password visibility
+    const [showPassword, setShowPassword] = useState(false);
+
+    // Function to toggle the password visibility state 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     // Handles user login
     const handleLogin = async () => {
@@ -74,13 +85,35 @@ function LoginScreen() {
                         placeholder=' Email'
                         onChangeText={(text) => setEmail(text)}
                     />
-
-                    <TextInput
-                        style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50 }}
-                        placeholder=' Password'
-                        required
-                        onChangeText={(text) => setPassword(text)}
+                    {/* <TextInputComponent
+                    label="Email"
+                        // placeholder=' Email'
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
                     />
+                    <TextInputComponent
+                        label="Password"
+                        // placeholder=' Password'
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
+                        secureTextEntry={true}
+                    /> */}
+                    <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', width:'100%'}}>
+                        <TextInput
+                            style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50, width:350, marginLeft:-10 }}
+                            placeholder=' Password'
+                            required
+                            onChangeText={(text) => setPassword(text)}
+                            secureTextEntry={!showPassword}
+                        />
+                        <MaterialCommunityIcons
+                            name={showPassword ? 'eye-off' : 'eye'}
+                            size={24}
+                            color="#aaa"
+                            style={styles.icon}
+                            onPress={toggleShowPassword}
+                        />
+                    </View>
                 </View>
                 <View style={{ width: '90%', marginTop: 30 }}>
                     <TouchableOpacity
@@ -113,7 +146,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         width: '90%',
-        marginBottom: 20
+        marginBottom: 10
     },
     headingText: {
         fontWeight: 'bold',
@@ -136,4 +169,8 @@ const styles = StyleSheet.create({
 
         marginBottom: 15,
     },
+    icon:{
+        marginLeft:-30,
+        marginTop: 20
+    }
 });

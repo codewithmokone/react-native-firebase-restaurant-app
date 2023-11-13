@@ -72,8 +72,39 @@ export default function ProfileScreen() {
         navigation.navigate('Home');
     }
 
-    if (data) {
+    // Prompts the user to login or sign up
+    const userPrompt = () => {
+        Alert.alert(
+            'Sign Up or Login to continue',
+            ' ',
+            [
+                {
+                    text: 'Register',
+                    onPress: () => navigation.navigate('Register'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Login',
+                    onPress: () => navigation.navigate('Login'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Cancel',
+                    onPress: () => Alert.alert('Cancel Pressed'),
+                    style: 'cancel',
+                },
+            ],
+            {
+                cancelable: true,
+                onDismiss: () =>
+                    Alert.alert(
+                        'This alert was dismissed by tapping outside of the alert dialog.',
+                    ),
+            },
+        );
+    }
 
+    if (data) {
         return (
             <SafeAreaView style={styles.container}>
                 <View>
@@ -134,22 +165,23 @@ export default function ProfileScreen() {
         )
     } else {
         return (
-            <PaperProvider>
-                <View style={{backgroundColor:'white'}}>
-                    <Portal style={{backgroundColor:'white'}}>
-                        <Dialog visible={visible} onDismiss={hideDialog} style={{backgroundColor:'white'}}>
-                            {/* <Dialog.Title>Alert</Dialog.Title> */}
-                            <Dialog.Content style={{justifyContent:'center', alignItems:'center'}}>
-                                <Text variant="bodyLarge">Please Login or Register to continue.</Text>
-                            </Dialog.Content>
-                            <Dialog.Actions style={{width:'100%', justifyContent: 'center', alignItems:'center'}}>
-                                <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
-                                <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
-                            </Dialog.Actions>
-                        </Dialog>
-                    </Portal>
-                </View>
-            </PaperProvider>
+            // <PaperProvider>
+            //     <View style={{ backgroundColor: 'white' }}>
+            //         <Portal style={{ backgroundColor: 'white' }}>
+            //             <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
+            //                 {/* <Dialog.Title>Alert</Dialog.Title> */}
+            //                 <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
+            //                     <Text variant="bodyLarge">Please Login or Register to continue.</Text>
+            //                 </Dialog.Content>
+            //                 <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            //                     <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
+            //                     <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
+            //                 </Dialog.Actions>
+            //             </Dialog>
+            //         </Portal>
+            //     </View>
+            // </PaperProvider>
+            userPrompt()
         )
     }
 }
