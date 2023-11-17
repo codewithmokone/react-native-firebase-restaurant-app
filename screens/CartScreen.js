@@ -237,7 +237,7 @@ export default function CartScreen() {
       </ScrollView>
       {/* Section for check out button */}
       <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor:'gray' }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, marginTop:25 }}>
           <Text >Subtotal</Text>
           <Text >R{cartTotal}</Text>
         </View>

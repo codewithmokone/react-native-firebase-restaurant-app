@@ -75,8 +75,8 @@ export default function DishScreen() {
                 <View style={{ width: '100%', marginHorizontal: 10, backgroundColor: 'white' }}>
                     {
                         extras && extras.map((extra, index) => (
-                            <>
-                                <View key={index} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 5, marginLeft: -5 }}>
+                            <View key={index}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 10, marginVertical: 5, marginLeft: -5 }}>
                                     <TouchableOpacity
                                         onPress={() => handleExtraSelection(extra)} c
                                         style={styles.checkbox}
@@ -89,7 +89,7 @@ export default function DishScreen() {
                                     </View>
                                 </View>
                                 <Divider />
-                            </>
+                            </View>
                         ))
                     }
                 </View>

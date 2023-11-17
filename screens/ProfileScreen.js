@@ -8,7 +8,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import * as Icon from "react-native-feather";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUserData } from '../redux/slices/userDataSlice';
-import { Button, Dialog, Portal, PaperProvider, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
 export default function ProfileScreen() {
 
@@ -90,17 +90,10 @@ export default function ProfileScreen() {
                 },
                 {
                     text: 'Cancel',
-                    onPress: () => Alert.alert('Cancel Pressed'),
+                    onPress: () => navigation.navigate('Home'),
                     style: 'cancel',
                 },
             ],
-            {
-                cancelable: true,
-                onDismiss: () =>
-                    Alert.alert(
-                        'This alert was dismissed by tapping outside of the alert dialog.',
-                    ),
-            },
         );
     }
 
@@ -164,25 +157,7 @@ export default function ProfileScreen() {
             </SafeAreaView>
         )
     } else {
-        return (
-            // <PaperProvider>
-            //     <View style={{ backgroundColor: 'white' }}>
-            //         <Portal style={{ backgroundColor: 'white' }}>
-            //             <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
-            //                 {/* <Dialog.Title>Alert</Dialog.Title> */}
-            //                 <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
-            //                     <Text variant="bodyLarge">Please Login or Register to continue.</Text>
-            //                 </Dialog.Content>
-            //                 <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-            //                     <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
-            //                     <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
-            //                 </Dialog.Actions>
-            //             </Dialog>
-            //         </Portal>
-            //     </View>
-            // </PaperProvider>
-            userPrompt()
-        )
+        userPrompt();
     }
 }
 

@@ -66,7 +66,7 @@ export default function DishRow({ item }) {
                     <Card style={styles.card}>
                         <View style={{ flexDirection: 'row', width: '90%' }}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Card.Cover source={{ uri: special.image }} style={{ width: 100, height: 60, resizeMode: 'cover', marginHorizontal: 10, backgroundColor: 'white', marginTop: 15, marginLeft: 10 }} />
+                                <Card.Cover source={{ uri: special.smallImage }} style={{ width: 100, height: 60, resizeMode: 'cover', marginHorizontal: 10, backgroundColor: 'white', marginTop: 15, marginLeft: 10 }} />
                             </View>
                             <View style={{ flexDirection: 'column', width: '100%' }}>
                                 <Card.Title

@@ -34,7 +34,8 @@ const MenuScreen = () => {
     descr: menu[key].descr,
     name: menu[key].name,
     price: menu[key].price,
-    image: menu[key].imageUrl
+    image: menu[key].imageUrl,
+    smallImage: menu[key].imageSmall
   }));
 
   const extras = category.extras;
@@ -72,7 +73,7 @@ const MenuScreen = () => {
                     <Text>From R{item.price}</Text>
                   </View>
                   <View style={{width: 70, alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-                    <Image source={{ uri: item.image }} style={{ width: 100, height: 90, resizeMode: 'contain' }} />
+                    <Image source={{ uri: item.smallImage }} style={{ width: 100, height: 90, resizeMode: 'contain',marginLeft: -20 }} />
                   </View>
                 </View>
               </TouchableWithoutFeedback>
