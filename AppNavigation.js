@@ -52,7 +52,7 @@ function AppNavigation() {
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Payment" component={PaymentScreen} options={{  }} />
                 <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ title: 'Order Summary' }} />
-                <Stack.Screen name="MenuScreen" component={MenuScreen} options={{ title: 'Menu' }} />
+                <Stack.Screen name="MenuScreen" component={MenuScreen} options={{ title: '' }} />
                 <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
             </Stack.Navigator>

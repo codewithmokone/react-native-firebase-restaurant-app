@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
+import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
@@ -29,6 +29,12 @@ function RegisterScreen() {
     const handleSignUp = async () => {
 
         try {
+            // Input validation
+        if (!email || !password || !name || !email || !address || !contact || !bankName || !cardNumber || !expirationDate || !cvv) {
+            Alert.alert('Validation Error', 'Please enter both email and password.');
+            return;
+        }
+
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
 
@@ -129,9 +135,9 @@ function RegisterScreen() {
                     </View>
                 </View>
                 <View style={styles.buttonSection}>
-                    <Pressable style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
+                    <TouchableOpacity style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
                         <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>

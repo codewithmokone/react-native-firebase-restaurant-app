@@ -70,25 +70,6 @@ export default function CartScreen() {
       navigation.navigate('Payment', { ...items })
     } else {
       userPrompt()
-      // setVisible(true)
-      // return (
-      //   <PaperProvider>
-      //     <View style={{ backgroundColor: 'white' }}>
-      //       <Portal style={{ backgroundColor: 'white' }}>
-      //         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
-      //           {/* <Dialog.Title>Alert</Dialog.Title> */}
-      //           <Dialog.Content style={{ justifyContent: 'center', alignItems: 'center' }}>
-      //             <Text variant="bodyLarge">Please Login or Register to continue.</Text>
-      //           </Dialog.Content>
-      //           <Dialog.Actions style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-      //             <Button onPress={() => navigation.navigate('Login')} textColor='green'>Login</Button>
-      //             <Button onPress={() => navigation.navigate('Register')} textColor='green'>Register</Button>
-      //           </Dialog.Actions>
-      //         </Dialog>
-      //       </Portal>
-      //     </View>
-      //   </PaperProvider>
-      // )
     }
   }
 

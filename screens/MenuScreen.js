@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Image } from 'react-native'
@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../redux/slices/cartSlice'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
-// import { Divider } from 'react-native-paper'
+import * as Icon from "react-native-feather";
 
 const MenuScreen = () => {
 
@@ -17,6 +17,8 @@ const MenuScreen = () => {
   const navigation = useNavigation()
 
   let category = params
+
+  console.log(category)
 
   const [menu, setMenu] = useState(category.menu)
 
@@ -43,9 +45,17 @@ const MenuScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <View style={{ justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
-          {/* <Image style={{ width: 400, height: 210, resizeMode: 'stretch'}} source={{ uri: category.imageUrl }} /> */}
-          <Text style={{marginVertical:10, fontSize: 18}} >{category.subTitle}</Text>
+        {/* <View style={{ paddingVertical: 4, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{ position: 'absolute', zIndex: 10, borderRadius: 100, padding: 4, top: 20, left: 20, borderWidth: 2 }}
+          >
+            <Icon.ArrowLeft strokeWidth={5} stroke='#52A63C' />
+          </TouchableOpacity>
+          <Text style={{ textAlign: 'center', fontWeight: 700, fontSize: 18, lineHeight: 28 }}>{category.subTitle}</Text>
+        </View> */}
+        <View style={{ flexDirection:'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
+          <Text style={{ marginVertical: 10, fontSize: 18 }} >{category.subTitle}</Text>
         </View>
         <View style={{}}>
           <FlatList
@@ -53,9 +63,9 @@ const MenuScreen = () => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Dish', { 
-                  item: item, 
-                  extras: extras 
+                onPress={() => navigation.navigate('Dish', {
+                  item: item,
+                  extras: extras
                 })}
               >
                 <View style={{
@@ -67,13 +77,13 @@ const MenuScreen = () => {
                   borderBottomWidth: 0.4
                 }}
                 >
-                  <View style={{width: 300}}>
-                    <Text style={{fontSize:15, fontWeight: 600, color:'#52A63C'}}>{item.name}</Text>
-                    <Text  style={{marginVertical:5, color: '#908E9B'}}>{item.descr}</Text>
+                  <View style={{ width: 300 }}>
+                    <Text style={{ fontSize: 15, fontWeight: 600, color: '#52A63C' }}>{item.name}</Text>
+                    <Text style={{ marginVertical: 5, color: '#908E9B' }}>{item.descr}</Text>
                     <Text>From R{item.price}</Text>
                   </View>
-                  <View style={{width: 70, alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
-                    <Image source={{ uri: item.smallImage }} style={{ width: 100, height: 90, resizeMode: 'contain',marginLeft: -20 }} />
+                  <View style={{ width: 70, alignItems: 'center', marginLeft: 5, marginRight: 5 }}>
+                    <Image source={{ uri: item.smallImage }} style={{ width: 100, height: 90, resizeMode: 'contain', marginLeft: -20 }} />
                   </View>
                 </View>
               </TouchableWithoutFeedback>
