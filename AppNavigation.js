@@ -48,11 +48,11 @@ function AppNavigation() {
                 <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true }} />
+                <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true,  headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Payment" component={PaymentScreen} options={{  }} />
-                <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ title: 'Order Summary' }} />
-                <Stack.Screen name="MenuScreen" component={MenuScreen} options={{ title: '' }} />
+                <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ title: 'Order Summary',headerTintColor: '#52A63C', }} />
+                <Stack.Screen name="MenuScreen" component={MenuScreen} options={{ title: '',  headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Delivery" component={DeliveryScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
             </Stack.Navigator>

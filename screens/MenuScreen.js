@@ -45,19 +45,10 @@ const MenuScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        {/* <View style={{ paddingVertical: 4, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{ position: 'absolute', zIndex: 10, borderRadius: 100, padding: 4, top: 20, left: 20, borderWidth: 2 }}
-          >
-            <Icon.ArrowLeft strokeWidth={5} stroke='#52A63C' />
-          </TouchableOpacity>
-          <Text style={{ textAlign: 'center', fontWeight: 700, fontSize: 18, lineHeight: 28 }}>{category.subTitle}</Text>
-        </View> */}
         <View style={{ flexDirection:'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
           <Text style={{ marginVertical: 10, fontSize: 18 }} >{category.subTitle}</Text>
         </View>
-        <View style={{}}>
+        <View>
           <FlatList
             data={menuArray}
             keyExtractor={(item, index) => index.toString()}

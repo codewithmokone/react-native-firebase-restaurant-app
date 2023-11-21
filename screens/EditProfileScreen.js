@@ -20,25 +20,25 @@ export default function EditProfileScreen() {
     const [email, setEmail] = useState(data.email)
     const [address, setAddress] = useState(data.address)
     const [contact, setContact] = useState(data.contact)
-    // const [cardNumber, setCardNumber] = useState(data.cardNmber)
-    // const [expirationDate, setExpirationDate] = useState(data.expirationDate)
-    // const [cvv, setCvv] = useState(data.cvv)
+    const [cardNumber, setCardNumber] = useState(data.cardNmber)
+    const [expirationDate, setExpirationDate] = useState(data.expirationDate)
+    const [cvv, setCvv] = useState(data.cvv)
 
     const handleUpdate = async () => {
 
-        try{
+        try {
             const userInfoUpdate = doc(db, "users", user);
             await updateDoc(userInfoUpdate, {
                 name: name,
                 email: email,
                 address: address,
                 contact: contact,
-                // cardNmber: cardNumber,
-                // expirationDate: expirationDate,
-                // cvv: cvv,
+                cardNmber: cardNumber,
+                expirationDate: expirationDate,
+                cvv: cvv,
             });
             alert('User information updated');
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
     }
@@ -74,52 +74,52 @@ export default function EditProfileScreen() {
                         placeholder=' Contact'
                         onChangeText={(text) => setContact(text)}
                     />
-                     {/* <TextInput
+                    <TextInput
                         value={cardNumber}
                         style={styles.textInputFields}
-                        placeholder=' Contact'
+                        placeholder=' Card Number'
                         onChangeText={(text) => setCardNumber(text)}
                     />
                      <TextInput
                         value={expirationDate}
                         style={styles.textInputFields}
-                        placeholder=' Contact'
+                        placeholder=' Expiry date'
                         onChangeText={(text) => setExpirationDate(text)}
                     />
                       <TextInput
                         value={cvv}
                         style={styles.textInputFields}
-                        placeholder=' Contact'
+                        placeholder=' CVV'
                         onChangeText={(text) => setCvv(text)}
-                    /> */}
+                    />
                 </View>
-                <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop:80, marginHorizontal: 10, bottom: 0 }}>
+                <View style={{ flexDirection: 'colomn', justifyContent: 'center', alignItems: 'center', marginTop: 80, marginHorizontal: 10, bottom: 0 }}>
                     <TouchableOpacity
                         style={{
-                            width: 300,
-                            height: 40,
+                            width: 350,
+                            height: 50,
                             margin: 10,
                             backgroundColor: '#52A63C',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            borderRadius: 10
+                            borderRadius: 50
                         }}
                         onPress={handleUpdate}
                     >
-                        <Text style={{color:"white"}}>Save</Text>
+                        <Text style={{ color: "white" }}>Save</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{
-                            width: 300,
-                            height: 40,
+                            width: 350,
+                            height: 50,
                             backgroundColor: '#52A63C',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            borderRadius: 10
+                            borderRadius: 50
                         }}
                         onPress={() => navigation.navigate('Profile')}
                     >
-                        <Text style={{color:"white"}}>Close</Text>
+                        <Text style={{ color: "white" }}>Close</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         marginVertical: 10,
-        paddingHorizontal:10
+        paddingHorizontal: 10
     },
 })

@@ -126,7 +126,7 @@ export default function ProfileScreen() {
                                 <Text style={{ marginLeft: 10 }}>Orders</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
+                        {/* <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
                             <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => navigation.navigate('PaymentDetails', { ...data })}
@@ -134,7 +134,7 @@ export default function ProfileScreen() {
                                 <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
                                 <Text style={{ marginLeft: 10 }}>Payment Details</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View style={{ marginHorizontal: 15, marginVertical: 15 }}>
                             <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}

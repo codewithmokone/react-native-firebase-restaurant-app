@@ -18,7 +18,7 @@ export default function TabScreen() {
             component={HomeScreen} 
             options={{ tabBarIcon: ({ }) => (<View><Icon.Home strokeWidth={2} stroke='#52A63C' /></View>), headerShown: false, tabBarLabel:'Home'}} />
             <Stack.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: ({ }) => (<View><Icon.ShoppingCart strokeWidth={2} stroke='#52A63C' /></View>), headerShown: false}} />
-            <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerShown: true, tabBarIcon: ({}) => (<View><Icon.User strokeWidth={2} stroke='#52A63C' /></View>) }} />
+            <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerTintColor: '#52A63C' ,headerShown: true, tabBarIcon: ({}) => (<View><Icon.User strokeWidth={2} stroke='#52A63C' /></View>) }} />
         </Tab.Navigator>
     )
 }
