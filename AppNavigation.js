@@ -47,7 +47,7 @@ function AppNavigation() {
                 <Stack.Screen name="Dish" component={DishScreen} options={{ headerShown: false, presentation: 'modal' }} />
                 <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
-                <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: true, title: 'Your Cart', headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true,  headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Payment" component={PaymentScreen} options={{  }} />

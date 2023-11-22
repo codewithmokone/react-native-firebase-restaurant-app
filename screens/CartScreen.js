@@ -87,7 +87,7 @@ export default function CartScreen() {
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-      <View style={{ position: 'relative', paddingVertical: 4, }}>
+      {/* <View style={{ position: 'relative', paddingVertical: 4, }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{ position: 'absolute', zIndex: 10, borderRadius: 100, padding: 4, top: 20, left: 20 }}
@@ -98,7 +98,7 @@ export default function CartScreen() {
           <Text style={{ textAlign: 'center', fontWeight: 700, fontSize: 18, lineHeight: 28 }}>Your cart</Text>
           <Text style={{ textAlign: 'center', color: 'gray' }}>Food Corner</Text>
         </View>
-      </View>
+      </View> */}
       <View style={{ backgroundColor: '#52A63C', flexDirection: 'row', paddingHorizontal: 4, alignItems: 'center' }}>
         <Image style={{ width: 80, height: 80, borderRadius: 100 }} source={require('../assets/images/bikeGuy.png')} />
         {/* <Text>{address}</Text> */}
