@@ -26,6 +26,11 @@ export default function EditProfileScreen() {
 
     const handleUpdate = async () => {
 
+        if (!name || !email || !address || !contact || !cardNumber || !expirationDate || !cvv) {
+            Alert.alert('Error', 'All fields are required');
+            return;
+        }
+
         try {
             const userInfoUpdate = doc(db, "users", user);
             await updateDoc(userInfoUpdate, {

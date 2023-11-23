@@ -145,7 +145,7 @@ export default function ProfileScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ position: 'absolute', bottom: -250, width: '100%', alignItems: 'center' }}>
+                    <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
                         <TouchableOpacity
                             style={styles.logoutButton}
                             onPress={handleLogout}
