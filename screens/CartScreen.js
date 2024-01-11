@@ -151,14 +151,14 @@ export default function CartScreen() {
                           }}>
 
                           {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
-                          <View style={{ width: '90%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
+                          <View style={{ width: '85%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
                             <Text style={{ fontWeight: '700', fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
                             <Text style={{ fontWeight: '700', fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
                           </View>
-                          <Card.Content style={{ borderBottomWidth: 0.4, height: 70, justifyContent: 'center', width: '90%' }}>
+                          <Card.Content style={{ borderBottomWidth: 0.4, height: 70, justifyContent: 'center', width: '85%' }}>
                             <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15, marginVertical: 10 }}>{item.descr}</Text>
                           </Card.Content>
-                          <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', height: 'auto', marginVertical: 5 }}>
+                          <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '95%', height: 'auto', marginVertical: 5 }}>
                             <Text style={{ marginVertical: 5 }}>Extras:</Text>
                             <View style={{ flexDirection: 'column', width: '100%', borderBottomWidth: 0.3 }}>
                               {
@@ -171,21 +171,21 @@ export default function CartScreen() {
                               }
                             </View>
                           </Card.Content>
-                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center',height:70 }}>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center', height:70 }}>
                             <Card.Content style={{ width: '50%', marginLeft: 15 }}>
                               <Text variant="bodyMedium" style={{ fontWeight: '500', marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
                             </Card.Content>
                             <Card.Actions style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderColor: '#52A63C', width: '50%' }}>
-                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 'auto' }}>
+                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '60%', height: 'auto' }}>
                                 <Button
-                                  onPress={() => dispatch(removeFromCart({ id: item.id }))}>
-                                  <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
+                                  onPress={() => dispatch(removeFromCart({ id: item.id }))}>Remove
+                                  {/* <Icon.Minus strokeWidth={5} height={20} width={20} stroke="pink" /> */}
                                 </Button>
-                                <Text style={{ fontWeight: '700' }}>x{item.length}</Text>
-                                <Button
+                                {/* <Text style={{ fontWeight: '700' }}>x{item.length}</Text> */}
+                                {/* <Button
                                   onPress={() => dispatch(addToCart({ ...item }))}>
                                   <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                                </Button>
+                                </Button> */}
                               </View>
                             </Card.Actions>
 

@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useStripe } from '@stripe/stripe-react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,12 +22,13 @@ const PaymentScreen = () => {
     const [email, setEmail] = useState(data.email);
     const [address, setAddress] = useState(data.address);
     const [contact, setContact] = useState(data.contact);
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     let total = items.total
 
     const handleEditName = () => {
-        setIsEditName(true)
+        setIsEditing(true)
     }
 
     const handleEditAddress = () => {
@@ -56,7 +57,7 @@ const PaymentScreen = () => {
 
     // Handles the payment function
     const payment = async () => {
-
+        setIsLoading(true);
         try {
             // Sending request
             const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
@@ -99,30 +100,24 @@ const PaymentScreen = () => {
 
     } catch (err) {
         console.log('Order not captured to database', err)
+    } finally{
+        setIsLoading(false);
     }
 }
 
 return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
         <View style={{}}>
-            <View>
-                <Text style={{ fontSize: 18, marginVertical: 10, textAlign: 'left' }}>Card:</Text>
-                <Text>Selected card:</Text>
-            </View>
-            <View style={{ marginVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
-                <Icon.CreditCard strokeWidth={3} stroke={'#52A63C'} />
-                <Text style={{ marginLeft: 5 }}>{data.card.bankName}</Text>
-            </View>
         </View>
         <View style={{ marginVertical: 10, height: 260 }}>
             <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, marginVertical: 15, fontWeight: 800 }}>Shipping Information</Text>
+                <Text style={{ fontSize: 18, marginVertical: 15, fontWeight: '800' }}>Shipping Information</Text>
                 <View>
                     <Text>Email:</Text>
                     {
                         isEditing ?
                             (
-                                <View>
+                                <View style={{width:'100%'}}>
                                     <TextInput
                                         value={email}
                                         placeholder="Email"
@@ -145,7 +140,7 @@ return (
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 {isEditing ? (
-                    <View>
+                    <View style={{width:'100%'}}>
                         <TextInput
                             style={styles.shippingInput}
                             value={name}
@@ -172,12 +167,12 @@ return (
                 )}
 
                 {isEditing ? (
-                    <TouchableOpacity onPress={handleSavePress} style={{ marginLeft: -12, position: 'absolute', right: -6, top: -122 }}>
+                    <TouchableOpacity onPress={handleSavePress} style={{ marginLeft: -12, position: 'absolute', right: -1, top: -131 }}>
                         <Text style={{ fontSize: 16, color: '#52A63C' }}>Save</Text>
                         {/* <Icon.Save strokeWidth={3} stroke={'#52A63C'} /> */}
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity onPress={handleEditName} style={{ marginLeft: -12, position: 'absolute', right: 10, top: -117 }}>
+                    <TouchableOpacity onPress={handleEditName} style={{ marginLeft: -12, position: 'absolute', right: 10, top: -126 }}>
                         <Text style={{ fontSize: 16, color: '#52A63C' }}>Edit</Text>
                         {/* <Icon.Edit2 strokeWidth={3} stroke={'#52A63C'} /> */}
                     </TouchableOpacity>
@@ -188,8 +183,9 @@ return (
             <TouchableOpacity
                 onPress={payment}
                 style={styles.paymentButton}
-            >
-                <Text style={{ color: 'white' }}>Pay Order</Text>
+            >{
+                isLoading ? (<ActivityIndicator size="large" color="white" />):(<Text style={{ color: 'white' }}>Pay Order</Text>)
+            }
             </TouchableOpacity>
         </View>
         {/* <View>
@@ -211,7 +207,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         // borderRadius: 20,
         borderColor: '#52A63C',
-        width: 350,
+        width: '100%',
         height: 30,
         marginVertical: 2,
         paddingHorizontal: 5,
@@ -223,7 +219,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#52A63C',
         justifyContent: 'center',
         alignItems: 'center',
-        bottom:-220,
+        bottom:-320,
     },
     text: {
         marginVertical: 5,

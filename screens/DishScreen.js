@@ -19,7 +19,7 @@ export default function DishScreen() {
     let { item, extras } = params;
 
     const [selectedExtras, setSelectedExtras] = useState([]);
-    
+
 
     // handles increasing the number of items
     // const handleAddToCart = () => {
@@ -56,17 +56,17 @@ export default function DishScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90}}>
+            <View style={{ width: '100%', height: 250, alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 90 }}>
                 <Image style={{ height: 200, width: 250, resizeMode: 'contain' }} source={{ uri: item.image }} />
             </View>
             <View style={styles.dishInfo}>
                 <View style={{ width: '100%', backgroundColor: 'white', height: 85, borderBottomWidth: 1.5, borderColor: '#52A63C' }}>
-                    <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 5}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
                         <Text style={{ fontSize: 18, lineHeight: 36, textAlign: 'left', marginHorizontal: 10, fontWeight: 600, color: '#52A63C' }}>{item.name}</Text>
-                        <Text style={{ fontSize: 16, lineHeight: 36, textAlign: 'left', marginHorizontal: 10, fontWeight: 500, marginRight:25 }}>from R {item.price}</Text>
+                        <Text style={{ fontSize: 16, lineHeight: 36, textAlign: 'left', marginHorizontal: 10, fontWeight: 500, marginRight: 25 }}>from R {item.price}</Text>
                     </View>
                     <View>
-                        <Text style={{ fontSize: 14, color: 'gray', marginHorizontal: 10, marginTop: 1, marginBottom:20 ,textAlign: 'left' }}>{item.descr}</Text>
+                        <Text style={{ fontSize: 14, color: 'gray', marginHorizontal: 10, marginTop: 1, marginBottom: 20, textAlign: 'left' }}>{item.descr}</Text>
                     </View>
                 </View>
                 <View style={{ width: '100%', marginHorizontal: 10, backgroundColor: 'white' }}>
@@ -99,8 +99,8 @@ export default function DishScreen() {
                         onPress={handleAddToCart}
                         style={styles.addToCartButton}
                     >
-                        <Text style={{ color: 'white', marginLeft: 15, fontSize:18 }}>Add To Cart</Text>
-                        <Text style={{ color: 'white', fontSize: 20, marginRight: 15 }}> R{calculateTotalAmount()}</Text>
+                        <Text style={{ color: 'white', marginLeft: 15, fontSize: 18 }}>Add To Cart</Text>
+                        <Text style={{ color: 'white', marginRight: 15, fontSize: 20 }}> R{calculateTotalAmount()}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         flexDirection: 'row',
         backgroundColor: '#52A63C',
-        width: '70%',
+        // width: '70%',
+        width: 330,
         height: 60,
         alignItems: 'center',
         justifyContent: 'space-between',
