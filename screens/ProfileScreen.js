@@ -145,7 +145,7 @@ export default function ProfileScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ position: 'absolute', bottom: -300, width: '100%', alignItems: 'center' }}>
+                    <View style={{ position: 'absolute', bottom: -230, width: '100%', alignItems: 'center' }}>
                         <TouchableOpacity
                             style={styles.logoutButton}
                             onPress={handleLogout}
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     logoutButton: {
         marginHorizontal: 10,
         backgroundColor: '#52A63C',
-        width: 350,
+        width: '95%',
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',

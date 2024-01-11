@@ -13,8 +13,6 @@ export default function PaymentDetailsScreen() {
 
     const [card, setCard] = useState(data);
 
-    
-
     return (
         <SafeAreaView style={{flex:1}} >
             <View >

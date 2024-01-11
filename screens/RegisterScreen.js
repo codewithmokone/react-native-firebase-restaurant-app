@@ -140,7 +140,7 @@ function RegisterScreen() {
                     {/* </View> */}
                 </View>
                 <View style={styles.buttonSection}>
-                    <TouchableOpacity style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
+                    <TouchableOpacity style={{ width: '99%', height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
                         <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
                     </TouchableOpacity>
                 </View>
@@ -192,21 +192,18 @@ const styles = StyleSheet.create({
         height: 50
     },
     buttonSection: {
-        flex: 1,
-        marginTop: 40,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
     buttons: {
-        width: 200,
+        width: '90%',
         backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 15
     },
     buttonText: {
-        flex: 1,
         flexDirection: 'row',
         color: 'white',
         fontSize: 20,

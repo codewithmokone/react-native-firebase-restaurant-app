@@ -17,12 +17,14 @@ function LoginScreen() {
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-    // State variable to hold email address
-    const [email, setEmail] = useState('');
-    // State variable to hold password address
-    const [password, setPassword] = useState('');
-    // State variable to track to track password visibility
-    const [showPassword, setShowPassword] = useState(false);
+   
+    const [email, setEmail] = useState('');  // State variable to hold email address
+    
+    const [password, setPassword] = useState(''); // State variable to hold password address
+    
+    const [showPassword, setShowPassword] = useState(false); // State variable to track password visibility
+
+    const [errorMessage, setErrorMessage] = useState(false)
 
     // Function to toggle the password visibility state 
     const toggleShowPassword = () => {
@@ -65,7 +67,11 @@ function LoginScreen() {
             navigation.goBack()
             // dispatch(setUser(userId))
         } catch (err) {
-            console.log('Error login in ', err)
+            if(err.code === 'auth/invalid-login-credentials'){
+                setErrorMessage('Invalid login details.')
+                // console.log('Invalid login details.');
+            }
+            
         }
     }
 
@@ -78,14 +84,18 @@ function LoginScreen() {
                     </Title>
                     <Text style={{ color: 'white', marginTop: 10, fontSize: 16 }}>Please Sign in to continue.</Text>
                 </View>
+                <View>
+                    {errorMessage && <Text style={styles.errortext}>{errorMessage}</Text>}
+                </View>
                 <View style={styles.inputSection}>
-                    <TextInput
-                        style={{ marginTop: 15, backgroundColor: 'white', borderRadius: 10, height: 50 }}
-                        required
-                        placeholder=' Email'
-                        onChangeText={(text) => setEmail(text)}
-                    />
-                    {/* <TextInputComponent
+                    <View style={{ width: '99%' }}>
+                        <TextInput
+                            style={{ marginTop: 15, backgroundColor: 'white', borderRadius: 10, height: 50 }}
+                            required
+                            placeholder=' Email'
+                            onChangeText={(text) => setEmail(text)}
+                        />
+                        {/* <TextInputComponent
                     label="Email"
                         // placeholder=' Email'
                         value={email}
@@ -98,9 +108,10 @@ function LoginScreen() {
                         onChangeText={(text) => setPassword(text)}
                         secureTextEntry={true}
                     /> */}
-                    <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', width:'100%'}}>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '99%' }}>
                         <TextInput
-                            style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50, width:350, marginLeft:-10 }}
+                            style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50, width: '100%', marginLeft: -5 }}
                             placeholder=' Password'
                             required
                             onChangeText={(text) => setPassword(text)}
@@ -118,12 +129,12 @@ function LoginScreen() {
                 <View style={{ width: '90%', marginTop: 30 }}>
                     <TouchableOpacity
                         onPress={handleLogin}
-                        style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
+                        style={{ width: '99%', height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
                     >
                         <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                <View style={{ flexDirection: 'row', marginTop: 20, width: '90%' }}>
                     <Text>Haven't registered? </Text>
                     <Pressable
                         onPress={() => navigation.navigate('Register')}>
@@ -169,8 +180,11 @@ const styles = StyleSheet.create({
 
         marginBottom: 15,
     },
-    icon:{
-        marginLeft:-30,
+    icon: {
+        marginLeft: -30,
         marginTop: 20
+    },
+    errortext: {
+        color:'red'
     }
 });

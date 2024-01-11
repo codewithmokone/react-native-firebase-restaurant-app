@@ -62,7 +62,7 @@ const PaymentScreen = () => {
             const response = await fetch("https://stripecardnodejs.onrender.com/pay", {
                 method: 'POST',
                 body: JSON.stringify({
-                    name,
+                    name: name,
                     amount: Math.floor(total * 100),
                 }),
                 headers: {
@@ -71,15 +71,20 @@ const PaymentScreen = () => {
             })
 
             const data = await response.json();
+
             if (!response.ok) return Alert.alert(data.message);
             const clientSecret = data.clientSecret;
             const initSheet = await stripe.initPaymentSheet({
+                merchantDisplayName: "Food Corner",
                 paymentIntentClientSecret: clientSecret
+
             });
+
             if (initSheet.error) return Alert.alert(initSheet.error.message);
             const presentSheet = await stripe.presentPaymentSheet({
                 clientSecret
             });
+
             if (presentSheet.error) return Alert.alert(presentSheet.error.message)
             Alert.alert('Payment complete, thank you!')
             navigation.navigate('OrderPreparing')
@@ -212,13 +217,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
     },
     paymentButton: {
-        width: 350,
+        width: '99%',
         height: 50,
         borderRadius: 20,
         backgroundColor: '#52A63C',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 300
+        bottom:-220,
     },
     text: {
         marginVertical: 5,
