@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native'
 import React from 'react'
 import * as Icon from "react-native-feather";
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function HomeHeader() {
 
     const navigation = useNavigation()
+
+    const window = useWindowDimensions();
 
     return (
         <View style={styles.container}>
@@ -22,6 +24,7 @@ export default function HomeHeader() {
 
 const styles = StyleSheet.create({
     container: {
+        width: window.width,
         height: 50,
         alignItems: 'center',
         justifyContent: 'center'

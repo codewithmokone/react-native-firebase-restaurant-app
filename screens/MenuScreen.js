@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Image } from 'react-native'
@@ -15,6 +15,8 @@ const MenuScreen = () => {
   const { params } = useRoute()
   const dispatch = useDispatch()
   const navigation = useNavigation()
+
+  const { height, width } = useWindowDimensions();
 
   let category = params
 
@@ -44,13 +46,14 @@ const MenuScreen = () => {
 
   return (
     <SafeAreaView>
-      <View>
+      <View style={{width:width}}>
         <View style={{ flexDirection:'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
           <Text style={{ marginVertical: 10, fontSize: 18 }} >{category.subTitle}</Text>
         </View>
         <View>
           <FlatList
             data={menuArray}
+            style={{width:'100%'}}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableWithoutFeedback
@@ -68,7 +71,7 @@ const MenuScreen = () => {
                   borderBottomWidth: 0.4
                 }}
                 >
-                  <View style={{ width: 300 }}>
+                  <View style={{ width: '77%' }}>
                     <Text style={{ fontSize: 15, fontWeight: 600, color: '#52A63C' }}>{item.name}</Text>
                     <Text style={{ marginVertical: 5, color: '#908E9B' }}>{item.descr}</Text>
                     <Text>From R{item.price}</Text>

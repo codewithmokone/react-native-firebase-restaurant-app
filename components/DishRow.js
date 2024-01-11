@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, } from 'react-native'
+import { View, Text, StyleSheet, useWindowDimensions, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 // import * as Icon from "react-native-feather";
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ export default function DishRow({ item }) {
 
     const dispatch = useDispatch();
     const navigation = useNavigation()
+    const { height, width } = useWindowDimensions();
     // const totalItems = useSelector(state => selectCartItemsByIdMemoized(state, item.id))
 
     // if (!totalItems) return null;
@@ -68,7 +69,7 @@ export default function DishRow({ item }) {
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Card.Cover source={{ uri: special.smallImage }} style={{ width: 100, height: 60, resizeMode: 'cover', marginHorizontal: 10, backgroundColor: 'white', marginTop: 15, marginLeft: 10 }} />
                             </View>
-                            <View style={{ flexDirection: 'column', width: '100%' }}>
+                            <View style={{ flexDirection: 'column', width: '80%' }}>
                                 <Card.Title
                                     title={special.name}
                                     style={{ width: '70%' }}
@@ -88,7 +89,7 @@ export default function DishRow({ item }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: 370,
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'white',
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     card: {
-        width: 370,
+        width: '90%',
         marginTop: 10,
         flexDirection: 'row',
         height: 100,

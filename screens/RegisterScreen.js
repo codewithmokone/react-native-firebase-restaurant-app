@@ -13,7 +13,7 @@ function RegisterScreen() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
-    const [contactNumber, setContactNumber] = useState("")
+    const [contact, setContact] = useState("")
     const [password, setPassword] = useState("")
     const [bankName, setBankName] = useState("")
     const [cardNumber, setCardNUmber] = useState("")
@@ -30,7 +30,12 @@ function RegisterScreen() {
 
         try {
             // Input validation
-        if (!email || !password || !name || !email || !address || !contact || !bankName || !cardNumber || !expirationDate || !cvv) {
+        // if (!email || !password || !name || !email || !address || !contact || !bankName || !cardNumber || !expirationDate || !cvv) {
+        //     Alert.alert('Validation Error', 'Please enter both email and password.');
+        //     return;
+        // }
+
+        if (!email || !password || !name || !email || !address || !contact) {
             Alert.alert('Validation Error', 'Please enter both email and password.');
             return;
         }
@@ -43,7 +48,7 @@ function RegisterScreen() {
                 name: name,
                 email: email,
                 address: address,
-                contact: contactNumber,
+                contact: contact,
                 card: {
                     bankName: bankName,
                     cardNmber: cardNumber,
@@ -103,7 +108,7 @@ function RegisterScreen() {
                         placeholder=' Password'
                         onChangeText={text => setPassword(text)}
                     />
-                    <TextInput
+                    {/* <TextInput
                         style={styles.input}
                         required
                         placeholder=' Bank name'
@@ -131,8 +136,8 @@ function RegisterScreen() {
                                 placeholder=' CVV'
                                 onChangeText={text => setCvv(text)}
                             />
-                        </View>
-                    </View>
+                        </View> */}
+                    {/* </View> */}
                 </View>
                 <View style={styles.buttonSection}>
                     <TouchableOpacity style={{ width: 350, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
@@ -166,6 +171,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 30,
+        marinTop:-5
     },
     inputSection: {
         width: '100%',

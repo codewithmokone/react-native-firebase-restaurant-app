@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from '../config/firebase';
@@ -13,9 +13,11 @@ export default function Categories() {
     const [categoryData, setCategoryData] = useState([]);
     const [selectedCategoryMenu, setSelectedCategoryMenu] = useState([]);
 
-    const navigation = useNavigation()
+    const { width, height } = useWindowDimensions().width;
 
-    const dispatch = useDispatch()
+    const navigation = useNavigation();
+
+    const dispatch = useDispatch();
 
     // Handle fetching data from the firestore
     const fetchCategoryData = async () => {
@@ -51,7 +53,8 @@ export default function Categories() {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{
-                    paddingHorizontal: 15
+                    paddingHorizontal: 15,
+                    width: width,
                 }}
             >
                 {
@@ -64,13 +67,14 @@ export default function Categories() {
                         return (
                             <View key={index} style={styles.categoryList}>
                                 <TouchableOpacity
-                                    style={styles.categoryItem}
+                                    // style={styles.categoryItem}
+                                    style={{ width: width }}
                                     onPress={() => {
                                         setActiveCategory(category.id)
                                         if (category.menu) {
                                             dispatch(setMenu(category.menu))
                                             navigation.navigate("MenuScreen", { ...category })
-                                          } else {
+                                        } else {
                                             setSelectedCategoryMenu([]);
                                         }
                                     }}
@@ -85,6 +89,9 @@ export default function Categories() {
             </ScrollView>
         </TouchableWithoutFeedback>
     )
+
+
+
 }
 
 const styles = StyleSheet.create({
@@ -101,8 +108,7 @@ const styles = StyleSheet.create({
         marginRight: 12,
     },
     categoryItem: {
-        padding: 2,
-        borderRadius: '100%',
+        borderRadius: 100,
     },
     categoryImage: {
         width: 58,

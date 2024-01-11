@@ -95,7 +95,7 @@ export default function CartScreen() {
           <Icon.ArrowLeft strokeWidth={3} stroke='#52A63C' />
         </TouchableOpacity> */}
         <View>
-          <Text style={{ textAlign: 'center', fontWeight: 700, fontSize: 18, lineHeight: 28 }}>Your cart</Text>
+          <Text style={{ textAlign: 'center', fontWeight: '700', fontSize: 18, lineHeight: 28 }}>Your cart</Text>
           <Text style={{ textAlign: 'center', color: 'gray' }}>Food Corner</Text>
         </View>
       </View>
@@ -151,11 +151,11 @@ export default function CartScreen() {
                           }}>
 
                           {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
-                          <View style={{ width: '95%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
-                            <Text style={{ fontWeight: 700, fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
-                            <Text style={{ fontWeight: 700, fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
+                          <View style={{ width: '90%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
+                            <Text style={{ fontWeight: '700', fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
+                            <Text style={{ fontWeight: '700', fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
                           </View>
-                          <Card.Content style={{ borderBottomWidth: 0.4, height: 70, justifyContent: 'center', width: '95%' }}>
+                          <Card.Content style={{ borderBottomWidth: 0.4, height: 70, justifyContent: 'center', width: '90%' }}>
                             <Text variant="bodyMedium" style={{ color: 'gray', marginLeft: -15, marginVertical: 10 }}>{item.descr}</Text>
                           </Card.Content>
                           <Card.Content style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', height: 'auto', marginVertical: 5 }}>
@@ -173,7 +173,7 @@ export default function CartScreen() {
                           </Card.Content>
                           <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center',height:70 }}>
                             <Card.Content style={{ width: '50%', marginLeft: 15 }}>
-                              <Text variant="bodyMedium" style={{ fontWeight: 500, marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
+                              <Text variant="bodyMedium" style={{ fontWeight: '500', marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
                             </Card.Content>
                             <Card.Actions style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderColor: '#52A63C', width: '50%' }}>
                               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 'auto' }}>
@@ -181,7 +181,7 @@ export default function CartScreen() {
                                   onPress={() => dispatch(removeFromCart({ id: item.id }))}>
                                   <Icon.Minus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
                                 </Button>
-                                <Text style={{ fontWeight: 700 }}>x{item.length}</Text>
+                                <Text style={{ fontWeight: '700' }}>x{item.length}</Text>
                                 <Button
                                   onPress={() => dispatch(addToCart({ ...item }))}>
                                   <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
@@ -248,7 +248,7 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   textTotal: {
     fontSize: 18,
-    fontWeight: 800,
+    fontWeight: '800',
   },
   paymentButton: {
     backgroundColor: '#52A63C',
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   textPaymentButton: {
     color: 'white',
-    fontWeight: 700,
+    fontWeight: '700',
     textAlign: 'center',
     fontSize: 18,
     lineHeight: 18,
