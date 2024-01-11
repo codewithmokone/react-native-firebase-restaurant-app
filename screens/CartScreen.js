@@ -22,6 +22,18 @@ export default function CartScreen() {
   const [groupedItems, setGroupedItems] = useState({});
   const [visible, setVisible] = useState(false);
 
+  // Calculate cartItemsCount
+  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const updateCart = () => {
+    // Update your cart logic here
+
+    const newCartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+    // Update the badge value in the navigation params
+    navigation.setParams({ cartItemsCount: newCartItemsCount });
+};
+
   const showDialog = () => setVisible(false);
 
   const hideDialog = () => setVisible(false);
@@ -83,6 +95,7 @@ export default function CartScreen() {
       return group;
     }, {})
     setGroupedItems(items);
+    updateCart();
   }, [cartItems])
 
   return (
@@ -107,10 +120,6 @@ export default function CartScreen() {
         ) : (
           <></>
         )}
-
-        {/* <TouchableOpacity>
-          <Text style={{ fontWeight: 700, marginRight: 12 }}>Change</Text>
-        </TouchableOpacity> */}
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}

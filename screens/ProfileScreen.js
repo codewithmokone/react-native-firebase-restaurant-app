@@ -100,7 +100,7 @@ export default function ProfileScreen() {
     if (data) {
         return (
             <SafeAreaView style={styles.container}>
-                <View>
+                <View style={styles.container}>
                     <View style={{ flexDirection: 'row', marginVertical: 20, alignItems: 'center', justifyContent: 'center' }}>
                         <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ marginVertical: 20, fontWeight: '700', fontSize: 30, color: '#52A63C' }}>{data.name}</Text>
@@ -145,14 +145,14 @@ export default function ProfileScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{position:'absolute',bottom:-250 , width: '100%', alignItems: 'center' }}>
+                    {/* <View style={{ justifyContent:'flex-end', width: '100%',borderWidth:1,height:300}}> */}
                         <TouchableOpacity
                             style={styles.logoutButton}
                             onPress={handleLogout}
                         >
                             <Text style={{ color: 'white' }}>Log out</Text>
                         </TouchableOpacity>
-                    </View>
+                    
                 </View>
             </SafeAreaView>
         )
@@ -164,7 +164,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'offwhite'
+        backgroundColor: 'offwhite',
     },
     logoutButton: {
         marginHorizontal: 10,
