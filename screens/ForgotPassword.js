@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { auth } from '../config/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
+
+    const navigation = useNavigation();
 
     const handleResetPassword = async () => {
 
@@ -40,7 +43,7 @@ function ForgotPassword() {
             >
                 <Text style={{ color: 'green', fontSize: 20 }}>Reset Password</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <Text style={{ color: 'white', marginTop: 20 }}>Go Back to Login</Text>
             </TouchableOpacity>
         </View>
