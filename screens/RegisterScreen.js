@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
@@ -19,6 +19,7 @@ function RegisterScreen() {
     const [cardNumber, setCardNUmber] = useState("")
     const [expirationDate, setExpirationDate] = useState("")
     const [cvv, setCvv] = useState("")
+    const [loading, setLoading] = useState(false); // State variable to track loading visibility
 
     // Handles navigating to the login page
     const handleNavigate = () => {
@@ -27,18 +28,14 @@ function RegisterScreen() {
 
     // Handles signing up users to firebase auth
     const handleSignUp = async () => {
+        setLoading(true)
 
         try {
-            // Input validation
-        // if (!email || !password || !name || !email || !address || !contact || !bankName || !cardNumber || !expirationDate || !cvv) {
-        //     Alert.alert('Validation Error', 'Please enter both email and password.');
-        //     return;
-        // }
 
-        if (!email || !password || !name || !email || !address || !contact) {
-            Alert.alert('Validation Error', 'Please enter both email and password.');
-            return;
-        }
+            if (!email || !password || !name || !email || !address || !contact) {
+                Alert.alert('All fields are required.');
+                return;
+            }
 
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
@@ -60,13 +57,19 @@ function RegisterScreen() {
             alert('Account created successfully')
         } catch (err) {
             console.log('Accournt not created', err)
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
         <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView
 
-            <View style={{ width: '100%', marginBottom: 70, justifyContent: 'center', alignItems: 'center' }}>
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                style={styles.keyboardAvoidingContainer}
+            >
+            <View style={{ width: '100%', marginBottom: 40, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.heading} >
                     <Text style={styles.headingText}>Create New Account</Text>
                 </View>
@@ -139,12 +142,15 @@ function RegisterScreen() {
                         </View> */}
                     {/* </View> */}
                 </View>
-                <View style={styles.buttonSection}>
-                    <TouchableOpacity style={{ width: '99%', height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 60 }} onPress={handleSignUp}>
-                        <Text style={{ color: '#52A63C', fontSize: 20 }}>Register</Text>
-                    </TouchableOpacity>
-                </View>
+
             </View>
+            <View style={styles.buttonSection}>
+                <TouchableOpacity style={{ width: 345, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginBottom: 5, }} onPress={handleSignUp}>
+                    {loading ? <ActivityIndicator color="white" /> : <Text style={{ color: 'green', fontSize: 20 }}>Register</Text>}
+                </TouchableOpacity>
+            </View>
+            </KeyboardAvoidingView>
+
         </SafeAreaView>
     )
 }
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 30,
-        marinTop:-5
+        marinTop: -5
     },
     inputSection: {
         width: '100%',
@@ -185,9 +191,9 @@ const styles = StyleSheet.create({
     },
     input: {
         marginTop: 2,
-        width: "90%",
+        width: 345,
         marginVertical: 10,
-        borderRadius:10,
+        borderRadius: 10,
         backgroundColor: '#F5F5F5',
         height: 50
     },
@@ -209,5 +215,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    keyboardAvoidingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });

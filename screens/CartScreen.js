@@ -32,16 +32,11 @@ export default function CartScreen() {
 
     // Update the badge value in the navigation params
     navigation.setParams({ cartItemsCount: newCartItemsCount });
-};
-
-  const showDialog = () => setVisible(false);
+  };
 
   const hideDialog = () => setVisible(false);
 
   const deliveryFee = 15 // Constant for delivery fee
-
-  const handleIncrease = (item) => {
-  }
 
   // Prompts the user to login or sign up
   const userPrompt = () => {
@@ -130,7 +125,7 @@ export default function CartScreen() {
       >
         {
           Object.entries(groupedItems).map(([key, items]) => {
-            // let dish = items[1];
+            let dish = items[1];
             return (
               <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -140,7 +135,6 @@ export default function CartScreen() {
               >
                 <View
                   key={key}
-                // style={{ height: 100, borderRadius: 10, marginVertical: 10 }}
                 >
                   {
                     items.map((item, index) => (
@@ -158,9 +152,7 @@ export default function CartScreen() {
                             marginHorizontal: 10,
                             borderRadius: 10
                           }}>
-
-                          {/* <Image style={{ height: 60, width: 60, borderRadius: 100 }} source={{ uri: item.image }} /> */}
-                          <View style={{ width: '85%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height:60  }}>
+                          <View style={{ width: '85%', borderBottomWidth: 0.4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 60 }}>
                             <Text style={{ fontWeight: '700', fontSize: 16, marginVertical: 5, color: '#52A63C' }}>{item.name}</Text>
                             <Text style={{ fontWeight: '700', fontSize: 16, lineHeight: 24, marginLeft: 8, marginVertical: 5 }}>R{item.price}</Text>
                           </View>
@@ -180,21 +172,20 @@ export default function CartScreen() {
                               }
                             </View>
                           </Card.Content>
-                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center', height:70 }}>
-                            <Card.Content style={{ width: '50%', marginLeft: 15 }}>
-                              <Text variant="bodyMedium" style={{ fontWeight: '500', marginLeft: -15 }}>Total: R{item.totalAmount}</Text>
-                            </Card.Content>
-                            <Card.Actions style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderColor: '#52A63C', width: '50%' }}>
-                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '60%', height: 'auto' }}>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center', height: 70 }}>
+                            <Card.Actions style={{alignItems: 'center', justifyContent: 'center', borderColor: '#52A63C', width: '100%' }}>
+                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 'auto' }}>
                                 <Button
-                                  onPress={() => dispatch(removeFromCart({ id: item.id }))}>Remove
-                                  {/* <Icon.Minus strokeWidth={5} height={20} width={20} stroke="pink" /> */}
+                                  onPress={() => dispatch(removeFromCart({ id: item.id }))}
+                                >
+                                  <Icon.Minus strokeWidth={5} height={20} width={20} stroke="green" />
                                 </Button>
-                                {/* <Text style={{ fontWeight: '700' }}>x{item.length}</Text> */}
-                                {/* <Button
-                                  onPress={() => dispatch(addToCart({ ...item }))}>
-                                  <Icon.Plus strokeWidth={5} height={20} width={20} stroke="#52A63C" />
-                                </Button> */}
+                                <Text variant="bodyMedium" style={{ fontWeight: '500' }}>Total: R{item.totalAmount}</Text>
+                                <Button
+                                  onPress={() => dispatch(addToCart({ ...item }))}
+                                >
+                                  <Icon.Plus strokeWidth={5} height={20} width={20} stroke="green" />
+                                </Button>
                               </View>
                             </Card.Actions>
 
@@ -226,12 +217,12 @@ export default function CartScreen() {
         </PaperProvider>
       </ScrollView>
       {/* Section for check out button */}
-      <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor:'gray' }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, marginTop:25 }}>
+      <View style={{ paddingHorizontal: 32, borderTopRightRadius: 24, borderTopLeftRadius: 24, marginTop: 16, backgroundColor: 'gray' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, marginTop: 25 }}>
           <Text >Subtotal</Text>
           <Text >R{cartTotal}</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical:10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
           <Text >Delivery Fee</Text>
           <Text >R{deliveryFee}</Text>
         </View>
@@ -268,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
-    marginBottom:20,
+    marginBottom: 20,
   },
   textPaymentButton: {
     color: 'white',

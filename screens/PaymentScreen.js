@@ -1,11 +1,10 @@
 import { ActivityIndicator, Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useStripe } from '@stripe/stripe-react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { db } from '../config/firebase';
-import { addDoc, collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
-import * as Icon from "react-native-feather";
+import { addDoc, collection } from 'firebase/firestore';
 
 const PaymentScreen = () => {
 
@@ -88,16 +87,13 @@ const PaymentScreen = () => {
 
             if (presentSheet.error) return Alert.alert(presentSheet.error.message)
             Alert.alert('Payment complete, thank you!')
-            navigation.navigate('OrderPreparing')
-
             await addDoc(collection(db, 'orders'), {
                 userId: userId,
                 dish: items.cartItems,
                 total: total,
                 date: Date()
             })
-            console.log('Order captured successfully')
-
+            navigation.navigate('OrderPreparing')
         } catch (err) {
             console.log('Order not captured to database', err)
         } finally {

@@ -1,5 +1,5 @@
 import { View, SafeAreaView, TouchableOpacity, Alert, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
@@ -23,6 +23,13 @@ export default function ProfileScreen() {
     const showDialog = () => setVisible(true);
 
     const hideDialog = () => setVisible(false);
+
+    useEffect(()=>{
+        // if(!user){
+        //     userPrompt();
+        // }
+
+    },[])
 
     // Function to handle account deletion
     const handleDeleteAccount = async () => {

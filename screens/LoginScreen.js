@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth, db } from '../config/firebase';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
@@ -17,26 +17,24 @@ function LoginScreen() {
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-   
     const [email, setEmail] = useState('');  // State variable to hold email address
-    
     const [password, setPassword] = useState(''); // State variable to hold password address
-    
     const [showPassword, setShowPassword] = useState(false); // State variable to track password visibility
-
-    const [errorMessage, setErrorMessage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false) // State variable to track error message visibility
+    const [loading, setLoading] = useState(false); // State variable to track loading visibility
 
     // Function to toggle the password visibility state 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
-    // Handles user login
+    // Function to log in to firebase auth
     const handleLogin = async () => {
+        setLoading(true)
 
         // Input validation
         if (!email || !password) {
-            Alert.alert('Validation Error', 'Please enter both email and password.');
+            Alert.alert('Please enter both email and password.');
             return;
         }
 
@@ -54,7 +52,6 @@ function LoginScreen() {
 
                     if (userDocSnapshot.exists()) {
                         const userInfo = userDocSnapshot.data();
-                        // console.log("Logged In Screen: ", userData)
                         AsyncStorage.setItem('token', JSON.stringify(userInfo))
                         dispatch(setUserData(userInfo));
                     } else {
@@ -65,83 +62,84 @@ function LoginScreen() {
                 }
             }
             navigation.goBack()
-            // dispatch(setUser(userId))
         } catch (err) {
-            if(err.code === 'auth/invalid-login-credentials'){
+            if (err.code === 'auth/invalid-login-credentials') {
                 setErrorMessage('Invalid login details.')
-                // console.log('Invalid login details.');
             }
-            
+
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ width: '100%', alignItems: 'center' }}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.keyboardAvoidingContainer}
+            >
                 <View style={styles.heading} >
-                    <Title style={{ fontSize: 28, color: 'white' }}>
+                    <Title style={{ width: 345, fontSize: 28, color: 'white', textAlign: 'left' }}>
                         Login
                     </Title>
                     <Text style={{ color: 'white', marginTop: 10, fontSize: 16 }}>Please Sign in to continue.</Text>
                 </View>
-                <View>
-                    {errorMessage && <Text style={styles.errortext}>{errorMessage}</Text>}
-                </View>
-                <View style={styles.inputSection}>
-                    <View style={{ width: '99%' }}>
-                        <TextInput
-                            style={{ marginTop: 15, backgroundColor: 'white', borderRadius: 10, height: 50 }}
-                            required
-                            placeholder=' Email'
-                            onChangeText={(text) => setEmail(text)}
-                        />
-                        {/* <TextInputComponent
-                    label="Email"
-                        // placeholder=' Email'
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
-                    />
-                    <TextInputComponent
-                        label="Password"
-                        // placeholder=' Password'
-                        value={password}
-                        onChangeText={(text) => setPassword(text)}
-                        secureTextEntry={true}
-                    /> */}
+                <View style={{ width: '100%', alignItems: 'center' }}>
+                    <View>
+                        {errorMessage && <Text style={styles.errortext}>{errorMessage}</Text>}
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '99%' }}>
-                        <TextInput
-                            style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50, width: '100%', marginLeft: -5 }}
-                            placeholder=' Password'
-                            required
-                            onChangeText={(text) => setPassword(text)}
-                            secureTextEntry={!showPassword}
-                        />
+                    <View style={styles.inputSection}>
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={{ width: 345, marginTop: 15, backgroundColor: 'white', borderRadius: 10, height: 50 }}
+                                required
+                                placeholder=' Email'
+                                onChangeText={(text) => setEmail(text)}
+                            />
+                        </View>
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                behavior={Platform.OS === 'ios' ? {marginLeft:-10} : null}
+                                style={{ marginTop: 15, borderRadius: 10, backgroundColor: 'white', height: 50, width: 345 }}
+                                placeholder=' Password'
+                                required
+                                onChangeText={(text) => setPassword(text)}
+                                secureTextEntry={!showPassword}
+                            ></TextInput>
+                        </View>
                         <MaterialCommunityIcons
-                            name={showPassword ? 'eye-off' : 'eye'}
-                            size={24}
-                            color="#aaa"
-                            style={styles.icon}
-                            onPress={toggleShowPassword}
-                        />
+                                name={showPassword ? 'eye-off' : 'eye'}
+                                size={24}
+                                color="#aaa"
+                                style={styles.icon}
+                                onPress={toggleShowPassword}
+                            />
+                    </View>
+                    <View style={{ width: '90%', marginTop: 30 }}>
+                        <TouchableOpacity
+                            onPress={handleLogin}
+                            style={{ width: 345, height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                            {loading ? <ActivityIndicator color="green" /> : <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>}
+                        </TouchableOpacity>
+                    </View>
+                    {/* <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, width: '90%', alignItems: 'center' }}>
+                            <Text>Haven't registered? </Text>
+                            <Pressable
+                                onPress={() => navigation.navigate('Register')}>
+                                <Text style={{ color: 'white' }}>Sign Up</Text>
+                            </Pressable>
+                        </View>
+                       
+                    </View> */}
+                    <View style={{ marginTop: 30, width: '90%', justifyContent: 'center' }}>
+                            <Pressable onPress={() => navigation.navigate('resetPassword')}>
+                                <Text style={{ color: 'white' }}>Forgot Password?</Text>
+                            </Pressable>
                     </View>
                 </View>
-                <View style={{ width: '90%', marginTop: 30 }}>
-                    <TouchableOpacity
-                        onPress={handleLogin}
-                        style={{ width: '99%', height: 50, borderRadius: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}
-                    >
-                        <Text style={{ color: 'green', fontSize: 20 }}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: 'row', marginTop: 20, width: '90%' }}>
-                    <Text>Haven't registered? </Text>
-                    <Pressable
-                        onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ color: 'white' }}>Sign Up</Text>
-                    </Pressable>
-                </View>
-            </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }
@@ -157,7 +155,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         width: '90%',
-        marginBottom: 10
+        marginBottom: 10,
     },
     headingText: {
         fontWeight: 'bold',
@@ -168,23 +166,21 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     inputSection: {
-        width: '90%',
-    },
-    input: {
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 50,
-        marginTop: 5,
-        height: 50,
-
-        marginBottom: 15,
+        width: '95%',
+        justifyContent:'center',
+        alignItems:'center'
     },
     icon: {
-        marginLeft: -30,
-        marginTop: 20
+        position:'absolute',
+        right:10,
+        bottom:10,
     },
     errortext: {
-        color:'red'
-    }
+        color: 'red'
+    },
+    keyboardAvoidingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });

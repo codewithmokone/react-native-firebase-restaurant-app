@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUser } from './redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/slices/userDataSlice';
+import ForgotPassword from './screens/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,8 +46,9 @@ function AppNavigation() {
                 <Stack.Screen name="TabScreen" component={TabScreen} options={{ headerShown: false, title: 'Home' }} />
                 <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Dish" component={DishScreen} options={{ headerShown: false, presentation: 'modal' }} />
-                <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
-                <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false, presentation: 'fullScreenModal' }} />
+                <Stack.Screen name="Login" component={LoginScreen} options={{title: '', headerShown:  true, }} />
+                <Stack.Screen name="resetPassword" component={ForgotPassword} options={{ headerShown: false}} />
+                <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: true, title: 'Your Cart', headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Details', headerShown: true,  headerTintColor: '#52A63C', }} />
                 <Stack.Screen name="PaymentDetails" component={PaymentDetailsScreen} options={{ headerShown: false }} />

@@ -10,7 +10,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-export default function TabScreen() {
+export default function TabScreen({route}) {
+
     return (
         <Tab.Navigator initialRouteName="Home" screenOptions={{ tabBarActiveTintColor: 'green' }}>
             <Stack.Screen
@@ -20,11 +21,11 @@ export default function TabScreen() {
             <Stack.Screen
                 name="Cart"
                 component={CartScreen}
-                options={({ route }) => ({
+                options={( ) => ({
                     tabBarIcon: ({ }) => (<View><Icon.ShoppingCart strokeWidth={2}
                         stroke='#52A63C' /></View>),
                     headerShown: false,
-                    tabBarBadge: route.params && route.params.cartItemsCount ? route.params.cartItemsCount : 0
+                    tabBarBadge: route.params && route.params.cartItemsCount ? route.params.cartItemsCount : null
                 })}
             />
             <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile', headerTintColor: '#52A63C', headerShown: true, tabBarIcon: ({ }) => (<View><Icon.User strokeWidth={2} stroke='#52A63C' /></View>) }} />

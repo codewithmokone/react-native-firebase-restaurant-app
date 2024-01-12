@@ -20,13 +20,6 @@ export default function DishScreen() {
 
     const [selectedExtras, setSelectedExtras] = useState([]);
 
-
-    // handles increasing the number of items
-    // const handleAddToCart = () => {
-    //     dispatch(addToCart({ ...item }))
-    //     navigation.navigate('Home')
-    // }
-
     // handles increasing the number of items
     const handleAddToCart = () => {
         const totalAmount = calculateTotalAmount();
